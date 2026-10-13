@@ -1,0 +1,46 @@
+experience:
+  - org: Rail Europe
+    period: 2024 — now
+    roles:
+      - title: Senior Software Engineer — B2C revamp & mobile
+        period: 2025 — now
+        summary: Revamped the ten-year-old Rails B2C platform (CoffeeScript, jQuery, React SPA) toward a modern Rails and Hotwire stack, took over the mobile apps with Capacitor, cut the front bundle by 40% and the critical booking pages by 1.3 s on average.
+      - title: Software Engineer & Scrum Master — SvelteKit rebuild
+        period: 2024
+        summary: First in-house engineer on a from-scratch SvelteKit rebuild of the B2C site, alongside Mainmatter consultants. Developer, Scrum Master and team facilitator for 21 people; the project was stopped at around 80% in favour of revamping the existing platform.
+  - org: Holivia
+    period: 2022 — 2024
+    roles:
+      - title: Frontend Engineer
+        period: 2022 — 2024
+        summary: Revamped the whole frontend of the mental-health platform's Rails app, set up unit and feature testing, and built in-house libraries for the audio player (guided sound sessions) and therapist video calls.
+  - org: Freelance
+    period: 2016 — 2021
+    roles:
+      - title: Full-stack developer — In the Memory
+        period: 2021
+        summary: Built, maintained and customised a retail data-visualisation tool (Rails + React) for the startup's major client.
+      - title: Full-stack developer — Atelier des Giboulées
+        period: 2020 — 2021
+        summary: Designed and built Mallapixels, a Rails app for the Val-de-Marne libraries to lend digital devices, and accessible, eco-designed content sites in SvelteKit for the Agence Parisienne du Climat and the Clong.
+      - title: Frontend developer — Cultur'In the City
+        period: 2019 — 2020
+        summary: Maintained and improved the Next.js app; continuous e-commerce performance and SEO audits.
+      - title: Frontend developer — Majelan
+        period: 2018 — 2019
+        summary: Built the podcast back-office in Vue.js, then merged the internal tools into a single React back-office with an Atomic Design architecture.
+      - title: Web integrator & brand identity — Slash Lab
+        period: 2016 — 2018
+        summary: Ran brand-identity workshops with startup founders (Kawaa, Dress in Peace, Base Jaune) and wrote their brand platforms — identity, mission, tone of voice, social proof — which the art director turned into logos, visual identity and product experience. Then implemented it in CSS and quick frontend prototypes in Rails MVPs.
+education:
+  - school: Le Wagon
+    degree: Full-stack web development bootcamp
+    period: 2018
+  - school: École de Journalisme de Grenoble
+    degree: Master's in Journalism
+    period: 2006 — 2008
+    note: Runner-up, France 24 "Young European Reporters" award.
+  - school: Université Bordeaux Montaigne
+    degree: BA in Information & Communication; BA in Applied Languages (English–Japanese)
+    period: 2003 — 2006
+    note: Erasmus semester at Galatasaray University, Istanbul.

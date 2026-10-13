@@ -1,0 +1,25 @@
+name: Antoine Duvauchelle
+title: Product Engineer
+location: Paris
+tagline: I build design systems, polished UI, and the guardrails that let teams — and agents — ship them.
+intro:
+  - Ten years shipping production frontends, from startup studios to the booking funnel of Rail Europe. I care about the last 10% — interaction details, accessibility, perceived speed — and about making the right path the easy one for whoever builds next.
+  - Before code, I was a journalist. I still write docs as if someone is actually going to read them.
+links:
+  - label: LinkedIn
+    url: https://www.linkedin.com/in/antoine-duvauchelle-333184433/
+  - label: Codeberg
+    url: https://codeberg.org/toyn
+  - label: GitHub
+    url: https://github.com/aduvau
+practices:
+  - title: Design systems, for humans and agents
+    body: Tokens, documented components and Storybook as a shared language between design and code. Now making them readable by AI agents too — starting with this site.
+  - title: UI craft and accessibility
+    body: Semantic HTML, keyboard and focus first, inclusive states, reduced motion. Perceived performance is craft too — optimistic rendering, progressive enhancement, no layout shifts.
+  - title: Guardrails over gatekeeping
+    body: Tests, performance budgets, linting and CI that encode the conventions, so nobody has to be the bottleneck. And proof of improvement — measured before and after, so a refactor shows its value.
+  - title: Framing the agent
+    body: I build with Claude Code. Most of the work is the frame — CLAUDE.md conventions, phased plans compacted into logs, decisions recorded as ADRs, and test gates that fail when the agent drifts.
+  - title: Teaching and enabling teams
+    body: Scrum Master and team facilitator for a 21-person SvelteKit rebuild, often filling the gaps of missing roles. Pairing, reviews, docs and conventions that let a team contribute with confidence.

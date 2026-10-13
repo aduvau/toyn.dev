@@ -1,0 +1,78 @@
+/*
+ * Design tokens: the only place raw colours, sizes and durations live.
+ * Everything else references these custom properties.
+ */
+:root {
+  /* Colour — light theme */
+  --color-bg: oklch(98.5% 0.006 85);
+  --color-surface: oklch(96% 0.008 85);
+  --color-fg: oklch(22% 0.01 70);
+  --color-muted: oklch(46% 0.012 70);
+  --color-border: oklch(88% 0.01 80);
+  --color-accent: oklch(48% 0.16 262);
+  --color-accent-fg: oklch(98.5% 0.006 85);
+  --color-focus: oklch(55% 0.2 262);
+
+  /* Type */
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --text-sm: 0.875rem;
+  --text-base: 1.0625rem;
+  --text-lg: clamp(1.1875rem, 1.1rem + 0.4vw, 1.375rem);
+  --text-xl: clamp(1.5rem, 1.3rem + 0.9vw, 2rem);
+  --text-2xl: clamp(2rem, 1.6rem + 2vw, 3.25rem);
+  --leading-tight: 1.15;
+  --leading-normal: 1.6;
+  --weight-normal: 400;
+  --weight-medium: 550;
+  --weight-bold: 700;
+
+  /* Space (4px base) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+
+  /* Layout */
+  --width-text: 40rem;
+  --width-page: 64rem;
+  --gutter: clamp(1rem, 4vw, 2rem);
+
+  /* Shape */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.75rem;
+  --border-width: 1px;
+  --focus-width: 3px;
+
+  /* Motion */
+  --duration-fast: 120ms;
+  --duration-normal: 220ms;
+  --duration-slow: 480ms;
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: oklch(18% 0.008 70);
+    --color-surface: oklch(22% 0.01 70);
+    --color-fg: oklch(93% 0.008 85);
+    --color-muted: oklch(72% 0.01 80);
+    --color-border: oklch(32% 0.01 70);
+    --color-accent: oklch(76% 0.12 262);
+    --color-accent-fg: oklch(18% 0.008 70);
+    --color-focus: oklch(78% 0.14 262);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-normal: 0ms;
+    --duration-slow: 0ms;
+  }
+}

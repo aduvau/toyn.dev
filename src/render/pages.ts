@@ -22,7 +22,8 @@ import { RESUME_PATH, SYSTEM_PATH, WORK_ROOT, workPath } from "./urls.ts";
 
 export function homePage(site: Site): string {
   const { profile, timeline } = site;
-  const body = html`<main id="main" class="page">
+  const body = html`${siteHeader("", "home")}
+<main id="main" class="page">
 <section class="hero" aria-labelledby="hero-title">
 <h1 id="hero-title"><span class="hero-name">${profile.name}</span> <span class="hero-role">${profile.title} · ${profile.location}</span></h1>
 <p class="tagline">${profile.tagline}</p>

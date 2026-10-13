@@ -28,3 +28,4 @@
   Antoine, a second request costs more than a slightly bigger file.
 - **Header nav:** on every page but home, the name link became `<nav aria-label="Main">` — Home ·
   Résumé · Design system, current page `aria-current="page"` and underlined. Tested in `build.test.ts`.
+- **Home nav:** the home page got the same header nav, with Home marked `aria-current="page"`. Every page's content now starts `--space-12` below the nav (one `.page` rule instead of per-page paddings), and the résumé column narrows inside the page so its left edge lines up with the nav.

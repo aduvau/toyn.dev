@@ -134,13 +134,13 @@ test("_redirects reaches the output, so the bare domain keeps redirecting to www
   expect(await read("_redirects")).toContain("//toyn.dev/* https://www.toyn.dev/:splat 302!");
 });
 
-test("every page but home has the main nav, marking the current page", async () => {
-  expect(await read("index.html")).not.toContain('aria-label="Main"');
+test("every page has the main nav, marking the current page", async () => {
   const current: Record<string, string | undefined> = {
+    "index.html": "Home",
     "resume/index.html": "Résumé",
     "system/index.html": "Design system",
   };
-  for (const page of pages.filter((p) => p !== "index.html")) {
+  for (const page of pages) {
     const html = await read(page);
     expect(html).toContain('<nav class="site-nav" aria-label="Main">');
     const marked = [...html.matchAll(/aria-current="page">([^<]+)</g)].map((m) => m[1]);

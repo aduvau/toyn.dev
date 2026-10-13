@@ -81,7 +81,7 @@ const NAV = [
   { key: "system", label: "Design system", path: SYSTEM_PATH },
 ] as const;
 
-/** Header of every page but the home page. `current` marks the page you're on, if it's in the nav. */
+/** Header of every page. `current` marks the page you're on, if it's in the nav. */
 export function siteHeader(root: string, current?: (typeof NAV)[number]["key"]): SafeHtml {
   return html`<header class="site-header"><nav class="site-nav" aria-label="Main"><ul>${NAV.map(
     (item) =>

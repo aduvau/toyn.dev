@@ -222,7 +222,7 @@ export const contracts = defineContracts([
       'One `h1` per page, headings never skip a level, `<html lang="en">`.',
       "Sections are labelled by their heading (`aria-labelledby`).",
       "Light and dark themes follow `prefers-color-scheme`; there is no toggle.",
-      'Every page but the home page has a header `<nav aria-label="Main">` (Home, Résumé, Design system); the current page has `aria-current="page"` and stays underlined, so it doesn\'t rely on colour.',
+      'Every page has a header `<nav aria-label="Main">` (Home, Résumé, Design system); the current page has `aria-current="page"` and stays underlined, so it doesn\'t rely on colour.',
     ],
     contrast: [...TEXT_ON_BG],
   },

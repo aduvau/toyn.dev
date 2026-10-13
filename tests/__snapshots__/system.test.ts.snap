@@ -185,8 +185,8 @@ Rules for anyone changing the site, human or agent:
 | \`--color-focus\` | \`--color-bg\` | 3.00:1 | 4.83:1 | 9.11:1 | Link: focus ring; Theme toggle: focus ring |
 | \`--color-focus\` | \`--color-surface\` | 3.00:1 | 4.48:1 | 8.39:1 | Link: focus ring on surfaces |
 | \`--color-bg\` | \`--color-fg\` | 4.50:1 | 16.60:1 | 15.31:1 | Button: label on the inverted pill |
-| \`--color-fg\` | \`--color-surface\` | 4.50:1 | 15.43:1 | 14.10:1 | Card: title and summary; Design system page: examples |
-| \`--color-muted\` | \`--color-surface\` | 4.50:1 | 6.36:1 | 6.98:1 | Card: eyebrow and impact labels; Muted: secondary text on surfaces |
+| \`--color-fg\` | \`--color-surface\` | 4.50:1 | 15.43:1 | 14.10:1 | Card: title and summary; CTA banner: banner heading; Design system page: examples |
+| \`--color-muted\` | \`--color-surface\` | 4.50:1 | 6.36:1 | 6.98:1 | Card: eyebrow and impact labels; CTA banner: banner text; Muted: secondary text on surfaces |
 | \`--color-accent\` | \`--color-surface\` | 4.50:1 | 5.98:1 | 8.02:1 | Card contract: open pill; construction lines; Design system page: links in examples |
 | \`--color-accent-fg\` | \`--color-accent\` | 4.50:1 | 6.44:1 | 8.71:1 | Card contract: part labels; Skip link: label |
 | \`--color-accent\` | \`--color-bg\` | 3.00:1 | 6.44:1 | 8.71:1 | Card contract: construction lines on the cover |
@@ -243,7 +243,7 @@ Rules for anyone changing the site, human or agent:
 
 **Do**
 
-- Keep one per page, for the main action.
+- Keep one per block, for its main action: the hero and the closing CTA banner each have one.
 
 **Don't**
 
@@ -429,15 +429,25 @@ Rules for anyone changing the site, human or agent:
 
 - Each practice is a list item with an \`h3\`, under the section's \`h2\`.
 
-### Timeline
+### CTA banner
 
-*component.* Experience by organisation, with its roles; then education.
+*component.* The closing call to action of the home page: a question, one line, and a Button to the résumé, on a flat surface.
 
-**Selectors:** \`.timeline\` \`.timeline-item\` \`.timeline-org\` \`.timeline-period\` \`.timeline-role\` \`.timeline-role-title\` \`.education\`
+**Selectors:** \`.cta-banner\`
+
+**States**
+
+- wide (text left, button right)
+- phone (button below the text)
 
 **Accessibility**
 
-- An ordered list, most recent first; each organisation is an \`h3\`.
+- A \`<section>\` labelled by its \`h2\`, like the other home sections.
+- The action is a Button on an \`<a>\`, since it navigates to the résumé.
+
+**Don't**
+
+- Don't add a border or a second action: one question, one button.
 
 ### Prose
 

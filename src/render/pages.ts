@@ -10,10 +10,10 @@ import {
   postDate,
   postList,
   practice,
+  resumeBanner,
   siteFooter,
   siteHeader,
   tags,
-  timelineItem,
   workCard,
 } from "./components.ts";
 import { html, raw } from "./html.ts";
@@ -33,7 +33,7 @@ import {
 } from "./urls.ts";
 
 export function homePage(site: Site): string {
-  const { profile, timeline } = site;
+  const { profile } = site;
   const body = html`${siteHeader(site, "", "home")}
 <main id="main" class="page">
 <section class="hero" aria-labelledby="hero-title">
@@ -53,15 +53,7 @@ ${profile.intro.map((p) => html`<p class="intro">${p}</p>`)}
 <ul class="practices">${profile.practices.map(practice)}</ul>
 </section>
 
-<section class="section" aria-labelledby="experience-title">
-<h2 id="experience-title">Experience</h2>
-<ol class="timeline">${timeline.experience.map(timelineItem)}</ol>
-<h3 class="subheading">Education</h3>
-<ul class="education">${timeline.education.map(
-    (e) =>
-      html`<li><p><strong>${e.degree}</strong>, ${e.school} <span class="timeline-period">${e.period}</span></p>${e.note && html`<p class="muted">${e.note}</p>`}</li>`,
-  )}</ul>
-</section>
+${resumeBanner("")}
 </main>
 ${siteFooter(site, "")}`;
   return layout({

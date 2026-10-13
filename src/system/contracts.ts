@@ -5,10 +5,10 @@ import {
   linkTo,
   postList,
   practice,
+  resumeBanner,
   shot,
   tags,
   themeToggle,
-  timelineItem,
   workCard,
 } from "../render/components.ts";
 import { html, raw } from "../render/html.ts";
@@ -62,7 +62,9 @@ export const contracts = defineContracts([
       'An `<a>` when it navigates; a `<button type="button">` only for an in-page action (the résumé\'s “Save as PDF”).',
       "The lift is a transform on `--duration-fast`, which is 0 under reduced motion.",
     ],
-    do: ["Keep one per page, for the main action."],
+    do: [
+      "Keep one per block, for its main action: the hero and the closing CTA banner each have one.",
+    ],
     dont: ["Don't put it on an `<a>` for an action, or on a `<button>` for navigation."],
     contrast: [{ fg: "--color-bg", bg: "--color-fg", min: 4.5, use: "label on the inverted pill" }],
     example: () => html`<p>${button("#contact", "Get in touch")}</p>`,
@@ -264,23 +266,22 @@ export const contracts = defineContracts([
     },
   },
   {
-    name: "Timeline",
+    name: "CTA banner",
     kind: "component",
-    purpose: "Experience by organisation, with its roles; then education.",
-    classes: [
-      "timeline",
-      "timeline-item",
-      "timeline-org",
-      "timeline-period",
-      "timeline-role",
-      "timeline-role-title",
-      "education",
+    purpose:
+      "The closing call to action of the home page: a question, one line, and a Button to the résumé, on a flat surface.",
+    classes: ["cta-banner"],
+    states: ["wide (text left, button right)", "phone (button below the text)"],
+    a11y: [
+      "A `<section>` labelled by its `h2`, like the other home sections.",
+      "The action is a Button on an `<a>`, since it navigates to the résumé.",
     ],
-    a11y: ["An ordered list, most recent first; each organisation is an `h3`."],
-    example: (site) => {
-      const first = site.timeline.experience[0];
-      return html`<ol class="timeline">${first && timelineItem(first)}</ol>`;
-    },
+    dont: ["Don't add a border or a second action: one question, one button."],
+    contrast: [
+      { fg: "--color-fg", bg: "--color-surface", min: 4.5, use: "banner heading" },
+      { fg: "--color-muted", bg: "--color-surface", min: 4.5, use: "banner text" },
+    ],
+    example: (_site, root) => resumeBanner(root),
   },
   {
     name: "Prose",

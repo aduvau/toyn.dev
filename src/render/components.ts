@@ -1,5 +1,5 @@
 import type { Image, Post, Site, Work } from "../content/load.ts";
-import type { Profile, Timeline } from "../content/schemas.ts";
+import type { Profile } from "../content/schemas.ts";
 import { type Contract, contractId } from "../system/schema.ts";
 import { html, raw, type SafeHtml } from "./html.ts";
 import { inline, selectorsRow, specList } from "./spec.ts";
@@ -107,14 +107,12 @@ export function practice(p: Profile["practices"][number]): SafeHtml {
   return html`<li class="practice"><h3>${p.title}</h3><p>${p.body}</p></li>`;
 }
 
-export function timelineItem(e: Timeline["experience"][number]): SafeHtml {
-  return html`<li class="timeline-item">
-<h3><span class="timeline-org">${e.org}</span> <span class="timeline-period">${e.period}</span></h3>
-${e.roles.map(
-  (r) =>
-    html`<div class="timeline-role"><p class="timeline-role-title">${r.title} <span class="timeline-period">${r.period}</span></p><p>${r.summary}</p></div>`,
-)}
-</li>`;
+/** A flat banner that sends the visitor to the résumé, at the end of the home page. */
+export function resumeBanner(root: string): SafeHtml {
+  return html`<section class="cta-banner" aria-labelledby="resume-banner-title">
+<div><h2 id="resume-banner-title">Want the full picture?</h2><p>Every role, project and skill on one page, ready to print.</p></div>
+${button(root + RESUME_PATH, "Read my résumé")}
+</section>`;
 }
 
 /** The pages linked from the header nav, keyed by what a page passes as `current`. */

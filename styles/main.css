@@ -217,6 +217,11 @@ ol {
   border-top: var(--border-width) solid var(--color-border);
 }
 
+/* The home page separates its sections by space alone. */
+.hero ~ .section {
+  border-top: none;
+}
+
 /* Hero */
 .hero {
   padding-bottom: var(--space-16);
@@ -663,60 +668,42 @@ figcaption {
   color: var(--color-muted);
 }
 
-/* Timeline */
-.timeline {
-  max-width: 48rem;
-}
-
-.timeline-item {
-  padding-bottom: var(--space-8);
-}
-
-.timeline-item h3 {
+/* CTA banner: flat, a step off the page background in either theme. */
+.cta-banner {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: space-between;
-  gap: var(--space-2);
+  gap: var(--space-6) var(--space-12);
+  margin-block: var(--space-8) var(--space-16);
+  padding: var(--space-12);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
 }
 
-.timeline-period {
-  font-size: var(--text-sm);
-  font-weight: var(--weight-normal);
+.cta-banner h2 {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-xl);
+}
+
+.cta-banner p {
+  margin: 0;
   color: var(--color-muted);
-  letter-spacing: 0;
-  font-variant-numeric: tabular-nums;
 }
 
-.timeline-role {
-  padding-left: var(--space-4);
-  border-left: var(--border-width-thick) solid var(--color-border);
-  margin-top: var(--space-4);
+.cta-banner .button {
+  margin-top: 0;
 }
 
-.timeline-role-title {
-  font-weight: var(--weight-medium);
-  margin-bottom: var(--space-1);
-}
-
-.timeline-role p:last-child {
-  color: var(--color-muted);
+@media (width < 48rem) {
+  .cta-banner {
+    padding: var(--space-8);
+  }
 }
 
 .subheading {
   margin-top: var(--space-8);
   margin-bottom: var(--space-4);
-}
-
-.education {
-  max-width: 48rem;
-}
-
-.education li {
-  margin-bottom: var(--space-4);
-}
-
-.education p {
-  margin: 0;
 }
 
 /* Case study */
@@ -827,7 +814,6 @@ figcaption {
 /* Footer */
 .site-footer {
   padding-block: var(--space-16) var(--space-12);
-  border-top: var(--border-width) solid var(--color-border);
 }
 
 .contact-lead {
@@ -962,6 +948,12 @@ figcaption {
   padding: var(--space-8);
   background: var(--color-surface);
   border-radius: var(--radius-md);
+}
+
+/* The banner is set on the surface colour, so its example sits on the page background instead. */
+.contract-example:has(> .cta-banner) {
+  background: var(--color-bg);
+  border: var(--border-width) solid var(--color-border);
 }
 
 .contract-example > :last-child {

@@ -12,7 +12,7 @@ import {
   workCard,
 } from "../render/components.ts";
 import { html, raw } from "../render/html.ts";
-import { defineContracts } from "./schema.ts";
+import { type Contract, defineContracts } from "./schema.ts";
 
 /** Base text pairs: every page sets its text on `--color-bg`. */
 const TEXT_ON_BG = [
@@ -101,15 +101,26 @@ export const contracts = defineContracts([
     kind: "component",
     purpose:
       "A case study teaser in the “Selected work” grid: cover, eyebrow, title, summary, impact.",
-    classes: ["cards", "card", "card-cover", "is-portrait", "is-wide", "card-title", "card-link"],
+    classes: [
+      "cards",
+      "card",
+      "card-cover",
+      "is-portrait",
+      "is-wide",
+      "card-title",
+      "card-link",
+      "card-summary",
+    ],
     states: [
       "default",
       "hover / focus-within (accent border, card lifts by `--lift-md`, the cover's detail rises by `--lift-lg`)",
+      "contract open: construction lines, no lift, only the title links (see Card contract)",
       "portrait cover (centred at 56% width, cut by the bottom edge)",
       "wide cover (anchored left at 220% width, cut by the right edge)",
     ],
     a11y: [
       "One link per card, on the title; its `::after` stretches the hit area over the whole card.",
+      "The “View contract” toggle comes after the `<article>`, so the article holds the teaser only.",
       "The focus ring is drawn around the card, through that `::after`.",
       "The cover keeps the alt text written in the content.",
     ],
@@ -119,7 +130,7 @@ export const contracts = defineContracts([
       "Let the cover's shape pick the rule: taller than wide is `.is-portrait`, otherwise `.is-wide`.",
     ],
     dont: [
-      "Don't add a second link inside a card: the stretched link would cover it.",
+      "Don't add a second link or control inside a card, except the “View contract” toggle: the stretched link would cover it.",
       "Don't use a full page or a device mockup as a card cover, and don't zoom it on hover.",
     ],
     contrast: [
@@ -128,7 +139,49 @@ export const contracts = defineContracts([
     ],
     example: (site, root) => {
       const work = site.work[0];
-      return html`<ul class="cards">${work && workCard(work, root)}</ul>`;
+      return html`<ul class="cards">${work && workCard(work, root, cardContract())}</ul>`;
+    },
+  },
+  {
+    name: "Card contract",
+    kind: "component",
+    purpose:
+      "“View contract” on a card: opens the Card contract the card was built from, and draws construction lines on each part, labelled with its class.",
+    classes: ["card-contract", "card-contract-panel"],
+    states: [
+      "closed: a mono pill at the card's bottom right",
+      "hover (accent text and border)",
+      "focus-visible",
+      "open: accent pill; the panel opens below it; every `data-part` gets crossing corner lines and a mono label; the card stops lifting and only its title links",
+    ],
+    a11y: [
+      "A native `<details>` / `<summary>`: keyboard operable, announced as “View contract, collapsed / expanded”, and it works without JavaScript.",
+      "The `{ }` is `aria-hidden`, so the name is “View contract” alone.",
+      'The labels are CSS content with empty alternative text (`/ ""`), so headings keep their names. The panel\'s Selectors row carries the same information.',
+      "The summary and the panel sit above the stretched card link (`z-index: 1`), so they can be clicked.",
+    ],
+    do: [
+      "Render the panel from the contract with `workCard(work, root, contract)`, never by hand, so it can't drift.",
+      "Label each part with `data-part`, set to a class the element has and a contract owns (a test checks both).",
+    ],
+    dont: [
+      "Don't reuse `.contract`: that is the `/system` entry, with its top border.",
+      "Don't animate the lines: the open card holds still.",
+    ],
+    contrast: [
+      {
+        fg: "--color-accent",
+        bg: "--color-surface",
+        min: 4.5,
+        use: "open pill; construction lines",
+      },
+      { fg: "--color-accent-fg", bg: "--color-accent", min: 4.5, use: "part labels" },
+      { fg: "--color-accent", bg: "--color-bg", min: 3, use: "construction lines on the cover" },
+      { fg: "--color-muted", bg: "--color-bg", min: 4.5, use: "panel sources line" },
+    ],
+    example: (site, root) => {
+      const work = site.work[1] ?? site.work[0];
+      return html`<ul class="cards">${work && workCard(work, root, cardContract(), { open: true })}</ul>`;
     },
   },
   {
@@ -404,3 +457,10 @@ export const contracts = defineContracts([
     ],
   },
 ]);
+
+/** The Card contract, which every card prints in its "View contract" panel. */
+export function cardContract(): Contract {
+  const card = contracts.find((c) => c.name === "Card");
+  if (!card) throw new Error("the Card contract is missing");
+  return card;
+}

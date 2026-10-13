@@ -1,4 +1,5 @@
 import type { Post, Site, Work } from "../content/load.ts";
+import { cardContract } from "../system/contracts.ts";
 import {
   button,
   eyebrow,
@@ -44,7 +45,7 @@ ${profile.intro.map((p) => html`<p class="intro">${p}</p>`)}
 
 <section class="section" aria-labelledby="work-title">
 <h2 id="work-title">Selected work</h2>
-<ul class="cards">${site.work.map((w) => workCard(w, ""))}</ul>
+<ul class="cards">${site.work.map((w) => workCard(w, "", cardContract()))}</ul>
 </section>
 
 <section class="section" aria-labelledby="practices-title">

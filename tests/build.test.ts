@@ -7,8 +7,10 @@ import { makeConfig } from "../src/config.ts";
 
 // Guardrails on a real build of the site's own content.
 // CSS raised from 12 KB for the résumé and print styles (v1.y), then from 15 KB for the theme
-// toggle's repeated dark block (ADR-0005). Kept in one file on purpose.
-const BUDGETS = { css: 16 * 1024, html: 40 * 1024 };
+// toggle's repeated dark block (ADR-0005), then from 16 KB for the cards' "View contract" and its
+// construction lines (PLAN §8 B). HTML raised from 40 KB for the same story: `/system` shows two cards,
+// each with its contract panel. Kept in one file on purpose.
+const BUDGETS = { css: 19 * 1024, html: 48 * 1024 };
 
 let out: string;
 let pages: string[];

@@ -187,12 +187,13 @@ Rules for anyone changing the site, human or agent:
 | \`--color-bg\` | \`--color-fg\` | 4.50:1 | 16.60:1 | 15.31:1 | Button: label on the inverted pill |
 | \`--color-fg\` | \`--color-surface\` | 4.50:1 | 15.43:1 | 14.10:1 | Card: title and summary; Design system page: examples |
 | \`--color-muted\` | \`--color-surface\` | 4.50:1 | 6.36:1 | 6.98:1 | Card: eyebrow and impact labels; Muted: secondary text on surfaces |
+| \`--color-accent\` | \`--color-surface\` | 4.50:1 | 5.98:1 | 8.02:1 | Card contract: open pill; construction lines; Design system page: links in examples |
+| \`--color-accent-fg\` | \`--color-accent\` | 4.50:1 | 6.44:1 | 8.71:1 | Card contract: part labels; Skip link: label |
+| \`--color-accent\` | \`--color-bg\` | 3.00:1 | 6.44:1 | 8.71:1 | Card contract: construction lines on the cover |
+| \`--color-muted\` | \`--color-bg\` | 4.50:1 | 6.84:1 | 7.58:1 | Card contract: panel sources line; Page: secondary text; Writing: secondary text; Design system page: secondary text; Résumé: secondary text; Muted: secondary text |
 | \`--color-fg\` | \`--color-raised\` | 4.50:1 | 17.33:1 | 12.66:1 | Prose: callouts |
 | \`--color-accent\` | \`--color-raised\` | 4.50:1 | 6.72:1 | 7.20:1 | Prose: links in callouts |
 | \`--color-fg\` | \`--color-bg\` | 4.50:1 | 16.60:1 | 15.31:1 | Page: body text; Writing: body text; Design system page: body text; Résumé: body text |
-| \`--color-muted\` | \`--color-bg\` | 4.50:1 | 6.84:1 | 7.58:1 | Page: secondary text; Writing: secondary text; Design system page: secondary text; Résumé: secondary text; Muted: secondary text |
-| \`--color-accent\` | \`--color-surface\` | 4.50:1 | 5.98:1 | 8.02:1 | Design system page: links in examples |
-| \`--color-accent-fg\` | \`--color-accent\` | 4.50:1 | 6.44:1 | 8.71:1 | Skip link: label |
 
 ## Contracts
 
@@ -283,18 +284,20 @@ Rules for anyone changing the site, human or agent:
 
 *component.* A case study teaser in the “Selected work” grid: cover, eyebrow, title, summary, impact.
 
-**Selectors:** \`.cards\` \`.card\` \`.card-cover\` \`.is-portrait\` \`.is-wide\` \`.card-title\` \`.card-link\`
+**Selectors:** \`.cards\` \`.card\` \`.card-cover\` \`.is-portrait\` \`.is-wide\` \`.card-title\` \`.card-link\` \`.card-summary\`
 
 **States**
 
 - default
 - hover / focus-within (accent border, card lifts by \`--lift-md\`, the cover's detail rises by \`--lift-lg\`)
+- contract open: construction lines, no lift, only the title links (see Card contract)
 - portrait cover (centred at 56% width, cut by the bottom edge)
 - wide cover (anchored left at 220% width, cut by the right edge)
 
 **Accessibility**
 
 - One link per card, on the title; its \`::after\` stretches the hit area over the whole card.
+- The “View contract” toggle comes after the \`<article>\`, so the article holds the teaser only.
 - The focus ring is drawn around the card, through that \`::after\`.
 - The cover keeps the alt text written in the content.
 
@@ -306,8 +309,38 @@ Rules for anyone changing the site, human or agent:
 
 **Don't**
 
-- Don't add a second link inside a card: the stretched link would cover it.
+- Don't add a second link or control inside a card, except the “View contract” toggle: the stretched link would cover it.
 - Don't use a full page or a device mockup as a card cover, and don't zoom it on hover.
+
+### Card contract
+
+*component.* “View contract” on a card: opens the Card contract the card was built from, and draws construction lines on each part, labelled with its class.
+
+**Selectors:** \`.card-contract\` \`.card-contract-panel\`
+
+**States**
+
+- closed: a mono pill at the card's bottom right
+- hover (accent text and border)
+- focus-visible
+- open: accent pill; the panel opens below it; every \`data-part\` gets crossing corner lines and a mono label; the card stops lifting and only its title links
+
+**Accessibility**
+
+- A native \`<details>\` / \`<summary>\`: keyboard operable, announced as “View contract, collapsed / expanded”, and it works without JavaScript.
+- The \`{ }\` is \`aria-hidden\`, so the name is “View contract” alone.
+- The labels are CSS content with empty alternative text (\`/ ""\`), so headings keep their names. The panel's Selectors row carries the same information.
+- The summary and the panel sit above the stretched card link (\`z-index: 1\`), so they can be clicked.
+
+**Do**
+
+- Render the panel from the contract with \`workCard(work, root, contract)\`, never by hand, so it can't drift.
+- Label each part with \`data-part\`, set to a class the element has and a contract owns (a test checks both).
+
+**Don't**
+
+- Don't reuse \`.contract\`: that is the \`/system\` entry, with its top border.
+- Don't animate the lines: the open card holds still.
 
 ### Eyebrow
 

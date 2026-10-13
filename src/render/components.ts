@@ -1,6 +1,8 @@
 import type { Image, Post, Site, Work } from "../content/load.ts";
 import type { Profile, Timeline } from "../content/schemas.ts";
+import { type Contract, contractId } from "../system/schema.ts";
 import { html, raw, type SafeHtml } from "./html.ts";
+import { inline, selectorsRow, specList } from "./spec.ts";
 import { postPath, RESUME_PATH, SYSTEM_PATH, WRITING_PATH, workPath } from "./urls.ts";
 
 // The site's components. Each one has a contract in `src/system/contracts.ts`; `root` is the prefix
@@ -18,13 +20,14 @@ export function button(href: string, label: string): SafeHtml {
   return html`<a class="button" href="${href}">${label}</a>`;
 }
 
-export function eyebrow(text: string): SafeHtml {
-  return html`<p class="eyebrow">${text}</p>`;
+/** `part` labels it for the card's construction lines (see `workCard`). */
+export function eyebrow(text: string, part?: string): SafeHtml {
+  return html`<p class="eyebrow"${part && html` data-part="${part}"`}>${text}</p>`;
 }
 
-export function impact(work: Work): SafeHtml {
+export function impact(work: Work, part?: string): SafeHtml {
   if (work.impact.length === 0) return html``;
-  return html`<dl class="impact" aria-label="Impact">${work.impact.map(
+  return html`<dl class="impact" aria-label="Impact"${part && html` data-part="${part}"`}>${work.impact.map(
     (i) => html`<div class="impact-item"><dt>${i.label}</dt><dd>${i.value}</dd></div>`,
   )}</dl>`;
 }
@@ -48,16 +51,37 @@ export function tags(items: string[]): SafeHtml {
   return html`<ul class="tags" aria-label="Stack">${items.map((s) => html`<li class="tag">${s}</li>`)}</ul>`;
 }
 
-export function workCard(work: Work, root: string): SafeHtml {
+/**
+ * A case study teaser. It ends with a "View contract" toggle that prints the card's own `contract`;
+ * when open, CSS draws construction lines on every `data-part` (each labelled with its class).
+ */
+export function workCard(
+  work: Work,
+  root: string,
+  contract: Contract,
+  { open = false }: { open?: boolean } = {},
+): SafeHtml {
   return html`<li class="card">
 <article>
-${work.cardCover && html`<div class="card-cover ${work.cardCover.height > work.cardCover.width ? "is-portrait" : "is-wide"}">${picture(work.cardCover, root)}</div>`}
-${eyebrow(`${work.client} · ${work.period}`)}
-<h3 class="card-title"><a class="card-link" href="${root}${workPath(work.slug)}">${work.title}</a></h3>
-<p>${work.summary}</p>
-${impact(work)}
+${work.cardCover && html`<div class="card-cover ${work.cardCover.height > work.cardCover.width ? "is-portrait" : "is-wide"}" data-part=".card-cover">${picture(work.cardCover, root)}</div>`}
+${eyebrow(`${work.client} · ${work.period}`, ".eyebrow")}
+<h3 class="card-title" data-part=".card-title"><a class="card-link" href="${root}${workPath(work.slug)}">${work.title}</a></h3>
+<p class="card-summary" data-part=".card-summary">${work.summary}</p>
+${impact(work, ".impact")}
 </article>
+${contractToggle(contract, root, open)}
 </li>`;
+}
+
+/** The card's "View contract" disclosure: a `<details>`, so it works without JavaScript. */
+function contractToggle(contract: Contract, root: string, open: boolean): SafeHtml {
+  const contrast = contract.contrast.map((c) => `\`${c.fg}\` on \`${c.bg}\` ≥ ${c.min}: ${c.use}`);
+  return html`<details class="card-contract"${open ? raw(" open") : ""}><summary><span aria-hidden="true">{ }</span> View contract</summary><div class="card-contract-panel">
+<p>${inline(contract.purpose)}</p>
+<dl>${selectorsRow(contract)}${specList("Accessibility", contract.a11y)}${specList("Contrast", contrast)}${specList("Don't", contract.dont)}</dl>
+<p class="muted">From <code>src/system/contracts.ts</code> · checked by <code>tests/system.test.ts</code> · <a href="${root}${SYSTEM_PATH}#${contractId(contract)}">${contract.name} on /system</a></p>
+</div>
+</details>`;
 }
 
 /** A post's date, e.g. "13 October 2026", machine-readable in `datetime`. */

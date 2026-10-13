@@ -4,31 +4,19 @@ import { contrastRows, ratio, tokenGroups } from "../system/report.ts";
 import { type Contract, contractId } from "../system/schema.ts";
 import { isColor, readTokens, type Tokens } from "../system/tokens.ts";
 import { eyebrow, siteHeader } from "./components.ts";
-import { escapeHtml, html, raw, type SafeHtml } from "./html.ts";
+import { html, type SafeHtml } from "./html.ts";
 import { layout } from "./layout.ts";
+import { inline, specList as list, selectorsRow } from "./spec.ts";
 import { SYSTEM_ROOT } from "./urls.ts";
-
-/** Contract text is plain text with `code` spans, like Markdown. */
-export const inline = (text: string): SafeHtml =>
-  raw(escapeHtml(text).replace(/`([^`]+)`/g, "<code>$1</code>"));
 
 const KINDS = { component: "Components", layout: "Layout", utility: "Utilities" } as const;
 
-function list(label: string, items: string[]): SafeHtml {
-  if (items.length === 0) return html``;
-  return html`<div><dt>${label}</dt><dd><ul>${items.map((i) => html`<li>${inline(i)}</li>`)}</ul></dd></div>`;
-}
-
 function contractEntry(contract: Contract, site: Site): SafeHtml {
-  const selectors = [
-    ...contract.classes.map((c) => `\`.${c}\``),
-    ...contract.elements.map((e) => `\`${e}\``),
-  ];
   return html`<article class="contract" id="${contractId(contract)}" aria-labelledby="${contractId(contract)}-title">
 <h3 id="${contractId(contract)}-title">${contract.name}</h3>
 <p>${inline(contract.purpose)}</p>
 <dl class="contract-spec">
-${selectors.length > 0 && html`<div><dt>Selectors</dt><dd>${inline(selectors.join(" "))}</dd></div>`}
+${selectorsRow(contract)}
 ${list("States", contract.states)}
 ${list("Accessibility", contract.a11y)}
 ${list("Do", contract.do)}

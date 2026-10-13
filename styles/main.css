@@ -299,6 +299,8 @@ ol {
 
 .card {
   position: relative;
+  display: flex;
+  flex-direction: column;
   padding: var(--space-8);
   background: var(--color-surface);
   border: var(--border-width) solid var(--color-border);
@@ -395,6 +397,145 @@ img {
 .card:hover .card-cover img,
 .card:focus-within .card-cover img {
   transform: translateY(var(--lift-lg));
+}
+
+/*
+ * "View contract" (Card contract). The card is a column, so the toggle sits at its bottom right,
+ * after the article; the panel opens below the pill, which stays put. Both sit above the stretched
+ * card link.
+ */
+.card > article {
+  flex-grow: 1;
+}
+
+.card-contract {
+  position: relative;
+  z-index: 1;
+  margin-top: var(--space-6);
+}
+
+.card-contract > summary {
+  display: flex;
+  gap: var(--space-2);
+  inline-size: fit-content;
+  margin-inline-start: auto;
+  padding: var(--space-1) var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  list-style: none;
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+}
+
+.card-contract > summary::-webkit-details-marker {
+  display: none;
+}
+
+.card-contract > summary:hover,
+.card-contract[open] > summary {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.card-contract-panel {
+  margin-top: var(--space-4);
+  padding: var(--space-4);
+  font-size: var(--text-sm);
+  background: var(--color-bg);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.card-contract-panel dl {
+  display: grid;
+  gap: var(--space-3);
+  margin: var(--space-4) 0;
+}
+
+.card-contract-panel dt {
+  font-family: var(--font-mono);
+  color: var(--color-accent);
+}
+
+.card-contract-panel dd {
+  margin: 0;
+}
+
+/* Class and token names never break at their hyphens. */
+.card-contract-panel code {
+  white-space: nowrap;
+}
+
+.card-contract-panel ul {
+  padding-left: var(--space-4);
+  list-style: disc;
+}
+
+.card-contract-panel > :last-child {
+  margin-bottom: 0;
+}
+
+/* Open: the card holds still, and each part is drawn like a technical drawing. */
+.card:has(> .card-contract[open]),
+.card:has(> .card-contract[open]) .card-cover img {
+  transform: none;
+}
+
+.card:has(> .card-contract[open]) [data-part] {
+  position: relative;
+}
+
+/* The class name, as a tab on the part's top line. Empty alt text: headings keep their names. */
+.card:has(> .card-contract[open]) [data-part]::before {
+  content: attr(data-part) / "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  padding: 0 var(--space-1);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-normal);
+  line-height: var(--leading-tight);
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--color-accent-fg);
+  background: var(--color-accent);
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  translate: 0 -100%;
+  pointer-events: none;
+}
+
+/* Construction lines: each edge runs past the corners, so the lines cross. */
+.card:has(> .card-contract[open]) [data-part]::after {
+  content: "";
+  position: absolute;
+  inset: calc(var(--space-1) * -1) calc(var(--space-3) * -1);
+  background:
+    linear-gradient(var(--color-accent) 0 0) left 0 top var(--space-1) / 100% var(--border-width),
+    linear-gradient(var(--color-accent) 0 0) left 0 bottom var(--space-1) / 100% var(--border-width),
+    linear-gradient(var(--color-accent) 0 0) left var(--space-3) top 0 / var(--border-width) 100%,
+    linear-gradient(var(--color-accent) 0 0) right var(--space-3) top 0 / var(--border-width) 100%;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+/* The cover clips its overflow, so its lines cross inside it and its tab hangs below the top line. */
+.card:has(> .card-contract[open]) .card-cover::after {
+  inset: 0;
+  z-index: 1;
+}
+
+.card:has(> .card-contract[open]) .card-cover::before {
+  top: var(--space-1);
+  right: var(--space-3);
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  translate: none;
 }
 
 .case-cover,

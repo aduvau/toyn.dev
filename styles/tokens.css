@@ -59,9 +59,15 @@
   --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
   --lift-sm: -1px;
   --lift-md: -2px;
+
+  /* Print (the résumé): A4, smaller root size; colours stay light */
+  --print-root-size: 9pt;
+  --leading-print: 1.45;
+  --print-margin: 12mm;
 }
 
-@media (prefers-color-scheme: dark) {
+/* Screen only: printing always uses the light colours, whatever the system theme. */
+@media screen and (prefers-color-scheme: dark) {
   :root {
     --color-bg: oklch(18% 0.008 70);
     --color-surface: oklch(22% 0.01 70);

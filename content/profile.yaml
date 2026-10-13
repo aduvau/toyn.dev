@@ -3,8 +3,9 @@ title: Product Engineer
 location: Paris
 tagline: I build design systems, polished UI, and the guardrails that let teams — and agents — ship them.
 intro:
-  - Ten years shipping production frontends, from startup studios to the booking funnel of Rail Europe. I care about the last 10% — interaction details, accessibility, perceived speed — and about making the right path the easy one for whoever builds next.
+  - Ten years shipping production frontends, from startup studios to the booking funnel of Rail Europe. I care about the last 10% (interaction details, accessibility, perceived speed) and about making the right path the easy one for whoever builds next.
   - Before code, I was a journalist. I still write docs as if someone is actually going to read them.
+email: a@toyn.dev
 links:
   - label: LinkedIn
     url: https://www.linkedin.com/in/antoine-duvauchelle-333184433/
@@ -23,3 +24,40 @@ practices:
     body: I build with Claude Code. Most of the work is the frame — CLAUDE.md conventions, phased plans compacted into logs, decisions recorded as ADRs, and test gates that fail when the agent drifts.
   - title: Teaching and enabling teams
     body: Scrum Master and team facilitator for a 21-person SvelteKit rebuild, often filling the gaps of missing roles. Pairing, reviews, docs and conventions that let a team contribute with confidence.
+skills:
+  - group: Frontend
+    items:
+      [
+        TypeScript,
+        JavaScript,
+        HTML,
+        CSS,
+        Svelte,
+        SvelteKit,
+        React,
+        Next.js,
+        Vue.js,
+        Hotwire,
+        Turbo,
+        Stimulus,
+        Tailwind,
+      ]
+  - group: Design systems
+    items: [Storybook, design tokens, Atomic Design, accessibility]
+  - group: Backend and mobile
+    items: [Ruby on Rails, Capacitor, DatoCMS]
+  - group: Testing and tooling
+    items: [Playwright, Vitest, Biome, Bun, zod, D3]
+  - group: AI
+    items: [Claude Code]
+languages:
+  - name: French
+    level: native
+  - name: English
+    level: fluent
+  - name: Spanish
+    level: intermediate
+  - name: German
+    level: basic
+  - name: Japanese
+    level: basic

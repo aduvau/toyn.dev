@@ -52,15 +52,16 @@ export const contracts = defineContracts([
   {
     name: "Button",
     kind: "component",
-    purpose: "The one primary call to action of a page. A link styled as a pill, inverted colours.",
+    purpose:
+      "The one primary call to action of a page. A pill with inverted colours, on a link or a button.",
     classes: ["button"],
     states: ["default", "hover (lifts by `--lift-sm`)", "active", "focus-visible"],
     a11y: [
-      "It is an `<a>`: it navigates, so it is a link, not a `<button>`.",
+      'An `<a>` when it navigates; a `<button type="button">` only for an in-page action (the résumé\'s “Save as PDF”).',
       "The lift is a transform on `--duration-fast`, which is 0 under reduced motion.",
     ],
     do: ["Keep one per page, for the main action."],
-    dont: ["Don't use it for in-page actions that need a `<button>`."],
+    dont: ["Don't put it on an `<a>` for an action, or on a `<button>` for navigation."],
     contrast: [{ fg: "--color-bg", bg: "--color-fg", min: 4.5, use: "label on the inverted pill" }],
     example: () => html`<p>${button("#contact", "Get in touch")}</p>`,
   },
@@ -153,6 +154,7 @@ export const contracts = defineContracts([
     a11y: [
       "The `h1` holds the name and role; the tagline is a paragraph styled large.",
       "Only on the home page, since it holds the `h1`; the example shows the tagline and intro only.",
+      "The résumé header reuses `.hero-name` and `.hero-role` for its own `h1`.",
     ],
     example: (site) =>
       html`<p class="tagline">${site.profile.tagline}</p><p class="intro">${site.profile.intro[0]}</p>`,
@@ -257,6 +259,52 @@ export const contracts = defineContracts([
       { fg: "--color-fg", bg: "--color-surface", min: 4.5, use: "examples" },
       { fg: "--color-accent", bg: "--color-surface", min: 4.5, use: "links in examples" },
     ],
+  },
+
+  {
+    name: "Résumé",
+    kind: "layout",
+    purpose:
+      "`/resume`: profile, timeline and case studies as a résumé that prints on up to two A4 pages.",
+    classes: [
+      "resume",
+      "resume-header",
+      "resume-contact",
+      "resume-hint",
+      "resume-print",
+      "resume-section",
+      "resume-entry",
+      "resume-role",
+      "resume-role-title",
+      "resume-period",
+      "resume-more",
+      "resume-impact",
+      "resume-list",
+    ],
+    states: [
+      "screen (follows the colour scheme); from `48rem` wide, section labels sit in a left gutter",
+      "phone (labels stack above their content)",
+      "with JavaScript: a “Save as PDF” button opens the print dialog",
+      "without JavaScript: the button is hidden (`@media (scripting: none)`) and a `<noscript>` hint explains how to print",
+      "print (A4, label gutter, black and grey only, no header, footer, button or hint; roles and short sections never split across pages)",
+    ],
+    a11y: [
+      "The `h1` holds the name and role, like the home page; one `h2` per section, one `h3` per organisation or project.",
+      "Links show their URL as text, so they still work on paper.",
+      "The email is written as HTML entities: plain text for browsers and screen readers, not for naive scrapers.",
+    ],
+    do: [
+      "Keep every claim in the content files; the page only rearranges them.",
+      "Name a skill in `profile.yaml` only if the content already mentions it — a test checks.",
+    ],
+    dont: [
+      "Don't add JavaScript beyond the button's inline `onclick=\"print()\"`; a test allows that one handler only.",
+    ],
+    contrast: [...TEXT_ON_BG],
+    example: (site) => {
+      const first = site.profile.skills[0];
+      return html`<dl class="resume-list">${first && html`<div><dt>${first.group}</dt><dd>${first.items.join(", ")}</dd></div>`}</dl>`;
+    },
   },
 
   // Utilities

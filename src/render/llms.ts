@@ -2,7 +2,7 @@ import type { Site } from "../content/load.ts";
 import { contracts } from "../system/contracts.ts";
 import { contrastRows, ratio, tokenGroups } from "../system/report.ts";
 import { readTokens } from "../system/tokens.ts";
-import { SITE_URL, SYSTEM_PATH, workPath } from "./urls.ts";
+import { RESUME_PATH, SITE_URL, SYSTEM_PATH, workPath } from "./urls.ts";
 
 /** `llms.txt` (llmstxt.org): an index of the site for language models. */
 export function llmsTxt(site: Site): string {
@@ -16,6 +16,10 @@ ${profile.intro.join("\n\n")}
 ## Case studies
 
 ${site.work.map((w) => `- [${w.title}](${SITE_URL}${workPath(w.slug)}): ${w.summary}`).join("\n")}
+
+## Résumé
+
+- [Résumé](${SITE_URL}${RESUME_PATH}): experience, projects, skills, languages and education, printable as a PDF.
 
 ## Design system
 
@@ -67,6 +71,8 @@ Rules for anyone changing the site, human or agent:
 - Use the spacing, type and radius tokens too wherever one fits.
 - Every CSS class belongs to exactly one contract. Add or update the contract first.
 - Keep every contrast pair at or above its minimum, in both themes.
+- Every page works without JavaScript. JavaScript only enhances: hide the enhanced control with
+  \`@media (scripting: none)\`, put the fallback in \`<noscript>\`, no script files (ADR-0003).
 
 ## Tokens
 

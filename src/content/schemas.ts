@@ -8,14 +8,23 @@ export const profileSchema = z.strictObject({
   location: z.string().min(1),
   tagline: z.string().min(1),
   intro: z.array(z.string().min(1)).min(1),
+  /** Shown on `/resume` only, obfuscated in the markup. */
+  email: z.email(),
   links: z.array(link),
   practices: z.array(z.strictObject({ title: z.string().min(1), body: z.string().min(1) })).min(1),
+  /** Résumé skills. Every item must be named elsewhere in the content (see `tests/content.test.ts`). */
+  skills: z
+    .array(z.strictObject({ group: z.string().min(1), items: z.array(z.string().min(1)).min(1) }))
+    .min(1),
+  languages: z.array(z.strictObject({ name: z.string().min(1), level: z.string().min(1) })).min(1),
 });
 
 const role = z.strictObject({
   title: z.string().min(1),
   period: z.coerce.string().min(1),
   summary: z.string().min(1),
+  /** Slug of the published case study about this role, linked from the résumé. */
+  work: z.string().min(1).optional(),
 });
 
 export const timelineSchema = z.strictObject({

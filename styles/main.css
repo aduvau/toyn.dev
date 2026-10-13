@@ -189,6 +189,9 @@ ol {
   display: inline-block;
   margin-top: var(--space-4);
   padding: var(--space-3) var(--space-6);
+  border: 0;
+  font: inherit;
+  cursor: pointer;
   background: var(--color-fg);
   color: var(--color-bg);
   border-radius: var(--radius-pill);
@@ -646,4 +649,192 @@ figcaption {
 code {
   font-family: var(--font-mono);
   font-size: 0.9em;
+}
+
+/* Résumé: section labels in a left gutter on wide screens and on paper, stacked on phones. */
+.resume {
+  max-width: 52rem;
+  padding-block: var(--space-8) var(--space-16);
+}
+
+.resume-header h1 {
+  margin: 0 0 var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.resume-header .hero-name {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  letter-spacing: -0.02em;
+}
+
+.resume-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-4);
+  font-size: var(--text-sm);
+  overflow-wrap: anywhere;
+}
+
+/* Progressive enhancement: the print button needs JavaScript; without it, the <noscript> hint shows. */
+@media (scripting: none) {
+  .resume-print {
+    display: none;
+  }
+}
+
+.resume-hint {
+  margin-top: var(--space-4);
+  font-size: var(--text-sm);
+}
+
+.resume-section {
+  margin-top: var(--space-8);
+  padding-top: var(--space-4);
+  border-top: var(--border-width) solid var(--color-border);
+}
+
+.resume-section h2 {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.resume-section > p {
+  margin: 0;
+}
+
+@media print, (min-width: 48rem) {
+  .resume-section {
+    display: grid;
+    grid-template-columns: 9rem 1fr;
+    gap: var(--space-6);
+  }
+
+  .resume-section h2 {
+    margin: 0;
+  }
+}
+
+.resume-entry + .resume-entry {
+  margin-top: var(--space-4);
+}
+
+.resume-entry h3,
+.resume-role-title {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0 var(--space-4);
+}
+
+.resume-entry h3 {
+  margin: 0;
+  font-size: var(--text-base);
+  letter-spacing: 0;
+}
+
+.resume-entry p,
+.resume-role p {
+  margin-bottom: 0;
+}
+
+.resume-role {
+  margin-top: var(--space-2);
+}
+
+.resume-role-title {
+  font-style: italic;
+}
+
+.resume-period {
+  font-size: var(--text-sm);
+  font-style: normal;
+  font-weight: var(--weight-normal);
+  color: var(--color-muted);
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.resume-more,
+.resume-impact {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+/* One grid for all rows, so the label column fits the longest label. */
+.resume-list {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0 var(--space-6);
+  margin: 0;
+}
+
+.resume-list div {
+  display: contents;
+}
+
+.resume-list dt {
+  color: var(--color-muted);
+}
+
+.resume-list dd {
+  margin: 0;
+}
+
+@page {
+  size: A4;
+  margin: var(--print-margin);
+}
+
+@media print {
+  html {
+    color-scheme: light;
+    font-size: var(--print-root-size);
+  }
+
+  body {
+    background: none;
+    line-height: var(--leading-print);
+  }
+
+  .skip-link,
+  .site-header,
+  .site-footer,
+  .resume-print,
+  .resume-hint {
+    display: none;
+  }
+
+  .page {
+    max-width: none;
+    padding: 0;
+  }
+
+  .resume-section {
+    margin-top: var(--space-4);
+    padding-top: var(--space-3);
+  }
+
+  .resume a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* Roles, not whole organisations: a long freelance block may span two pages. */
+  .resume-section:not(:has(.resume-role)),
+  .resume-entry:not(:has(.resume-role)),
+  .resume-role {
+    break-inside: avoid;
+  }
+
+  .resume-entry h3 {
+    break-after: avoid;
+  }
 }

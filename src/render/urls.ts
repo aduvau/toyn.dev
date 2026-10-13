@@ -12,3 +12,9 @@ export const SYSTEM_PATH = "system/";
 
 /** From the design system page back to the root. */
 export const SYSTEM_ROOT = "../";
+
+/** The résumé page, relative to the site root. */
+export const RESUME_PATH = "resume/";
+
+/** From the résumé page back to the root. */
+export const RESUME_ROOT = "../";

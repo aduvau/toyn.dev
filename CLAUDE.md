@@ -25,6 +25,8 @@ Same setup as `../dadama` (copy and trim, don't share a package). Challengeable,
 - No phone number or date of birth anywhere on the site or the generated resume.
 - Colors, spacing, type and motion come from tokens only (`styles/tokens.css`); no raw values elsewhere.
 - Every component has a contract (`src/system/`); the `/system` page, `llms.txt` and guardrail tests derive from it.
+- Progressive enhancement: every page works with HTML and CSS alone; JavaScript only adds to it, with a
+  designed no-JS fallback (`@media (scripting: none)` + `<noscript>`) and no script files. See ADR-0003.
 - Accessibility is a requirement, not polish: semantic HTML, keyboard reachable, visible `:focus-visible`,
   `prefers-reduced-motion` respected, WCAG AA contrast in both themes.
 - Never push, deploy, create remote repos or touch DNS without explicit approval in the current conversation.

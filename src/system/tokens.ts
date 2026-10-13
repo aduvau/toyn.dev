@@ -6,7 +6,7 @@ import { join } from "node:path";
 export interface Tokens {
   /** Every token with its light-theme (default) value, in source order. */
   light: Map<string, string>;
-  /** Tokens overridden by `prefers-color-scheme: dark`. */
+  /** Tokens overridden by `prefers-color-scheme: dark` (on screen; print stays light). */
   dark: Map<string, string>;
 }
 
@@ -34,7 +34,7 @@ export function parseTokens(css: string): Tokens {
   const noComments = css.replace(/\/\*[\s\S]*?\*\//g, "");
   return {
     light: declarations(blockAfter(noComments, ":root")),
-    dark: declarations(blockAfter(noComments, "@media (prefers-color-scheme: dark)")),
+    dark: declarations(blockAfter(noComments, "@media screen and (prefers-color-scheme: dark)")),
   };
 }
 

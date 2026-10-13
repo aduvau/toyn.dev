@@ -16,8 +16,9 @@ import {
 import { html, raw } from "./html.ts";
 import { layout } from "./layout.ts";
 import { llmsTxt, systemMarkdown } from "./llms.ts";
+import { resumePage } from "./resume.ts";
 import { systemPage } from "./system.ts";
-import { SYSTEM_PATH, WORK_ROOT, workPath } from "./urls.ts";
+import { RESUME_PATH, SYSTEM_PATH, WORK_ROOT, workPath } from "./urls.ts";
 
 export function homePage(site: Site): string {
   const { profile, timeline } = site;
@@ -105,6 +106,7 @@ export function renderPages(site: Site): Map<string, string> {
     ["index.html", homePage(site)],
     ["404.html", notFoundPage(site)],
     [`${SYSTEM_PATH}index.html`, systemPage(site)],
+    [`${RESUME_PATH}index.html`, resumePage(site)],
     ["llms.txt", llmsTxt(site)],
     ["system.md", systemMarkdown(site)],
   ]);

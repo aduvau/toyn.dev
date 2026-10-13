@@ -1,7 +1,7 @@
 import type { Image, Site, Work } from "../content/load.ts";
 import type { Profile, Timeline } from "../content/schemas.ts";
 import { html, raw, type SafeHtml } from "./html.ts";
-import { SYSTEM_PATH, workPath } from "./urls.ts";
+import { RESUME_PATH, SYSTEM_PATH, workPath } from "./urls.ts";
 
 // The site's components. Each one has a contract in `src/system/contracts.ts`; `root` is the prefix
 // from the current page back to the site root (`""`, `"../"`, `"../../"`).
@@ -83,7 +83,7 @@ export function siteFooter(site: Site, root: string): SafeHtml {
   return html`<footer class="site-footer" id="contact">
 <h2>Contact</h2>
 <p class="contact-lead">Open to design-engineering and product-engineering roles. The best way to reach me is a message on LinkedIn.</p>
-${profile.links.length > 0 && html`<ul class="contact-links">${profile.links.map((l) => html`<li>${linkTo(l.url, l.label)}</li>`)}</ul>`}
+<ul class="contact-links"><li><a href="${root}${RESUME_PATH}">Résumé</a></li>${profile.links.map((l) => html`<li>${linkTo(l.url, l.label)}</li>`)}</ul>
 <p class="colophon">Built with vanilla TypeScript and Bun, no framework, no client-side bundle. Hosted on Codeberg Pages. Its <a href="${root}${SYSTEM_PATH}">design system</a> is generated from the code.</p>
 </footer>`;
 }

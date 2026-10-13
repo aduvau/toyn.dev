@@ -16,6 +16,10 @@ Before code, I was a journalist. I still write docs as if someone is actually go
 - [dadama — an AI-built data-journalism engine, with guardrails](https://www.toyn.dev/work/dadama/): A framework-free static site generator for data stories, built with Claude Code in a few days. The interesting part isn't the speed — it's the frame that kept the agent honest.
 - [Designing and building a calmer mental-health app](https://www.toyn.dev/work/holivia/): The whole frontend of a mental-health platform, designed and rebuilt — including a calming audio player and video calls with therapists, in vanilla JavaScript, CSS and HTML.
 
+## Résumé
+
+- [Résumé](https://www.toyn.dev/resume/): experience, projects, skills, languages and education, printable as a PDF.
+
 ## Design system
 
 - [Design system](https://www.toyn.dev/system/): tokens, contrast checks and component contracts, generated from the code.
@@ -39,6 +43,8 @@ Rules for anyone changing the site, human or agent:
 - Use the spacing, type and radius tokens too wherever one fits.
 - Every CSS class belongs to exactly one contract. Add or update the contract first.
 - Keep every contrast pair at or above its minimum, in both themes.
+- Every page works without JavaScript. JavaScript only enhances: hide the enhanced control with
+  \`@media (scripting: none)\`, put the fallback in \`<noscript>\`, no script files (ADR-0003).
 
 ## Tokens
 
@@ -78,6 +84,7 @@ Rules for anyone changing the site, human or agent:
 | --- | --- |
 | \`--leading-tight\` | \`1.15\` |
 | \`--leading-normal\` | \`1.6\` |
+| \`--leading-print\` | \`1.45\` |
 
 ### weight
 
@@ -157,6 +164,13 @@ Rules for anyone changing the site, human or agent:
 | \`--lift-sm\` | \`-1px\` |
 | \`--lift-md\` | \`-2px\` |
 
+### print
+
+| Token | Value |
+| --- | --- |
+| \`--print-root-size\` | \`9pt\` |
+| \`--print-margin\` | \`12mm\` |
+
 ## Contrast pairs
 
 | Text / UI | On | Minimum | Light | Dark | Used for |
@@ -167,8 +181,8 @@ Rules for anyone changing the site, human or agent:
 | \`--color-bg\` | \`--color-fg\` | 4.50:1 | 16.60:1 | 15.31:1 | Button: label on the inverted pill |
 | \`--color-fg\` | \`--color-surface\` | 4.50:1 | 15.43:1 | 14.10:1 | Card: title and summary; Design system page: examples |
 | \`--color-muted\` | \`--color-surface\` | 4.50:1 | 6.36:1 | 6.98:1 | Card: eyebrow and impact labels; Muted: secondary text on surfaces |
-| \`--color-fg\` | \`--color-bg\` | 4.50:1 | 16.60:1 | 15.31:1 | Page: body text; Design system page: body text |
-| \`--color-muted\` | \`--color-bg\` | 4.50:1 | 6.84:1 | 7.58:1 | Page: secondary text; Design system page: secondary text; Muted: secondary text |
+| \`--color-fg\` | \`--color-bg\` | 4.50:1 | 16.60:1 | 15.31:1 | Page: body text; Design system page: body text; Résumé: body text |
+| \`--color-muted\` | \`--color-bg\` | 4.50:1 | 6.84:1 | 7.58:1 | Page: secondary text; Design system page: secondary text; Résumé: secondary text; Muted: secondary text |
 | \`--color-accent\` | \`--color-surface\` | 4.50:1 | 5.98:1 | 8.02:1 | Design system page: links in examples |
 | \`--color-accent-fg\` | \`--color-accent\` | 4.50:1 | 6.44:1 | 8.71:1 | Skip link: label |
 
@@ -202,7 +216,7 @@ Rules for anyone changing the site, human or agent:
 
 ### Button
 
-*component.* The one primary call to action of a page. A link styled as a pill, inverted colours.
+*component.* The one primary call to action of a page. A pill with inverted colours, on a link or a button.
 
 **Selectors:** \`.button\`
 
@@ -215,7 +229,7 @@ Rules for anyone changing the site, human or agent:
 
 **Accessibility**
 
-- It is an \`<a>\`: it navigates, so it is a link, not a \`<button>\`.
+- An \`<a>\` when it navigates; a \`<button type="button">\` only for an in-page action (the résumé's “Save as PDF”).
 - The lift is a transform on \`--duration-fast\`, which is 0 under reduced motion.
 
 **Do**
@@ -224,7 +238,7 @@ Rules for anyone changing the site, human or agent:
 
 **Don't**
 
-- Don't use it for in-page actions that need a \`<button>\`.
+- Don't put it on an \`<a>\` for an action, or on a \`<button>\` for navigation.
 
 ### Card
 
@@ -326,6 +340,7 @@ Rules for anyone changing the site, human or agent:
 
 - The \`h1\` holds the name and role; the tagline is a paragraph styled large.
 - Only on the home page, since it holds the \`h1\`; the example shows the tagline and intro only.
+- The résumé header reuses \`.hero-name\` and \`.hero-role\` for its own \`h1\`.
 
 ### Practice
 
@@ -389,6 +404,35 @@ Rules for anyone changing the site, human or agent:
 
 - Contrast ratios are computed at build time, in both themes, from \`tokens.css\`.
 - Examples are rendered by the same functions as the real pages, with the real content.
+
+### Résumé
+
+*layout.* \`/resume\`: profile, timeline and case studies as a résumé that prints on up to two A4 pages.
+
+**Selectors:** \`.resume\` \`.resume-header\` \`.resume-contact\` \`.resume-hint\` \`.resume-print\` \`.resume-section\` \`.resume-entry\` \`.resume-role\` \`.resume-role-title\` \`.resume-period\` \`.resume-more\` \`.resume-impact\` \`.resume-list\`
+
+**States**
+
+- screen (follows the colour scheme); from \`48rem\` wide, section labels sit in a left gutter
+- phone (labels stack above their content)
+- with JavaScript: a “Save as PDF” button opens the print dialog
+- without JavaScript: the button is hidden (\`@media (scripting: none)\`) and a \`<noscript>\` hint explains how to print
+- print (A4, label gutter, black and grey only, no header, footer, button or hint; roles and short sections never split across pages)
+
+**Accessibility**
+
+- The \`h1\` holds the name and role, like the home page; one \`h2\` per section, one \`h3\` per organisation or project.
+- Links show their URL as text, so they still work on paper.
+- The email is written as HTML entities: plain text for browsers and screen readers, not for naive scrapers.
+
+**Do**
+
+- Keep every claim in the content files; the page only rearranges them.
+- Name a skill in \`profile.yaml\` only if the content already mentions it — a test checks.
+
+**Don't**
+
+- Don't add JavaScript beyond the button's inline \`onclick="print()"\`; a test allows that one handler only.
 
 ### Skip link
 

@@ -127,6 +127,15 @@ export async function loadSite(config: Config): Promise<LoadResult> {
   }
   work.sort((a, b) => a.order - b.order);
 
+  const slugs = new Set(work.map((w) => w.slug));
+  for (const role of timeline?.experience.flatMap((e) => e.roles) ?? []) {
+    if (role.work && !slugs.has(role.work)) {
+      errors.push(
+        `content/timeline.yaml: "${role.title}" links to unknown or draft work "${role.work}"`,
+      );
+    }
+  }
+
   if (errors.length > 0 || !profile || !timeline) return { ok: false, errors, warnings };
   return { ok: true, site: { profile, timeline, work }, warnings };
 }

@@ -30,8 +30,6 @@ gallery:
     caption: The payment form, migrated to Svelte 5 and Superforms.
 ---
 
-<!-- TODO(antoine): confirm the "What I took from it" paragraph is how you see it. -->
-
 ## Context
 
 In February 2024, Rail Europe hired me to rebuild its customer-facing booking

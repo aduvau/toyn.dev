@@ -62,7 +62,7 @@ ${siteFooter(site, "")}`;
 export function workPage(site: Site, work: Work): string {
   const index = site.work.indexOf(work);
   const next = site.work[(index + 1) % site.work.length];
-  const body = html`${siteHeader(site, WORK_ROOT)}
+  const body = html`${siteHeader(WORK_ROOT)}
 <main id="main" class="page case">
 <p class="back"><a href="${WORK_ROOT}#work-title">← All work</a></p>
 <header class="case-header">
@@ -90,7 +90,7 @@ ${siteFooter(site, WORK_ROOT)}`;
 
 export function notFoundPage(site: Site): string {
   // Served at any depth by the host, so links are absolute (the site lives at the domain root).
-  const body = html`${siteHeader(site, "/")}
+  const body = html`${siteHeader("/")}
 <main id="main" class="page"><h1>Page not found</h1><p><a href="/">Back to the home page</a></p></main>`;
   return layout({
     title: `Not found — ${site.profile.name}`,

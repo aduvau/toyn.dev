@@ -95,7 +95,7 @@ function otherTokens(tokens: Tokens): SafeHtml {
 
 export function systemPage(site: Site): string {
   const tokens = readTokens();
-  const body = html`${siteHeader(site, SYSTEM_ROOT)}
+  const body = html`${siteHeader(SYSTEM_ROOT, "system")}
 <main id="main" class="page">
 <header class="case-header">
 ${eyebrow("Design system")}

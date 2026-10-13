@@ -26,3 +26,5 @@
   (whole-word match; fake "Go", "Rust", "Kubernetes" all caught); unknown role → work link refused. New "Résumé" contract.
 - **Budget:** CSS raised from 12 KB to 14 KB (now ~13 KB), one stylesheet kept on purpose — per
   Antoine, a second request costs more than a slightly bigger file.
+- **Header nav:** on every page but home, the name link became `<nav aria-label="Main">` — Home ·
+  Résumé · Design system, current page `aria-current="page"` and underlined. Tested in `build.test.ts`.

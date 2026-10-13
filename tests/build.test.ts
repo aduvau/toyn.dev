@@ -133,3 +133,17 @@ test("the résumé links every case study and prints without dark colours", asyn
 test("_redirects reaches the output, so the bare domain keeps redirecting to www", async () => {
   expect(await read("_redirects")).toContain("//toyn.dev/* https://www.toyn.dev/:splat 302!");
 });
+
+test("every page but home has the main nav, marking the current page", async () => {
+  expect(await read("index.html")).not.toContain('aria-label="Main"');
+  const current: Record<string, string | undefined> = {
+    "resume/index.html": "Résumé",
+    "system/index.html": "Design system",
+  };
+  for (const page of pages.filter((p) => p !== "index.html")) {
+    const html = await read(page);
+    expect(html).toContain('<nav class="site-nav" aria-label="Main">');
+    const marked = [...html.matchAll(/aria-current="page">([^<]+)</g)].map((m) => m[1]);
+    expect(marked).toEqual(current[page] ? [current[page]] : []);
+  }
+});

@@ -124,10 +124,22 @@ ol {
   padding-block: var(--space-6);
 }
 
-.site-name {
+.site-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-6);
+}
+
+.site-nav a {
   color: var(--color-fg);
   font-weight: var(--weight-medium);
   text-decoration: none;
+}
+
+.site-nav a:hover,
+.site-nav a[aria-current="page"] {
+  text-decoration: underline;
+  text-decoration-thickness: var(--border-width-thick);
 }
 
 .section {

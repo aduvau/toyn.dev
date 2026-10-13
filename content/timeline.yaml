@@ -32,7 +32,7 @@ experience:
       - title: Frontend developer — Majelan
         period: 2018 — 2019
         summary: Built the podcast back-office in Vue.js, then merged the internal tools into a single React back-office with an Atomic Design architecture.
-      - title: Web integrator & brand identity — Slash Lab
+      - title: Brand identity & Product builder — Slash Lab
         period: 2016 — 2018
         summary: Ran brand-identity workshops with startup founders (Kawaa, Dress in Peace, Base Jaune) and wrote their brand platforms — identity, mission, tone of voice, social proof — which the art director turned into logos, visual identity and product experience. Then implemented it in CSS and quick frontend prototypes in Rails MVPs.
 education:

@@ -7,7 +7,8 @@ Last updated 2026-10-13.
 - **v1** done and deployed 2026-10-13 at https://www.toyn.dev/ — see `docs/v1-log.md`. Publishing needs the **webhook on `toyn_output`** (Settings → Webhooks).
 - **v1.x `/system`** done 2026-10-13 (not deployed yet) — see `docs/v1x-log.md`, ADR-0002.
 - **v1.y `/resume`** done 2026-10-13 (not deployed yet) — see `docs/v1y-log.md`.
-- **Next:** polish pass. Open: Rail Europe confidentiality check, "What I took from it" paragraph, before/after search-form screenshots (`bun run check:content` lists the `TODO(antoine)` notes).
+- v1.x and v1.y deployed 2026-10-13. No open `TODO(antoine)` notes.
+- **Next:** v2 candidates (below), or a polish pass once its scope is defined.
 
 ## 1. Decisions
 
@@ -58,11 +59,10 @@ Done; build notes in `docs/v1y-log.md`. Prints to 2 A4 pages ("Save as PDF"); em
 
 ## 6. Open questions (for Antoine)
 
-- **Slash Lab:** which startups, what the brand-identity work covered (logo, palette, type, UI kit?), how it reached the product; any visuals?
-- **Slash Lab:** answered 2026-10-13 (brand platforms for Kawaa, Dress in Peace, Base Jaune; no visuals). Role title "Web integrator & brand identity" to confirm.
-- **Screenshots:** none available. Capture public ones ourselves (dadama.eu, the three NGO sites, raileurope.com booking pages); Holivia and the SvelteKit app likely need Antoine.
+- **Slash Lab:** answered 2026-10-13 (brand platforms for Kawaa, Dress in Peace, Base Jaune; no visuals). Role title: "Brand identity & Product builder".
+- **Screenshots:** no Rail Europe before/after search-form shots exist; dropped.
 - **Links:** done (LinkedIn, Codeberg, GitHub).
-- **Confidentiality (Rail Europe):** check case by case before deploy. Not mentioned on the site: the platform's decommissioning after the acquisition.
+- **Confidentiality (Rail Europe):** case studies approved by Antoine 2026-10-13. Not mentioned on the site: the platform's decommissioning after the acquisition.
 - **Climate sites:** demoted to the timeline (`draft: true`), per Antoine.
 - **Theme:** `prefers-color-scheme` only — decided 2026-10-13.
 

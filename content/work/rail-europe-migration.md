@@ -20,8 +20,6 @@ gallery:
     caption: Search results on mobile.
 ---
 
-<!-- TODO(antoine): confidentiality check — OK to publish the details below (SPA/API removal, forced upgrade, Capacitor bridge)? -->
-
 ## Context
 
 Rail Europe sells train tickets across Europe. Its customer-facing site was a

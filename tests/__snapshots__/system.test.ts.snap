@@ -5,7 +5,7 @@ exports[`generated docs stay in sync with the contracts snapshots: llms.txt and 
 
 > I build design systems, polished UI, and the guardrails that let teams — and agents — ship them.
 
-Ten years shipping production frontends, from startup studios to the booking funnel of Rail Europe. I care about the last 10% — interaction details, accessibility, perceived speed — and about making the right path the easy one for whoever builds next.
+Ten years shipping production frontends, from startup studios to the booking funnel of Rail Europe. I care about the last 10% (interaction details, accessibility, perceived speed) and about making the right path the easy one for whoever builds next.
 
 Before code, I was a journalist. I still write docs as if someone is actually going to read them.
 
@@ -376,13 +376,14 @@ Rules for anyone changing the site, human or agent:
 
 *layout.* Page frame: centred column, header, sections and the contact footer.
 
-**Selectors:** \`.page\` \`.section\` \`.subheading\` \`.site-header\` \`.site-name\` \`.site-footer\` \`.contact-lead\` \`.contact-links\` \`.colophon\` \`body\` \`h1\` \`h2\` \`h3\` \`p\` \`ul\` \`ol\` \`img\` \`figcaption\` \`code\`
+**Selectors:** \`.page\` \`.section\` \`.subheading\` \`.site-header\` \`.site-nav\` \`.site-footer\` \`.contact-lead\` \`.contact-links\` \`.colophon\` \`body\` \`h1\` \`h2\` \`h3\` \`p\` \`ul\` \`ol\` \`img\` \`figcaption\` \`code\`
 
 **Accessibility**
 
 - One \`h1\` per page, headings never skip a level, \`<html lang="en">\`.
 - Sections are labelled by their heading (\`aria-labelledby\`).
-- Light and dark themes follow \`prefers-color-scheme\`; there is no toggle and no JavaScript.
+- Light and dark themes follow \`prefers-color-scheme\`; there is no toggle.
+- Every page but the home page has a header \`<nav aria-label="Main">\` (Home, Résumé, Design system); the current page has \`aria-current="page"\` and stays underlined, so it doesn't rely on colour.
 
 ### Case study
 

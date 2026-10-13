@@ -74,8 +74,19 @@ ${e.roles.map(
 </li>`;
 }
 
-export function siteHeader(site: Site, root: string): SafeHtml {
-  return html`<header class="site-header"><a class="site-name" href="${root || "./"}">${site.profile.name}</a></header>`;
+/** The pages linked from the header nav, keyed by what a page passes as `current`. */
+const NAV = [
+  { key: "home", label: "Home", path: "" },
+  { key: "resume", label: "Résumé", path: RESUME_PATH },
+  { key: "system", label: "Design system", path: SYSTEM_PATH },
+] as const;
+
+/** Header of every page but the home page. `current` marks the page you're on, if it's in the nav. */
+export function siteHeader(root: string, current?: (typeof NAV)[number]["key"]): SafeHtml {
+  return html`<header class="site-header"><nav class="site-nav" aria-label="Main"><ul>${NAV.map(
+    (item) =>
+      html`<li><a href="${root + item.path || "./"}"${item.key === current ? raw(' aria-current="page"') : ""}>${item.label}</a></li>`,
+  )}</ul></nav></header>`;
 }
 
 export function siteFooter(site: Site, root: string): SafeHtml {

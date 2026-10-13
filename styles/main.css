@@ -355,7 +355,13 @@ img {
   height: auto;
 }
 
+/*
+ * Card covers: one readable UI detail on a quiet stage, inset from the top and cut by the far edges.
+ * A portrait detail is centred and cut by the bottom; a wide one is anchored left and cut by the
+ * right, shown large enough for its text to stay readable.
+ */
 .card-cover {
+  position: relative;
   margin: calc(var(--space-8) * -1) calc(var(--space-8) * -1) var(--space-6);
   aspect-ratio: 16 / 10;
   overflow: hidden;
@@ -365,23 +371,30 @@ img {
 }
 
 .card-cover img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top left;
+  position: absolute;
+  top: var(--space-8);
+  max-width: none;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-raised);
   transition: transform var(--duration-slow) var(--ease-out);
 }
 
-/* Phone screenshots: shown whole, not cropped. */
 .card-cover.is-portrait img {
-  object-fit: contain;
-  object-position: center;
-  padding-top: var(--space-4);
+  left: 50%;
+  width: 56%;
+  translate: -50% 0;
 }
 
+.card-cover.is-wide img {
+  left: var(--space-8);
+  width: 220%;
+}
+
+/* The detail rises out of its stage; it never zooms. */
 .card:hover .card-cover img,
 .card:focus-within .card-cover img {
-  transform: scale(1.03);
+  transform: translateY(var(--lift-lg));
 }
 
 .case-cover,

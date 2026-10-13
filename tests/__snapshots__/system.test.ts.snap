@@ -168,6 +168,7 @@ Rules for anyone changing the site, human or agent:
 | --- | --- |
 | \`--lift-sm\` | \`-1px\` |
 | \`--lift-md\` | \`-2px\` |
+| \`--lift-lg\` | \`-0.5rem\` |
 
 ### print
 
@@ -282,13 +283,14 @@ Rules for anyone changing the site, human or agent:
 
 *component.* A case study teaser in the “Selected work” grid: cover, eyebrow, title, summary, impact.
 
-**Selectors:** \`.cards\` \`.card\` \`.card-cover\` \`.is-portrait\` \`.card-title\` \`.card-link\`
+**Selectors:** \`.cards\` \`.card\` \`.card-cover\` \`.is-portrait\` \`.is-wide\` \`.card-title\` \`.card-link\`
 
 **States**
 
 - default
-- hover / focus-within (accent border, lifts, cover zooms)
-- portrait cover
+- hover / focus-within (accent border, card lifts by \`--lift-md\`, the cover's detail rises by \`--lift-lg\`)
+- portrait cover (centred at 56% width, cut by the bottom edge)
+- wide cover (anchored left at 220% width, cut by the right edge)
 
 **Accessibility**
 
@@ -299,10 +301,13 @@ Rules for anyone changing the site, human or agent:
 **Do**
 
 - Wrap cards in \`.cards\` (a \`<ul>\`), one \`<li class="card">\` each.
+- Use \`cardCover\` for one readable UI detail (a form, a component, a phone screen), cropped to the UI itself; the case study keeps its full screenshot in \`cover\`.
+- Let the cover's shape pick the rule: taller than wide is \`.is-portrait\`, otherwise \`.is-wide\`.
 
 **Don't**
 
 - Don't add a second link inside a card: the stretched link would cover it.
+- Don't use a full page or a device mockup as a card cover, and don't zoom it on hover.
 
 ### Eyebrow
 

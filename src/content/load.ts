@@ -22,10 +22,11 @@ export interface Image extends ImageMeta {
   height: number;
 }
 
-export interface Work extends Omit<WorkMeta, "cover" | "gallery"> {
+export interface Work extends Omit<WorkMeta, "cover" | "cardCover" | "gallery"> {
   slug: string;
   html: string;
   cover?: Image;
+  cardCover?: Image;
   gallery: Image[];
 }
 
@@ -124,12 +125,20 @@ export async function loadSite(config: Config): Promise<LoadResult> {
         return { ...img, ...size };
       };
       const cover = meta.data.cover && (await sized(meta.data.cover));
+      const cardCover = meta.data.cardCover && (await sized(meta.data.cardCover));
       const gallery: Image[] = [];
       for (const img of meta.data.gallery) {
         const s = await sized(img);
         if (s) gallery.push(s);
       }
-      work.push({ ...meta.data, slug: basename(name, ".md"), html: rendered.html, cover, gallery });
+      work.push({
+        ...meta.data,
+        slug: basename(name, ".md"),
+        html: rendered.html,
+        cover,
+        cardCover,
+        gallery,
+      });
     } catch (e) {
       errors.push(`${rel(path)}: ${(e as Error).message}`);
     }

@@ -8,8 +8,6 @@ summary: A framework-free static site generator for data stories, built with Cla
 impact:
   - value: "379"
     label: automated tests
-  - value: "5"
-    label: architecture decision records
   - value: "1 day"
     label: empty repo to live site
 stack: [TypeScript, Bun, D3, remark/unified, zod, Biome]
@@ -18,6 +16,9 @@ cover:
   srcDark: work/dadama/chart-area-dark.webp
   alt: Stacked area chart of rail passenger-kilometres in Germany, France, Italy and Spain from 2012 to 2025, with the Covid-19 dip highlighted and a dashed line at the 2019 total.
   caption: A dadama chart — annotations, direct labels, a source line and a "Show data" table for every chart. Switches with your colour scheme.
+cardCover:
+  src: work/dadama/mobile.webp
+  alt: A dadama story on a phone — “L'Europe reprend le train”, with its lede and first paragraph.
 gallery:
   - src: work/dadama/chart-bars-light.webp
     srcDark: work/dadama/chart-bars-dark.webp

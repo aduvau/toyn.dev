@@ -71,8 +71,13 @@ export const workSchema = z.strictObject({
     .default([]),
   stack: z.array(z.string().min(1)).default([]),
   links: z.array(link).default([]),
-  /** Shown on the home page card and at the top of the case study. */
+  /** Shown at the top of the case study: the full screenshot. */
   cover: image.optional(),
+  /**
+   * Shown on the home page card: one readable UI detail, not a full screen. Taller than wide is
+   * centred and cut by the bottom edge; wider than tall is anchored left and cut by the right edge.
+   */
+  cardCover: image.optional(),
   /** Screenshots shown after the text of the case study. */
   gallery: z.array(image).default([]),
   draft: z.boolean().default(false),

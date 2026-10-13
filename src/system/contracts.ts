@@ -101,19 +101,27 @@ export const contracts = defineContracts([
     kind: "component",
     purpose:
       "A case study teaser in the “Selected work” grid: cover, eyebrow, title, summary, impact.",
-    classes: ["cards", "card", "card-cover", "is-portrait", "card-title", "card-link"],
+    classes: ["cards", "card", "card-cover", "is-portrait", "is-wide", "card-title", "card-link"],
     states: [
       "default",
-      "hover / focus-within (accent border, lifts, cover zooms)",
-      "portrait cover",
+      "hover / focus-within (accent border, card lifts by `--lift-md`, the cover's detail rises by `--lift-lg`)",
+      "portrait cover (centred at 56% width, cut by the bottom edge)",
+      "wide cover (anchored left at 220% width, cut by the right edge)",
     ],
     a11y: [
       "One link per card, on the title; its `::after` stretches the hit area over the whole card.",
       "The focus ring is drawn around the card, through that `::after`.",
       "The cover keeps the alt text written in the content.",
     ],
-    do: ['Wrap cards in `.cards` (a `<ul>`), one `<li class="card">` each.'],
-    dont: ["Don't add a second link inside a card: the stretched link would cover it."],
+    do: [
+      'Wrap cards in `.cards` (a `<ul>`), one `<li class="card">` each.',
+      "Use `cardCover` for one readable UI detail (a form, a component, a phone screen), cropped to the UI itself; the case study keeps its full screenshot in `cover`.",
+      "Let the cover's shape pick the rule: taller than wide is `.is-portrait`, otherwise `.is-wide`.",
+    ],
+    dont: [
+      "Don't add a second link inside a card: the stretched link would cover it.",
+      "Don't use a full page or a device mockup as a card cover, and don't zoom it on hover.",
+    ],
     contrast: [
       { fg: "--color-fg", bg: "--color-surface", min: 4.5, use: "title and summary" },
       { fg: "--color-muted", bg: "--color-surface", min: 4.5, use: "eyebrow and impact labels" },

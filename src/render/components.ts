@@ -51,7 +51,7 @@ export function tags(items: string[]): SafeHtml {
 export function workCard(work: Work, root: string): SafeHtml {
   return html`<li class="card">
 <article>
-${work.cover && html`<div class="card-cover${work.cover.height > work.cover.width ? " is-portrait" : ""}">${picture(work.cover, root)}</div>`}
+${work.cardCover && html`<div class="card-cover ${work.cardCover.height > work.cardCover.width ? "is-portrait" : "is-wide"}">${picture(work.cardCover, root)}</div>`}
 ${eyebrow(`${work.client} · ${work.period}`)}
 <h3 class="card-title"><a class="card-link" href="${root}${workPath(work.slug)}">${work.title}</a></h3>
 <p>${work.summary}</p>

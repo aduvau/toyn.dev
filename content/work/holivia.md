@@ -9,6 +9,9 @@ stack: [Ruby on Rails, JavaScript, CSS, HTML]
 cover:
   src: work/holivia/cover.webp
   alt: Three Holivia screens on phones — the audio player for a breathing session, a video call with a therapist, and wellbeing questionnaire results.
+cardCover:
+  src: work/holivia/audio-player-screen.webp
+  alt: The Holivia audio player for a “Cohérence cardiaque” breathing session.
 gallery:
   - src: work/holivia/video-call.webp
     alt: Holivia mobile app during a video call with a therapist, with camera, microphone, chat and hang-up controls.

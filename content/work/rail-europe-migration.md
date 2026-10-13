@@ -14,6 +14,9 @@ stack: [Ruby on Rails, Hotwire, Turbo, Stimulus, Capacitor, TypeScript]
 cover:
   src: work/rail-europe-migration/home.webp
   alt: Rail Europe homepage with the train ticket search form on the left — from, to, dates and passengers — over a photo of Paris with the Eiffel Tower.
+cardCover:
+  src: work/rail-europe-migration/search-form-a.webp
+  alt: The Rail Europe train ticket search form — from, to, dates and passengers.
 gallery:
   - src: work/rail-europe-migration/results-mobile.webp
     alt: Search results for Paris to Madrid on a phone, with two trains, their times, changes and prices, a price-trend hint and buttons for earlier and later trains.

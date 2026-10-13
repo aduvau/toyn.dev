@@ -15,6 +15,9 @@ cover:
   src: work/rail-europe-sveltekit/storybook.webp
   alt: Storybook with the ExchangeItem component selected, showing a Paris to Rennes trip for six travellers, with its controls panel below.
   caption: The team's Storybook — each component documented with its states and controls.
+cardCover:
+  src: work/rail-europe-sveltekit/exchange-item.webp
+  alt: The ExchangeItem component — a Paris Montparnasse to Rennes trip for six travellers, expiring in 27 seconds.
 gallery:
   - src: work/rail-europe-sveltekit/tokens-colors.webp
     alt: Colour tokens documented in Storybook — background, text and border tokens, each with semantic names like accent, error, warning and success.

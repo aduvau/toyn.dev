@@ -442,6 +442,48 @@ img {
   border-color: var(--color-accent);
 }
 
+/*
+ * The panel unfolds: its height grows from 0 to `auto` as it fades in and slides down into place,
+ * and folds back on close. The `{ }` opens up with it. Browsers without `::details-content` or
+ * `interpolate-size` open it at once, as before. `overflow: hidden` keeps the panel's top margin
+ * inside the animated height.
+ */
+.card-contract {
+  interpolate-size: allow-keywords;
+}
+
+.card-contract::details-content {
+  block-size: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    block-size var(--duration-slow) var(--ease-out),
+    opacity var(--duration-slow) var(--ease-out),
+    content-visibility var(--duration-slow) allow-discrete;
+}
+
+.card-contract[open]::details-content {
+  block-size: auto;
+  opacity: 1;
+}
+
+.card-contract-panel {
+  translate: 0 calc(var(--space-4) * -1);
+  transition: translate var(--duration-slow) var(--ease-out);
+}
+
+.card-contract[open] .card-contract-panel {
+  translate: none;
+}
+
+.card-contract > summary > [aria-hidden] {
+  transition: word-spacing var(--duration-normal) var(--ease-out);
+}
+
+.card-contract[open] > summary > [aria-hidden] {
+  word-spacing: var(--space-1);
+}
+
 .card-contract-panel {
   margin-top: var(--space-4);
   padding: var(--space-4);

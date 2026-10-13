@@ -323,6 +323,7 @@ Rules for anyone changing the site, human or agent:
 - closed: a mono pill at the card's bottom right
 - hover (accent text and border)
 - focus-visible
+- opening / closing: the panel unfolds, fades and slides down over \`--duration-slow\`, and the \`{ }\` opens up (instant under reduced motion, or where \`::details-content\` is unsupported)
 - open: accent pill; the panel opens below it; every \`data-part\` gets crossing corner lines and a mono label; the card stops lifting and only its title links
 
 **Accessibility**

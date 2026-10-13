@@ -16,5 +16,5 @@
     "noImplicitOverride": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "client", "tests"]
+  "include": ["src", "client", "tests", "playwright.config.ts"]
 }

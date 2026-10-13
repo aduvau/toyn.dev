@@ -5,24 +5,23 @@ Last updated 2026-10-13.
 ## Current status
 
 - **v1** done and deployed 2026-10-13 at https://www.toyn.dev/ — see `docs/v1-log.md`. Publishing needs the **webhook on `toyn_output`** (Settings → Webhooks).
-- **v1.x `/system`** done 2026-10-13 (not deployed yet) — see `docs/v1x-log.md`, ADR-0002.
-- **v1.y `/resume`** done 2026-10-13 (not deployed yet) — see `docs/v1y-log.md`.
-- v1.x and v1.y deployed 2026-10-13. No open `TODO(antoine)` notes.
-- **Hold deploys** until the article is finished: it's published locally (`draft: false`) with open notes, so a deploy now would ship the outline. Decided by Antoine 2026-10-13.
-- **Next:** v2 step 1b, Antoine drafts the article (1a, the `/writing` section, is built) — see §7.
+- **v1.x `/system`** done and deployed 2026-10-13 — see `docs/v1x-log.md`, ADR-0002.
+- **v1.y `/resume`** done and deployed 2026-10-13 — see `docs/v1y-log.md`.
+- **v2** done 2026-10-13: `/writing` with the article "Framing the agent" (deployed), and visual regression on `/system` (dev only, ADR-0004) — see `docs/v2-log.md`. No open `TODO(antoine)` notes.
+- **Next:** nothing scheduled; see the parked items in §7.
 
 ## 1. Decisions
 
-| Topic         | Decision |
-| ------------- | -------- |
-| Positioning   | Title **Product Engineer** (matches LinkedIn). Tagline bridges to design engineering: *"I build design systems, polished UI, and the guardrails that let teams — and agents — ship them."* Not Front-specific: aimed at design-engineering / product-engineering roles in general |
-| Language      | English only, `<html lang="en">` |
-| Hosting       | Codeberg Pages. Source `toyn/toyn`, output `toyn/toyn_output` (branch `pages`), cloned into `dist/` |
-| Domain        | Served at `https://www.toyn.dev/`; the bare `toyn.dev` redirects there (`_redirects`, same pattern as dadama). DNS: apex A `217.197.84.141`, `www` CNAME `codeberg.page.`, `_git-pages-repository` TXT on both → `https://codeberg.org/toyn/toyn_output.git` |
-| Stack         | Same as `../dadama` (see `CLAUDE.md`); no d3 unless a case study needs a chart |
-| Design        | Tokens as CSS custom properties (`styles/tokens.css`); light/dark via `prefers-color-scheme` only, no toggle, no JS; system fonts |
-| Privacy       | No phone, no date of birth. LinkedIn + Codeberg/GitHub; email (`a@toyn.dev`) on `/resume` only, entity-encoded |
-| Truthfulness  | Only claims backed by the resume, this repo, or Antoine. The learning-in-public items (§4) are claimed only once built here |
+| Topic        | Decision                                                                                                                                                                                                                                                                          |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Positioning  | Title **Product Engineer** (matches LinkedIn). Tagline bridges to design engineering: _"I build design systems, polished UI, and the guardrails that let teams — and agents — ship them."_ Not Front-specific: aimed at design-engineering / product-engineering roles in general |
+| Language     | English only, `<html lang="en">`                                                                                                                                                                                                                                                  |
+| Hosting      | Codeberg Pages. Source `toyn/toyn`, output `toyn/toyn_output` (branch `pages`), cloned into `dist/`                                                                                                                                                                               |
+| Domain       | Served at `https://www.toyn.dev/`; the bare `toyn.dev` redirects there (`_redirects`, same pattern as dadama). DNS: apex A `217.197.84.141`, `www` CNAME `codeberg.page.`, `_git-pages-repository` TXT on both → `https://codeberg.org/toyn/toyn_output.git`                      |
+| Stack        | Same as `../dadama` (see `CLAUDE.md`); no d3 unless a case study needs a chart                                                                                                                                                                                                    |
+| Design       | Tokens as CSS custom properties (`styles/tokens.css`); light/dark via `prefers-color-scheme` only, no toggle, no JS; system fonts                                                                                                                                                 |
+| Privacy      | No phone, no date of birth. LinkedIn + Codeberg/GitHub; email (`a@toyn.dev`) on `/resume` only, entity-encoded                                                                                                                                                                    |
+| Truthfulness | Only claims backed by the resume, this repo, or Antoine. The learning-in-public items (§4) are claimed only once built here                                                                                                                                                       |
 
 ## 2. v1 — One page, deployed
 
@@ -31,9 +30,10 @@ Done; build notes in `docs/v1-log.md`.
 ### Content outline
 
 **Selected work (case studies: problem → what I did → impact)**
+
 1. **Rail Europe — legacy migration & perceived performance.** 10+-year-old Rails 6 / CoffeeScript / jQuery / Sass codebase migrated; Capacitor + webview bridge for mobile apps; −40% front bundle, −1.3 s average on critical booking-funnel pages; perceived-performance strategy (live polling, optimistic rendering, progressive enhancement).
 2. **Rail Europe B2C — SvelteKit redesign.** Coached a 21-person team; testing practices; "Context-First Component Architecture"; booking and exchange funnels. Scrum Master.
-3. **dadama — AI-assisted, with guardrails.** Vanilla TS data-journalism engine built with Claude Code: `CLAUDE.md` with approval-gated stack rules, phased `PLAN.md` compacted into logs, ADRs, a test suite incl. performance budgets (fails the build if CSS/JS grow) and accessibility (generated chart alt text, data tables, keyboard tooltips). The angle: *the job is framing the agent — context, decisions, and automatic checks*.
+3. **dadama — AI-assisted, with guardrails.** Vanilla TS data-journalism engine built with Claude Code: `CLAUDE.md` with approval-gated stack rules, phased `PLAN.md` compacted into logs, ADRs, a test suite incl. performance budgets (fails the build if CSS/JS grow) and accessibility (generated chart alt text, data tables, keyboard tooltips). The angle: _the job is framing the agent — context, decisions, and automatic checks_.
 4. **Agence Parisienne du Climat & Clong — accessible, eco-designed sites.** Svelte/SvelteKit + DatoCMS (forumhabiterdurable.fr, sportzeroplastique.com, clong-volontariat.org).
 5. **Holivia — frontend overhaul.** Rails frontend rebuilt; unit + feature test strategy; in-house audio player and video-conferencing libraries.
 
@@ -50,7 +50,7 @@ Done; build notes in `docs/v1x-log.md`, decision in ADR-0002. Component contract
 - **Component contract:** a machine-readable spec of a component — what it's for, its props, states, accessibility rules, do/don't. One source feeds the docs, the agent instructions and the tests, so they can't drift apart.
 - **Agent-readable docs:** documentation shaped for an AI agent to discover and follow: `CLAUDE.md`/`AGENTS.md` (conventions), `llms.txt` (an index of the docs for LLMs), contracts. Antoine already does the first part (CLAUDE.md, plans, compaction, ADRs).
 - **Guardrail tests / lint:** checks that fail when someone — human or agent — breaks a rule (raw colors, missing alt, too-heavy bundle). They turn conventions into something enforced, so you review less. dadama's budgets test is already one.
-- **Progressive enhancement:** build the page so it works with HTML and CSS only, then let JavaScript *add* to it where available, never be required. Here: the résumé's "Save as PDF" button is hidden by CSS when scripting is off (`@media (scripting: none)`), and a `<noscript>` how-to replaces it; no script file. ADR-0003; a test allowlists the one inline handler.
+- **Progressive enhancement:** build the page so it works with HTML and CSS only, then let JavaScript _add_ to it where available, never be required. Here: the résumé's "Save as PDF" button is hidden by CSS when scripting is off (`@media (scripting: none)`), and a `<noscript>` how-to replaces it; no script file. ADR-0003; a test allowlists the one inline handler.
 - **Figma Code Connect:** maps Figma components to their code, so Dev Mode (and Figma's MCP server, i.e. agents) show the real component usage instead of generated CSS. Possible v2: a small Figma file for the site's components + Code Connect mappings (needs a Figma plan with Dev Mode).
 - **BDD / Gherkin:** executable behavior specs. A natural fit as contracts for interactive components (e.g. "Given the theme toggle has focus, when I press Space…"). Possible v2.
 
@@ -67,32 +67,11 @@ Done; build notes in `docs/v1y-log.md`. Prints to 2 A4 pages ("Save as PDF"); em
 - **Climate sites:** demoted to the timeline (`draft: true`), per Antoine.
 - **Theme:** `prefers-color-scheme` only — decided 2026-10-13.
 
-## 7. v2 — prioritized 2026-10-13
+## 7. v2 and after
 
-1. **Article: "framing the agent".** A concrete walkthrough of how this site was built, short (~800 words), in a `/writing` section with an index page ready for more posts. Antoine writes it; the agent outlines and edits.
-
-   **1a. The `/writing` section (code).** Built 2026-10-13, not committed or deployed. Differences from the plan: code blocks wrap instead of scrolling (no extra tab stop). Draft article: `content/writing/framing-the-agent.md`; tests: `tests/writing.test.ts`. Checked with the article set to published: every guardrail passes except the `llms.txt` snapshot, which needs `bun test --update-snapshots` when it ships. To confirm with Antoine: index title "Notes on how I build", its meta description, the post byline "date · name".
-   - Content: `content/writing/<slug>.md`, front matter validated by a zod `postSchema` (`title`, `summary`, `date` ISO, `draft`); same loader rules as case studies (unknown keys refused, drafts skipped, `TODO(antoine)` = warning).
-   - Pages: `writing/` (index, newest first, `<time datetime>`) and `writing/<slug>/`. URL constants in `src/render/urls.ts`.
-   - Nav: Home · Writing · Résumé · Design system. With no published post, `/writing` and its nav link aren't built, so the section can ship while the article is still a draft.
-   - Prose gets code blocks (`pre`/`code`, token-only styles, keyboard-scrollable when they overflow); no syntax highlighting (no new dependency).
-   - System: new layout contracts (writing index, article); update the Page contract's nav rule; `llms.txt` gets a "Writing" section.
-   - Tests: posts are built and linked from the index and `llms.txt`; bad front matter is refused; drafts don't reach the output; the nav test covers the new link.
-
-   **1b. The article (content).** Draft outline, every claim checkable in this repo:
-   1. The premise: this site was built with an agent; the work was framing it.
-   2. `CLAUDE.md`: rules with a reason (truthfulness, tokens only, stack changes need approval).
-   3. Memory that doesn't rot: `PLAN.md` kept short, phases compacted into logs, ADRs for decisions.
-   4. Contracts: one source → `/system`, `system.md`, `llms.txt` and the tests (a short contract excerpt).
-   5. Guardrail tests: raw values, AA contrast in both themes, "every class has a contract", "every résumé skill is named elsewhere".
-   6. What stayed human: deciding, writing, saying no (e.g. the agent ran ahead once → the "ask before acting" rule).
-   7. Links: source repo, `/system`.
-
-   Decided 2026-10-13: link the source repo (Antoine makes `codeberg.org/toyn/toyn.dev` public before the article ships); tell the "agent ran ahead" story as a guardrail Antoine was missing; Writing lives in the nav only, no block on the home page.
-
-   Then: Antoine drafts → agent edits for clarity and fact-checks against the repo → deploy on approval → `docs/v2-log.md`.
-2. **Visual regression on `/system`.** Screenshot every component in both themes and fail on unintended changes. Needs a headless browser (Playwright, dev dependency), so it's a stack change: ADR-0004 and Antoine's approval first.
+v2 done 2026-10-13; build notes in `docs/v2-log.md`.
 
 **Parked:**
+
 - **Figma file + Code Connect.** Code Connect needs a paid plan with Dev Mode. Antoine's employer has a Figma plan, but nothing for this portfolio may live in a work account (it's for applying elsewhere). Revisit only with a personal plan. The cheaper version is a free Figma file with variables generated from `styles/tokens.css`.
 - **Gherkin specs.** Nothing on the site needs specifying yet. Later: a theme toggle as the real use case, specified in Gherkin, plus a blog article about it. That reopens the "no toggle, `prefers-color-scheme` only" decision (§1, §6) and needs a no-JS fallback (ADR-0003).

@@ -17,6 +17,7 @@ Same setup as `../dadama` (copy and trim, don't share a package). Challengeable,
 - HTML: tagged template literals with an `escapeHtml()` helper, no template engine
 - content: Markdown (remark/unified) for case studies, YAML for profile/timeline, validated with zod
 - Biome (lint + format), `tsc --noEmit`, `bun test`
+- Playwright (dev only, ADR-0004): `bun run test:visual` screenshots every `/system` component in both themes
 - deploy: `dist/` is a clone of `codeberg.org/toyn/toyn_output`, branch `pages` (Codeberg Pages); source lives in `toyn/toyn`
 
 ## Rules
@@ -27,6 +28,8 @@ Same setup as `../dadama` (copy and trim, don't share a package). Challengeable,
 - Every component has a contract (`src/system/`); the `/system` page, `llms.txt` and guardrail tests derive from it.
 - Progressive enhancement: every page works with HTML and CSS alone; JavaScript only adds to it, with a
   designed no-JS fallback (`@media (scripting: none)` + `<noscript>`) and no script files. See ADR-0003.
+- After changing CSS, tokens or a contract, run `bun run test:visual`. Update baselines
+  (`--update-snapshots`) only for an intended change, and say which screenshots changed and why.
 - Accessibility is a requirement, not polish: semantic HTML, keyboard reachable, visible `:focus-visible`,
   `prefers-reduced-motion` respected, WCAG AA contrast in both themes.
 - Never push, deploy, create remote repos or touch DNS without explicit approval in the current conversation.

@@ -1,7 +1,6 @@
 import type { Post, Site, Work } from "../content/load.ts";
 import { cardContract } from "../system/contracts.ts";
 import {
-  button,
   eyebrow,
   gallery,
   impact,
@@ -13,6 +12,7 @@ import {
   resumeBanner,
   siteFooter,
   siteHeader,
+  socialLinks,
   tags,
   workCard,
 } from "./components.ts";
@@ -40,7 +40,7 @@ export function homePage(site: Site): string {
 <h1 id="hero-title"><span class="hero-name">${profile.name}</span> <span class="hero-role">${profile.title} · ${profile.location}</span></h1>
 <p class="tagline">${profile.tagline}</p>
 ${profile.intro.map((p) => html`<p class="intro">${p}</p>`)}
-<p>${button("#contact", "Get in touch")}</p>
+${socialLinks(site)}
 </section>
 
 <section class="section" aria-labelledby="work-title">
@@ -55,7 +55,7 @@ ${profile.intro.map((p) => html`<p class="intro">${p}</p>`)}
 
 ${resumeBanner("")}
 </main>
-${siteFooter(site, "")}`;
+${siteFooter(site)}`;
   return layout({
     title: `${profile.name} — ${profile.title}`,
     description: profile.tagline,
@@ -83,7 +83,8 @@ ${impact(work)}
 ${gallery(work, WORK_ROOT)}
 ${work.links.length > 0 && html`<ul class="case-links">${work.links.map((l) => html`<li>${linkTo(l.url, l.label)}</li>`)}</ul>`}
 ${next && next !== work && html`<nav class="next" aria-label="Next case study">${eyebrow("Next")}<a href="${WORK_ROOT}${workPath(next.slug)}">${next.title}</a></nav>`}
-</main>`;
+</main>
+${siteFooter(site)}`;
   return layout({
     title: `${work.title} — ${site.profile.name}`,
     description: work.summary,
@@ -100,7 +101,8 @@ ${eyebrow("Writing")}
 <h1>Notes on how I build</h1>
 </header>
 ${postList(site.posts, WRITING_ROOT)}
-</main>`;
+</main>
+${siteFooter(site)}`;
   return layout({
     title: `Writing — ${site.profile.name}`,
     description: `Articles by ${site.profile.name}.`,
@@ -121,7 +123,8 @@ export function postPage(site: Site, post: Post): string {
 </header>
 <div class="prose">${raw(post.html)}</div>
 </article>
-</main>`;
+</main>
+${siteFooter(site)}`;
   return layout({
     title: `${post.title} — ${site.profile.name}`,
     description: post.summary,
@@ -133,7 +136,8 @@ export function postPage(site: Site, post: Post): string {
 export function notFoundPage(site: Site): string {
   // Served at any depth by the host, so links are absolute (the site lives at the domain root).
   const body = html`${siteHeader(site, "/")}
-<main id="main" class="page"><h1>Page not found</h1><p><a href="/">Back to the home page</a></p></main>`;
+<main id="main" class="page"><h1>Page not found</h1><p><a href="/">Back to the home page</a></p></main>
+${siteFooter(site)}`;
   return layout({
     title: `Not found — ${site.profile.name}`,
     description: "Page not found",

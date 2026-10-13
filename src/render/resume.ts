@@ -1,6 +1,6 @@
 import type { Site, Work } from "../content/load.ts";
 import type { Timeline } from "../content/schemas.ts";
-import { siteHeader } from "./components.ts";
+import { siteFooter, siteHeader } from "./components.ts";
 import { html, raw, type SafeHtml } from "./html.ts";
 import { layout } from "./layout.ts";
 import { RESUME_ROOT, SITE_URL, workPath } from "./urls.ts";
@@ -102,7 +102,8 @@ ${
       html`<li class="resume-entry"><p><strong>${e.degree}</strong>, ${e.school} <span class="resume-period">${e.period}</span></p>${e.note && html`<p class="muted">${e.note}</p>`}</li>`,
   )}</ul>
 </section>
-</main>`;
+</main>
+${siteFooter(site)}`;
   return layout({
     title: `Résumé — ${profile.name}, ${profile.title}`,
     description: `Résumé of ${profile.name}, ${profile.title} in ${profile.location}. ${profile.tagline}`,

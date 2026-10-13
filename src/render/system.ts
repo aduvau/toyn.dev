@@ -3,7 +3,7 @@ import { contracts } from "../system/contracts.ts";
 import { contrastRows, ratio, tokenGroups } from "../system/report.ts";
 import { type Contract, contractId } from "../system/schema.ts";
 import { isColor, readTokens, type Tokens } from "../system/tokens.ts";
-import { eyebrow, siteHeader } from "./components.ts";
+import { eyebrow, siteFooter, siteHeader } from "./components.ts";
 import { html, type SafeHtml } from "./html.ts";
 import { layout } from "./layout.ts";
 import { inline, specList as list, selectorsRow } from "./spec.ts";
@@ -97,7 +97,7 @@ ${Object.entries(KINDS).map(([, label]) => html`<li><a href="#${label.toLowerCas
 
 <section class="section" aria-labelledby="tokens-title">
 <h2 id="tokens-title">Tokens</h2>
-<p class="contact-lead">Every colour, pixel value and duration lives in <code>styles/tokens.css</code>; a test fails if one appears anywhere else.</p>
+<p class="muted">Every colour, pixel value and duration lives in <code>styles/tokens.css</code>; a test fails if one appears anywhere else.</p>
 <h3 class="subheading">Colour</h3>
 <p class="muted">Light value, then dark value. The chips follow your system theme.</p>
 ${colors(tokens)}
@@ -117,7 +117,8 @@ ${Object.entries(KINDS).map(
 ${contracts.filter((c) => c.kind === kind).map((c) => contractEntry(c, site))}
 </section>`,
 )}
-</main>`;
+</main>
+${siteFooter(site)}`;
   return layout({
     title: `Design system — ${site.profile.name}`,
     description: "The tokens and component contracts of toyn.dev, generated from the code.",

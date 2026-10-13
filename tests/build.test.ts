@@ -8,9 +8,10 @@ import { makeConfig } from "../src/config.ts";
 // Guardrails on a real build of the site's own content.
 // CSS raised from 12 KB for the résumé and print styles (v1.y), then from 15 KB for the theme
 // toggle's repeated dark block (ADR-0005), then from 16 KB for the cards' "View contract" and its
-// construction lines (PLAN §8 B). HTML raised from 40 KB for the same story: `/system` shows two cards,
+// construction lines (PLAN §8 B), then from 19 KB for the footer's Social links (it was already a
+// few bytes over). HTML raised from 40 KB for the same story: `/system` shows two cards,
 // each with its contract panel. Kept in one file on purpose.
-const BUDGETS = { css: 19 * 1024, html: 48 * 1024 };
+const BUDGETS = { css: 20 * 1024, html: 48 * 1024 };
 
 let out: string;
 let pages: string[];
@@ -177,8 +178,8 @@ test("every page has the main nav, marking the current page", async () => {
   const current: Record<string, string | undefined> = {
     "index.html": "Home",
     "writing/index.html": "Writing",
-    "resume/index.html": "Résumé",
-    "system/index.html": "Design system",
+    "resume/index.html": "CV",
+    "system/index.html": "System",
   };
   for (const page of pages) {
     const html = await read(page);

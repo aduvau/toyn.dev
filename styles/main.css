@@ -145,12 +145,6 @@ ol {
   padding-top: var(--space-12);
 }
 
-/* Room at the end of pages that have no footer (all but home). Not `:last-child`: the dev
-   server's live-reload script comes after `main`. */
-.page:not(:has(+ .site-footer)) {
-  padding-bottom: var(--space-16);
-}
-
 .site-nav ul {
   display: flex;
   flex-wrap: wrap;
@@ -196,10 +190,11 @@ ol {
   transform: rotate(0.5turn);
 }
 
-/* Narrow screens: the nav wraps, so the toggle sits at the top, with a bigger touch target (42px). */
+/* Narrow screens: nav items sit closer, so they fit on one line next to the toggle, which gets a
+   bigger touch target (42px). */
 @media (width < 48rem) {
-  .site-header {
-    align-items: flex-start;
+  .site-nav ul {
+    column-gap: var(--space-4);
   }
 
   .theme-toggle {
@@ -695,9 +690,14 @@ figcaption {
   margin-top: 0;
 }
 
+/* Narrow screens: the button wraps below the text, centred on its own line. */
 @media (width < 48rem) {
   .cta-banner {
     padding: var(--space-8);
+  }
+
+  .cta-banner .button {
+    margin-inline: auto;
   }
 }
 
@@ -813,24 +813,63 @@ figcaption {
 
 /* Footer */
 .site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
   padding-block: var(--space-16) var(--space-12);
 }
 
-.contact-lead {
-  max-width: var(--width-text);
-  color: var(--color-muted);
+/* Narrow screens: copyright above the links, both centred. */
+@media (width < 48rem) {
+  .site-footer {
+    flex-direction: column;
+    justify-content: center;
+  }
 }
 
-.contact-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-6);
-  margin-bottom: var(--space-12);
-}
-
-.colophon {
+.copyright {
+  margin: 0;
   font-size: var(--text-sm);
   color: var(--color-muted);
+}
+
+/* Social links: round logo buttons, in the hero and the footer. */
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+/* Collapses with the last paragraph's margin, so this is the whole gap. */
+.hero .social-links {
+  margin-top: var(--space-8);
+}
+
+/* 48px: a comfortable touch target. */
+.social-link {
+  display: grid;
+  place-items: center;
+  padding: var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--color-fg);
+  color: var(--color-bg);
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.social-link:hover {
+  transform: translateY(var(--lift-sm));
+}
+
+.social-link:active {
+  transform: translateY(0);
+}
+
+.social-link svg {
+  width: var(--space-6);
+  height: var(--space-6);
+  fill: currentColor;
 }
 
 /* Design system page */

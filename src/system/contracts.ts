@@ -7,6 +7,7 @@ import {
   practice,
   resumeBanner,
   shot,
+  socialLinks,
   tags,
   themeToggle,
   workCard,
@@ -62,12 +63,29 @@ export const contracts = defineContracts([
       'An `<a>` when it navigates; a `<button type="button">` only for an in-page action (the résumé\'s “Save as PDF”).',
       "The lift is a transform on `--duration-fast`, which is 0 under reduced motion.",
     ],
-    do: [
-      "Keep one per block, for its main action: the hero and the closing CTA banner each have one.",
-    ],
+    do: ["Keep one per block, for its main action: the closing CTA banner has one."],
     dont: ["Don't put it on an `<a>` for an action, or on a `<button>` for navigation."],
     contrast: [{ fg: "--color-bg", bg: "--color-fg", min: 4.5, use: "label on the inverted pill" }],
-    example: () => html`<p>${button("#contact", "Get in touch")}</p>`,
+    example: () => html`<p>${button("../resume/", "Read my résumé")}</p>`,
+  },
+  {
+    name: "Social links",
+    kind: "component",
+    purpose:
+      "The profile links (LinkedIn, Codeberg, GitHub) as round logo buttons with inverted colours, at the end of the hero and in every page's footer.",
+    classes: ["social-links", "social-link"],
+    states: ["default", "hover (lifts by `--lift-sm`)", "active", "focus-visible"],
+    a11y: [
+      "A list labelled “Elsewhere”; each link is named by its label plus a visually hidden “(external)”, the logo is `aria-hidden`.",
+      "48px round targets, above the 24px minimum.",
+      "The lift is a transform on `--duration-fast`, which is 0 under reduced motion.",
+    ],
+    do: [
+      "Render it with `socialLinks()`, from `profile.links` in `content/profile.yaml`; a link needs a logo in `SOCIAL_ICONS`, or the build fails.",
+    ],
+    dont: ["Don't add a visible text label next to the logos, or a logo without a name."],
+    contrast: [{ fg: "--color-bg", bg: "--color-fg", min: 3, use: "logo on the inverted disc" }],
+    example: (site) => socialLinks(site),
   },
   {
     name: "Theme toggle",
@@ -80,7 +98,7 @@ export const contracts = defineContracts([
       "pressed (dark theme shown; the disc turns over on `--duration-normal`)",
       "hover (border darkens)",
       "focus-visible",
-      "narrow screens (below `48rem`): top of the header, 42px touch target",
+      "narrow screens (below `48rem`): 42px touch target, centred on the nav's line",
       "hidden without JavaScript: the theme then follows the system",
     ],
     a11y: [
@@ -271,7 +289,7 @@ export const contracts = defineContracts([
     purpose:
       "The closing call to action of the home page: a question, one line, and a Button to the résumé, on a flat surface.",
     classes: ["cta-banner"],
-    states: ["wide (text left, button right)", "phone (button below the text)"],
+    states: ["wide (text left, button right)", "phone (button below the text, centred)"],
     a11y: [
       "A `<section>` labelled by its `h2`, like the other home sections.",
       "The action is a Button on an `<a>`, since it navigates to the résumé.",
@@ -307,7 +325,7 @@ export const contracts = defineContracts([
     name: "Page",
     kind: "layout",
     purpose:
-      "Page frame: centred column, header, sections, and the contact footer (home page only).",
+      "Page frame: centred column, header, sections, and the footer of every page: copyright on the left, Social links on the right; stacked and centred below `48rem`.",
     classes: [
       "page",
       "section",
@@ -315,16 +333,14 @@ export const contracts = defineContracts([
       "site-header",
       "site-nav",
       "site-footer",
-      "contact-lead",
-      "contact-links",
-      "colophon",
+      "copyright",
     ],
     elements: ["body", "h1", "h2", "h3", "p", "ul", "ol", "img", "figcaption", "code"],
     a11y: [
       'One `h1` per page, headings never skip a level, `<html lang="en">`.',
       "Sections are labelled by their heading (`aria-labelledby`).",
       "Light and dark themes follow `prefers-color-scheme` until the visitor uses the Theme toggle.",
-      'Every page has a header `<nav aria-label="Main">` (Home, Writing once a post is published, Résumé, Design system); the current page has `aria-current="page"` and stays underlined, so it doesn\'t rely on colour.',
+      'Every page has a header `<nav aria-label="Main">` (Home, Writing once a post is published, CV, System); below `48rem` its items sit `--space-4` apart instead of `--space-6`; the current page has `aria-current="page"` and stays underlined, so it doesn\'t rely on colour.',
     ],
     contrast: [...TEXT_ON_BG],
   },

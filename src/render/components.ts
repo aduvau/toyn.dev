@@ -119,8 +119,8 @@ ${button(root + RESUME_PATH, "Read my résumé")}
 const NAV = [
   { key: "home", label: "Home", path: "" },
   { key: "writing", label: "Writing", path: WRITING_PATH },
-  { key: "resume", label: "Résumé", path: RESUME_PATH },
-  { key: "system", label: "Design system", path: SYSTEM_PATH },
+  { key: "resume", label: "CV", path: RESUME_PATH },
+  { key: "system", label: "System", path: SYSTEM_PATH },
 ] as const;
 
 /**
@@ -147,12 +147,35 @@ export function themeToggle(): SafeHtml {
   return html`<button class="theme-toggle" type="button" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg><span class="visually-hidden">Dark theme</span></button>`;
 }
 
-export function siteFooter(site: Site, root: string): SafeHtml {
-  const { profile } = site;
-  return html`<footer class="site-footer" id="contact">
-<h2>Contact</h2>
-<p class="contact-lead">Open to design-engineering and product-engineering roles. The best way to reach me is a message on LinkedIn.</p>
-<ul class="contact-links"><li><a href="${root}${RESUME_PATH}">Résumé</a></li>${profile.links.map((l) => html`<li>${linkTo(l.url, l.label)}</li>`)}</ul>
-<p class="colophon">Built with vanilla TypeScript and Bun, no framework, no client-side bundle. Hosted on Codeberg Pages. Its <a href="${root}${SYSTEM_PATH}">design system</a> is generated from the code.</p>
+/**
+ * Brand logos for the profile links, keyed by label. Paths from Simple Icons 9.21.0 (CC0), drawn
+ * in `currentColor` on a 24×24 box.
+ */
+const SOCIAL_ICONS: Record<string, string> = {
+  LinkedIn:
+    "M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z",
+  Codeberg:
+    "M11.955.49A12 12 0 0 0 0 12.49a12 12 0 0 0 1.832 6.373L11.838 5.928a.187.14 0 0 1 .324 0l10.006 12.935A12 12 0 0 0 24 12.49a12 12 0 0 0-12-12 12 12 0 0 0-.045 0zm.375 6.467l4.416 16.553a12 12 0 0 0 5.137-4.213z",
+  GitHub:
+    "M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12",
+};
+
+/**
+ * The profile links as round logo buttons, in the hero and every footer. Named by their label
+ * (visually hidden), since the logo is `aria-hidden`.
+ */
+export function socialLinks(site: Site): SafeHtml {
+  return html`<ul class="social-links" aria-label="Elsewhere">${site.profile.links.map((l) => {
+    const icon = SOCIAL_ICONS[l.label];
+    if (!icon) throw new Error(`No logo for profile link "${l.label}" (add one to SOCIAL_ICONS)`);
+    return html`<li><a class="social-link" href="${l.url}" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="${icon}"/></svg><span class="visually-hidden">${l.label} (external)</span></a></li>`;
+  })}</ul>`;
+}
+
+/** Every page's footer: copyright on the left, the profile links on the right. */
+export function siteFooter(site: Site): SafeHtml {
+  return html`<footer class="site-footer">
+<p class="copyright">© ${new Date().getFullYear()} ${site.profile.name}</p>
+${socialLinks(site)}
 </footer>`;
 }

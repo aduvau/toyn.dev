@@ -6,7 +6,8 @@ Last updated 2026-10-13.
 
 - **Planning:** done 2026-10-13.
 - **v1 steps 1–6:** done 2026-10-13 (scaffold, content model, tokens, pages, craft pass, guardrail tests). `bun run check:content` lists the open `TODO(antoine)` notes.
-- **Next:** Antoine resolves the TODOs and reviews the copy → screenshots → step 7, deploy (needs approval).
+- **v1 deployed** 2026-10-13 at https://www.toyn.dev/ (bare domain → www). Publishing needs a **webhook on `toyn_output`** (Settings → Webhooks, same as `dadama-output`) so Codeberg Pages picks up pushes; DNS TXT records alone aren't enough.
+- **Next:** polish pass (next session), then v1.x `/system`. Open: Rail Europe confidentiality check, "What I took from it" paragraph, before/after search-form screenshots.
 
 ## 1. Decisions
 

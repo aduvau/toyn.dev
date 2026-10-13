@@ -1,0 +1,428 @@
+// Bun Snapshot v1, https://bun.sh/docs/test/snapshots
+
+exports[`generated docs stay in sync with the contracts snapshots: llms.txt and system.md 1`] = `
+"# Antoine Duvauchelle — Product Engineer
+
+> I build design systems, polished UI, and the guardrails that let teams — and agents — ship them.
+
+Ten years shipping production frontends, from startup studios to the booking funnel of Rail Europe. I care about the last 10% — interaction details, accessibility, perceived speed — and about making the right path the easy one for whoever builds next.
+
+Before code, I was a journalist. I still write docs as if someone is actually going to read them.
+
+## Case studies
+
+- [Modernising a ten-year-old booking platform, one layer at a time](https://www.toyn.dev/work/rail-europe-migration/): Instead of a rewrite, a revamp — a legacy Rails monolith moved toward modern Rails and Hotwire, the mobile apps brought onto the same codebase, and booking pages made to feel faster.
+- [A SvelteKit rebuild, stopped at 80% — and the team I helped hold together](https://www.toyn.dev/work/rail-europe-sveltekit/): First in-house engineer on a from-scratch rebuild of the B2C booking site, alongside a team of consultants. Developer, Scrum Master and facilitator — and, for months, a bit of the missing roles too.
+- [dadama — an AI-built data-journalism engine, with guardrails](https://www.toyn.dev/work/dadama/): A framework-free static site generator for data stories, built with Claude Code in a few days. The interesting part isn't the speed — it's the frame that kept the agent honest.
+- [Designing and building a calmer mental-health app](https://www.toyn.dev/work/holivia/): The whole frontend of a mental-health platform, designed and rebuilt — including a calming audio player and video calls with therapists, in vanilla JavaScript, CSS and HTML.
+
+## Design system
+
+- [Design system](https://www.toyn.dev/system/): tokens, contrast checks and component contracts, generated from the code.
+- [Design system as Markdown](https://www.toyn.dev/system.md): the same tokens and contracts, for agents. Follow it when changing the site.
+
+## Optional
+
+- [LinkedIn](https://www.linkedin.com/in/antoine-duvauchelle-333184433/)
+- [Codeberg](https://codeberg.org/toyn)
+- [GitHub](https://github.com/aduvau)
+"
+`;
+
+exports[`generated docs stay in sync with the contracts snapshots: llms.txt and system.md 2`] = `
+"# Antoine Duvauchelle — design system
+
+Generated from \`styles/tokens.css\` and \`src/system/contracts.ts\`; don't edit by hand.
+Rules for anyone changing the site, human or agent:
+
+- Colours, px values and durations come from the tokens below; a test fails on any raw one elsewhere.
+- Use the spacing, type and radius tokens too wherever one fits.
+- Every CSS class belongs to exactly one contract. Add or update the contract first.
+- Keep every contrast pair at or above its minimum, in both themes.
+
+## Tokens
+
+### color
+
+| Token | Light | Dark |
+| --- | --- | --- |
+| \`--color-bg\` | \`oklch(98.5% 0.006 85)\` | \`oklch(18% 0.008 70)\` |
+| \`--color-surface\` | \`oklch(96% 0.008 85)\` | \`oklch(22% 0.01 70)\` |
+| \`--color-fg\` | \`oklch(22% 0.01 70)\` | \`oklch(93% 0.008 85)\` |
+| \`--color-muted\` | \`oklch(46% 0.012 70)\` | \`oklch(72% 0.01 80)\` |
+| \`--color-border\` | \`oklch(88% 0.01 80)\` | \`oklch(32% 0.01 70)\` |
+| \`--color-accent\` | \`oklch(48% 0.16 262)\` | \`oklch(76% 0.12 262)\` |
+| \`--color-accent-fg\` | \`oklch(98.5% 0.006 85)\` | \`oklch(18% 0.008 70)\` |
+| \`--color-focus\` | \`oklch(55% 0.2 262)\` | \`oklch(78% 0.14 262)\` |
+
+### font
+
+| Token | Value |
+| --- | --- |
+| \`--font-sans\` | \`system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif\` |
+| \`--font-mono\` | \`ui-monospace, "SF Mono", Menlo, Consolas, monospace\` |
+
+### text
+
+| Token | Value |
+| --- | --- |
+| \`--text-sm\` | \`0.875rem\` |
+| \`--text-base\` | \`1.0625rem\` |
+| \`--text-lg\` | \`clamp(1.1875rem, 1.1rem + 0.4vw, 1.375rem)\` |
+| \`--text-xl\` | \`clamp(1.5rem, 1.3rem + 0.9vw, 2rem)\` |
+| \`--text-2xl\` | \`clamp(2rem, 1.6rem + 2vw, 3.25rem)\` |
+
+### leading
+
+| Token | Value |
+| --- | --- |
+| \`--leading-tight\` | \`1.15\` |
+| \`--leading-normal\` | \`1.6\` |
+
+### weight
+
+| Token | Value |
+| --- | --- |
+| \`--weight-normal\` | \`400\` |
+| \`--weight-medium\` | \`550\` |
+| \`--weight-bold\` | \`700\` |
+
+### space
+
+| Token | Value |
+| --- | --- |
+| \`--space-1\` | \`0.25rem\` |
+| \`--space-2\` | \`0.5rem\` |
+| \`--space-3\` | \`0.75rem\` |
+| \`--space-4\` | \`1rem\` |
+| \`--space-6\` | \`1.5rem\` |
+| \`--space-8\` | \`2rem\` |
+| \`--space-12\` | \`3rem\` |
+| \`--space-16\` | \`4rem\` |
+| \`--space-24\` | \`6rem\` |
+
+### width
+
+| Token | Value |
+| --- | --- |
+| \`--width-text\` | \`40rem\` |
+| \`--width-page\` | \`64rem\` |
+
+### gutter
+
+| Token | Value |
+| --- | --- |
+| \`--gutter\` | \`clamp(1rem, 4vw, 2rem)\` |
+
+### radius
+
+| Token | Value |
+| --- | --- |
+| \`--radius-sm\` | \`0.375rem\` |
+| \`--radius-md\` | \`0.75rem\` |
+| \`--radius-pill\` | \`999px\` |
+
+### border
+
+| Token | Value |
+| --- | --- |
+| \`--border-width\` | \`1px\` |
+| \`--border-width-thick\` | \`2px\` |
+
+### focus
+
+| Token | Value |
+| --- | --- |
+| \`--focus-width\` | \`3px\` |
+| \`--focus-offset\` | \`2px\` |
+
+### duration
+
+| Token | Value |
+| --- | --- |
+| \`--duration-fast\` | \`120ms\` |
+| \`--duration-normal\` | \`220ms\` |
+| \`--duration-slow\` | \`480ms\` |
+
+### ease
+
+| Token | Value |
+| --- | --- |
+| \`--ease-out\` | \`cubic-bezier(0.2, 0.8, 0.2, 1)\` |
+
+### lift
+
+| Token | Value |
+| --- | --- |
+| \`--lift-sm\` | \`-1px\` |
+| \`--lift-md\` | \`-2px\` |
+
+## Contrast pairs
+
+| Text / UI | On | Minimum | Light | Dark | Used for |
+| --- | --- | --- | --- | --- | --- |
+| \`--color-accent\` | \`--color-bg\` | 4.50:1 | 6.44:1 | 8.71:1 | Link: link text |
+| \`--color-focus\` | \`--color-bg\` | 3.00:1 | 4.83:1 | 9.11:1 | Link: focus ring |
+| \`--color-focus\` | \`--color-surface\` | 3.00:1 | 4.48:1 | 8.39:1 | Link: focus ring on surfaces |
+| \`--color-bg\` | \`--color-fg\` | 4.50:1 | 16.60:1 | 15.31:1 | Button: label on the inverted pill |
+| \`--color-fg\` | \`--color-surface\` | 4.50:1 | 15.43:1 | 14.10:1 | Card: title and summary; Design system page: examples |
+| \`--color-muted\` | \`--color-surface\` | 4.50:1 | 6.36:1 | 6.98:1 | Card: eyebrow and impact labels; Muted: secondary text on surfaces |
+| \`--color-fg\` | \`--color-bg\` | 4.50:1 | 16.60:1 | 15.31:1 | Page: body text; Design system page: body text |
+| \`--color-muted\` | \`--color-bg\` | 4.50:1 | 6.84:1 | 7.58:1 | Page: secondary text; Design system page: secondary text; Muted: secondary text |
+| \`--color-accent\` | \`--color-surface\` | 4.50:1 | 5.98:1 | 8.02:1 | Design system page: links in examples |
+| \`--color-accent-fg\` | \`--color-accent\` | 4.50:1 | 6.44:1 | 8.71:1 | Skip link: label |
+
+## Contracts
+
+### Link
+
+*component.* Inline navigation, in text and lists. External links say so to screen readers.
+
+**Selectors:** \`a\`
+
+**States**
+
+- default
+- hover (underline moves down)
+- focus-visible (focus ring)
+
+**Accessibility**
+
+- Underlined, so links don't rely on colour alone.
+- External links get a visually hidden “(external)” and \`rel="noopener"\`.
+- Every focusable element shows the global \`:focus-visible\` ring (\`--focus-width\`, \`--color-focus\`).
+
+**Do**
+
+- Use \`linkTo()\` for links built from content, so external links are labelled.
+
+**Don't**
+
+- Don't remove the underline or the focus ring.
+
+### Button
+
+*component.* The one primary call to action of a page. A link styled as a pill, inverted colours.
+
+**Selectors:** \`.button\`
+
+**States**
+
+- default
+- hover (lifts by \`--lift-sm\`)
+- active
+- focus-visible
+
+**Accessibility**
+
+- It is an \`<a>\`: it navigates, so it is a link, not a \`<button>\`.
+- The lift is a transform on \`--duration-fast\`, which is 0 under reduced motion.
+
+**Do**
+
+- Keep one per page, for the main action.
+
+**Don't**
+
+- Don't use it for in-page actions that need a \`<button>\`.
+
+### Card
+
+*component.* A case study teaser in the “Selected work” grid: cover, eyebrow, title, summary, impact.
+
+**Selectors:** \`.cards\` \`.card\` \`.card-cover\` \`.is-portrait\` \`.card-title\` \`.card-link\`
+
+**States**
+
+- default
+- hover / focus-within (accent border, lifts, cover zooms)
+- portrait cover
+
+**Accessibility**
+
+- One link per card, on the title; its \`::after\` stretches the hit area over the whole card.
+- The focus ring is drawn around the card, through that \`::after\`.
+- The cover keeps the alt text written in the content.
+
+**Do**
+
+- Wrap cards in \`.cards\` (a \`<ul>\`), one \`<li class="card">\` each.
+
+**Don't**
+
+- Don't add a second link inside a card: the stretched link would cover it.
+
+### Eyebrow
+
+*component.* A short uppercase label above a title: client and period, or “Next”.
+
+**Selectors:** \`.eyebrow\`
+
+**Accessibility**
+
+- A plain paragraph, before the heading it introduces; uppercase is CSS only.
+
+**Don't**
+
+- Don't use it as a heading.
+
+### Impact
+
+*component.* Measured results of a case study: a big figure and what it measures.
+
+**Selectors:** \`.impact\` \`.impact-item\`
+
+**Accessibility**
+
+- A \`<dl>\` labelled “Impact”: the label (\`dt\`) comes before the figure (\`dd\`) in the source, the figure is shown first with \`column-reverse\`.
+- Figures use tabular numbers.
+
+**Do**
+
+- Only figures with a source: the resume, or a before/after measurement.
+
+**Don't**
+
+- Don't round or invent numbers to fill the row.
+
+### Tags
+
+*component.* The stack of a case study, as small outlined pills.
+
+**Selectors:** \`.tags\` \`.tag\`
+
+**Accessibility**
+
+- A \`<ul>\` labelled “Stack”, so it is announced as a list.
+
+**Don't**
+
+- Don't make tags interactive: they are not filters.
+
+### Screenshot
+
+*component.* A WebP screenshot with an optional dark-mode variant and caption.
+
+**Selectors:** \`.case-cover\` \`.shot\` \`.gallery\`
+
+**States**
+
+- light
+- dark (swapped with \`prefers-color-scheme\` when a dark shot exists)
+
+**Accessibility**
+
+- Alt text is required by the content schema; the build fails without it.
+- Width and height come from the file, so images don't shift the layout.
+- Lazy-loaded, except the cover of a case study.
+
+### Hero
+
+*component.* The top of the home page: name and role (the \`h1\`), tagline, intro and the call to action.
+
+**Selectors:** \`.hero\` \`.hero-name\` \`.hero-role\` \`.tagline\` \`.intro\`
+
+**Accessibility**
+
+- The \`h1\` holds the name and role; the tagline is a paragraph styled large.
+- Only on the home page, since it holds the \`h1\`; the example shows the tagline and intro only.
+
+### Practice
+
+*component.* One way of working, in the “How I work” grid.
+
+**Selectors:** \`.practices\` \`.practice\`
+
+**Accessibility**
+
+- Each practice is a list item with an \`h3\`, under the section's \`h2\`.
+
+### Timeline
+
+*component.* Experience by organisation, with its roles; then education.
+
+**Selectors:** \`.timeline\` \`.timeline-item\` \`.timeline-org\` \`.timeline-period\` \`.timeline-role\` \`.timeline-role-title\` \`.education\`
+
+**Accessibility**
+
+- An ordered list, most recent first; each organisation is an \`h3\`.
+
+### Prose
+
+*component.* The Markdown body of a case study, at a readable line length.
+
+**Selectors:** \`.prose\`
+
+**Accessibility**
+
+- Headings in the Markdown start at \`h2\`, under the case study's \`h1\`.
+
+### Page
+
+*layout.* Page frame: centred column, header, sections and the contact footer.
+
+**Selectors:** \`.page\` \`.section\` \`.subheading\` \`.site-header\` \`.site-name\` \`.site-footer\` \`.contact-lead\` \`.contact-links\` \`.colophon\` \`body\` \`h1\` \`h2\` \`h3\` \`p\` \`ul\` \`ol\` \`img\` \`figcaption\` \`code\`
+
+**Accessibility**
+
+- One \`h1\` per page, headings never skip a level, \`<html lang="en">\`.
+- Sections are labelled by their heading (\`aria-labelledby\`).
+- Light and dark themes follow \`prefers-color-scheme\`; there is no toggle and no JavaScript.
+
+### Case study
+
+*layout.* The structure of a case study page: back link, header, cover, impact, prose, links, next.
+
+**Selectors:** \`.case\` \`.back\` \`.case-header\` \`.case-links\` \`.next\`
+
+**Accessibility**
+
+- The “Next case study” block is a \`<nav>\` with its own label.
+
+### Design system page
+
+*layout.* This page: token swatches and scales, contrast table, and one entry per contract.
+
+**Selectors:** \`.system-toc\` \`.swatches\` \`.swatch\` \`.swatch-chip\` \`.table-scroll\` \`.system-table\` \`.type-sample\` \`.space-bar\` \`.contract\` \`.contract-spec\` \`.contract-example\`
+
+**Accessibility**
+
+- Contrast ratios are computed at build time, in both themes, from \`tokens.css\`.
+- Examples are rendered by the same functions as the real pages, with the real content.
+
+### Skip link
+
+*utility.* “Skip to content”, the first focusable element of every page; visible on focus only.
+
+**Selectors:** \`.skip-link\`
+
+**States**
+
+- hidden
+- focus-visible (slides in)
+
+**Accessibility**
+
+- Targets \`#main\`; every page has a \`<main id="main">\`. Press Tab at the top of any page to see it.
+
+### Visually hidden
+
+*utility.* Text for screen readers only, e.g. “(external)” after a link.
+
+**Selectors:** \`.visually-hidden\`
+
+**Accessibility**
+
+- Hidden with \`clip-path\`, never \`display: none\`, so it is still read out.
+
+### Muted
+
+*utility.* Secondary text colour.
+
+**Selectors:** \`.muted\`
+
+**Accessibility**
+
+- \`--color-muted\` passes AA on both backgrounds, in both themes.
+"
+`;

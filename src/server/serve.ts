@@ -53,7 +53,13 @@ export function startServer(config: Config): DevServer {
     }
     const pages = renderPages(loaded.site);
     const found = pages.get(path);
-    if (found !== undefined) return new Response(inject(found, reload), { headers: HTML_HEADERS });
+    if (found !== undefined && path.endsWith(".html")) {
+      return new Response(inject(found, reload), { headers: HTML_HEADERS });
+    }
+    if (found !== undefined) {
+      const type = path.endsWith(".md") ? "text/markdown" : "text/plain";
+      return new Response(found, { headers: { "Content-Type": `${type}; charset=utf-8` } });
+    }
     // Canonical URLs end with a slash, as in the static build.
     if (pages.has(`${path.replace(/\/?index\.html$/, "")}/index.html`)) {
       return new Response(null, {

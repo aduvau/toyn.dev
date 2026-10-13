@@ -1,0 +1,89 @@
+import type { Image, Site, Work } from "../content/load.ts";
+import type { Profile, Timeline } from "../content/schemas.ts";
+import { html, raw, type SafeHtml } from "./html.ts";
+import { SYSTEM_PATH, workPath } from "./urls.ts";
+
+// The site's components. Each one has a contract in `src/system/contracts.ts`; `root` is the prefix
+// from the current page back to the site root (`""`, `"../"`, `"../../"`).
+
+const external = (url: string) => /^https?:\/\//.test(url);
+
+export function linkTo(url: string, label: string): SafeHtml {
+  return external(url)
+    ? html`<a href="${url}" rel="noopener">${label}<span class="visually-hidden"> (external)</span></a>`
+    : html`<a href="${url}">${label}</a>`;
+}
+
+export function button(href: string, label: string): SafeHtml {
+  return html`<a class="button" href="${href}">${label}</a>`;
+}
+
+export function eyebrow(text: string): SafeHtml {
+  return html`<p class="eyebrow">${text}</p>`;
+}
+
+export function impact(work: Work): SafeHtml {
+  if (work.impact.length === 0) return html``;
+  return html`<dl class="impact" aria-label="Impact">${work.impact.map(
+    (i) => html`<div class="impact-item"><dt>${i.label}</dt><dd>${i.value}</dd></div>`,
+  )}</dl>`;
+}
+
+/** A screenshot, with its dark-mode variant when there is one. Sized to avoid layout shifts. */
+export function picture(img: Image, root: string, eager = false): SafeHtml {
+  return html`<picture>${img.srcDark && html`<source srcset="${root}public/${img.srcDark}" media="(prefers-color-scheme: dark)">`}<img src="${root}public/${img.src}" alt="${img.alt}" width="${img.width}" height="${img.height}" ${eager ? "" : raw('loading="lazy" ')}decoding="async"></picture>`;
+}
+
+export function shot(img: Image, root: string): SafeHtml {
+  return html`<figure class="shot">${picture(img, root)}${img.caption && html`<figcaption>${img.caption}</figcaption>`}</figure>`;
+}
+
+export function gallery(work: Work, root: string): SafeHtml {
+  if (work.gallery.length === 0) return html``;
+  return html`<section class="gallery" aria-label="Screenshots">${work.gallery.map((img) => shot(img, root))}</section>`;
+}
+
+export function tags(items: string[]): SafeHtml {
+  if (items.length === 0) return html``;
+  return html`<ul class="tags" aria-label="Stack">${items.map((s) => html`<li class="tag">${s}</li>`)}</ul>`;
+}
+
+export function workCard(work: Work, root: string): SafeHtml {
+  return html`<li class="card">
+<article>
+${work.cover && html`<div class="card-cover${work.cover.height > work.cover.width ? " is-portrait" : ""}">${picture(work.cover, root)}</div>`}
+${eyebrow(`${work.client} · ${work.period}`)}
+<h3 class="card-title"><a class="card-link" href="${root}${workPath(work.slug)}">${work.title}</a></h3>
+<p>${work.summary}</p>
+${impact(work)}
+</article>
+</li>`;
+}
+
+export function practice(p: Profile["practices"][number]): SafeHtml {
+  return html`<li class="practice"><h3>${p.title}</h3><p>${p.body}</p></li>`;
+}
+
+export function timelineItem(e: Timeline["experience"][number]): SafeHtml {
+  return html`<li class="timeline-item">
+<h3><span class="timeline-org">${e.org}</span> <span class="timeline-period">${e.period}</span></h3>
+${e.roles.map(
+  (r) =>
+    html`<div class="timeline-role"><p class="timeline-role-title">${r.title} <span class="timeline-period">${r.period}</span></p><p>${r.summary}</p></div>`,
+)}
+</li>`;
+}
+
+export function siteHeader(site: Site, root: string): SafeHtml {
+  return html`<header class="site-header"><a class="site-name" href="${root || "./"}">${site.profile.name}</a></header>`;
+}
+
+export function siteFooter(site: Site, root: string): SafeHtml {
+  const { profile } = site;
+  return html`<footer class="site-footer" id="contact">
+<h2>Contact</h2>
+<p class="contact-lead">Open to design-engineering and product-engineering roles. The best way to reach me is a message on LinkedIn.</p>
+${profile.links.length > 0 && html`<ul class="contact-links">${profile.links.map((l) => html`<li>${linkTo(l.url, l.label)}</li>`)}</ul>`}
+<p class="colophon">Built with vanilla TypeScript and Bun, no framework, no client-side bundle. Hosted on Codeberg Pages. Its <a href="${root}${SYSTEM_PATH}">design system</a> is generated from the code.</p>
+</footer>`;
+}

@@ -46,14 +46,19 @@
   /* Shape */
   --radius-sm: 0.375rem;
   --radius-md: 0.75rem;
+  --radius-pill: 999px;
   --border-width: 1px;
+  --border-width-thick: 2px;
   --focus-width: 3px;
+  --focus-offset: 2px;
 
   /* Motion */
   --duration-fast: 120ms;
   --duration-normal: 220ms;
   --duration-slow: 480ms;
   --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --lift-sm: -1px;
+  --lift-md: -2px;
 }
 
 @media (prefers-color-scheme: dark) {

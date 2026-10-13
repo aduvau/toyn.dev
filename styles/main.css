@@ -70,7 +70,7 @@ a:hover {
 
 :focus-visible {
   outline: var(--focus-width) solid var(--color-focus);
-  outline-offset: 2px;
+  outline-offset: var(--focus-offset);
   border-radius: var(--radius-sm);
 }
 
@@ -191,14 +191,14 @@ ol {
   padding: var(--space-3) var(--space-6);
   background: var(--color-fg);
   color: var(--color-bg);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   font-weight: var(--weight-medium);
   text-decoration: none;
   transition: transform var(--duration-fast) var(--ease-out);
 }
 
 .button:hover {
-  transform: translateY(-1px);
+  transform: translateY(var(--lift-sm));
 }
 
 .button:active {
@@ -226,7 +226,7 @@ ol {
 .card:hover,
 .card:focus-within {
   border-color: var(--color-accent);
-  transform: translateY(-2px);
+  transform: translateY(var(--lift-md));
 }
 
 .card-title {
@@ -252,7 +252,7 @@ ol {
 
 .card-link:focus-visible::after {
   outline: var(--focus-width) solid var(--color-focus);
-  outline-offset: 2px;
+  outline-offset: var(--focus-offset);
 }
 
 .eyebrow {
@@ -367,7 +367,7 @@ figcaption {
   padding: var(--space-1) var(--space-3);
   font-size: var(--text-sm);
   border: var(--border-width) solid var(--color-border);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   color: var(--color-muted);
 }
 
@@ -408,7 +408,7 @@ figcaption {
 
 .timeline-role {
   padding-left: var(--space-4);
-  border-left: 2px solid var(--color-border);
+  border-left: var(--border-width-thick) solid var(--color-border);
   margin-top: var(--space-4);
 }
 
@@ -486,11 +486,6 @@ figcaption {
   color: var(--color-muted);
 }
 
-.prose code {
-  font-family: var(--font-mono);
-  font-size: 0.9em;
-}
-
 .case-links {
   display: flex;
   flex-wrap: wrap;
@@ -520,12 +515,6 @@ figcaption {
   color: var(--color-muted);
 }
 
-.contact-email {
-  font-size: var(--text-xl);
-  font-weight: var(--weight-bold);
-  letter-spacing: -0.02em;
-}
-
 .contact-links {
   display: flex;
   flex-wrap: wrap;
@@ -536,4 +525,125 @@ figcaption {
 .colophon {
   font-size: var(--text-sm);
   color: var(--color-muted);
+}
+
+/* Design system page */
+.system-toc ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+  margin-top: var(--space-8);
+}
+
+.swatches {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr));
+}
+
+.swatch {
+  display: grid;
+  gap: var(--space-1);
+  font-size: var(--text-sm);
+}
+
+.swatch-chip {
+  block-size: var(--space-16);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+.system-table {
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+/* The "Used for" column of the contrast table holds sentences. */
+.system-table td:nth-child(3) {
+  min-inline-size: 16rem;
+}
+
+.system-table code {
+  white-space: nowrap;
+}
+
+.system-table caption {
+  text-align: start;
+  color: var(--color-muted);
+  margin-bottom: var(--space-3);
+}
+
+.system-table th,
+.system-table td {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: var(--border-width) solid var(--color-border);
+  text-align: start;
+  vertical-align: top;
+  font-variant-numeric: tabular-nums;
+}
+
+.type-sample {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-6);
+  padding-block: var(--space-2);
+}
+
+.type-sample code {
+  min-inline-size: 8rem;
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+.space-bar {
+  block-size: var(--space-4);
+  background: var(--color-accent);
+  border-radius: var(--radius-sm);
+}
+
+.contract {
+  padding-block: var(--space-8);
+  border-top: var(--border-width) solid var(--color-border);
+}
+
+.contract-spec {
+  display: grid;
+  gap: var(--space-4);
+  max-inline-size: var(--width-text);
+  margin: 0 0 var(--space-6);
+  font-size: var(--text-sm);
+}
+
+.contract-spec dt {
+  font-weight: var(--weight-medium);
+}
+
+.contract-spec dd {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+.contract-spec ul {
+  padding-left: var(--space-6);
+  list-style: disc;
+}
+
+.contract-example {
+  padding: var(--space-8);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+}
+
+.contract-example > :last-child {
+  margin-bottom: 0;
+}
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
 }

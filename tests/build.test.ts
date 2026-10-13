@@ -82,7 +82,7 @@ test("internal links point to built pages", async () => {
 });
 
 test("no private data or unresolved notes reach the output", async () => {
-  for (const page of pages) {
+  for (const page of [...pages, "llms.txt", "system.md"]) {
     const html = await read(page);
     expect(html).not.toMatch(/0?6[ .]?62[ .]?70/); // phone number
     expect(html).not.toMatch(/1984/); // date of birth

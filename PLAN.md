@@ -4,10 +4,9 @@ Last updated 2026-10-13.
 
 ## Current status
 
-- **Planning:** done 2026-10-13.
-- **v1 steps 1–6:** done 2026-10-13 (scaffold, content model, tokens, pages, craft pass, guardrail tests). `bun run check:content` lists the open `TODO(antoine)` notes.
-- **v1 deployed** 2026-10-13 at https://www.toyn.dev/ (bare domain → www). Publishing needs a **webhook on `toyn_output`** (Settings → Webhooks, same as `dadama-output`) so Codeberg Pages picks up pushes; DNS TXT records alone aren't enough.
-- **Next:** polish pass (next session), then v1.x `/system`. Open: Rail Europe confidentiality check, "What I took from it" paragraph, before/after search-form screenshots.
+- **v1** done and deployed 2026-10-13 at https://www.toyn.dev/ — see `docs/v1-log.md`. Publishing needs the **webhook on `toyn_output`** (Settings → Webhooks).
+- **v1.x `/system`** done 2026-10-13 (not deployed yet) — see `docs/v1x-log.md`, ADR-0002.
+- **Next:** polish pass, then v1.y `/resume`. Open: Rail Europe confidentiality check, "What I took from it" paragraph, before/after search-form screenshots (`bun run check:content` lists the `TODO(antoine)` notes).
 
 ## 1. Decisions
 
@@ -24,13 +23,7 @@ Last updated 2026-10-13.
 
 ## 2. v1 — One page, deployed
 
-1. **Scaffold** from dadama: `src/cli.ts` (`serve` with live reload, `build`, `check`, `deploy`), `build.ts` (keeps `dist/.git`), `deploy.ts`, Biome, tsconfig, tests skeleton. ADR-0001 "reuse the dadama stack".
-2. **Content model:** `content/profile.yaml`, `content/timeline.yaml`, `content/work/*.md` (front matter: title, role, period, tags, impact numbers, screenshots, links), zod schemas.
-3. **Tokens + base CSS:** color, type scale, spacing, radius, motion; both themes; focus ring.
-4. **Page:** hero → selected work → how I work → timeline → contact.
-5. **Craft pass:** keyboard nav, skip link, focus states, reduced motion, a few micro-interactions, responsive images (screenshots).
-6. **Guardrails (minimal):** build fails on broken links/missing alt; budgets test (CSS/JS/HTML weight, like dadama).
-7. **Deploy** (after approval): create repos, clone output into `dist/`, DNS.
+Done; build notes in `docs/v1-log.md`.
 
 ### Content outline
 
@@ -47,17 +40,7 @@ Last updated 2026-10-13.
 
 ## 3. v1.x — `/system`: the site's own design system
 
-A living style guide generated from the code, not written by hand.
-
-1. **Component contracts** in `src/system/*.ts` (zod): name, purpose, props, states, a11y requirements, do/don't, example.
-2. **`/system` page** rendered from the contracts + tokens: swatches, type scale, spacing, each component with its states.
-3. **`llms.txt`** (+ `/system.md`) generated from the same contracts.
-4. **Guardrail tests**, all deriving from the contracts/tokens:
-   - every component class used on a page has a contract;
-   - no raw hex / px outside `tokens.css` (lint);
-   - contrast of token pairs ≥ AA in both themes;
-   - heading order, one `h1`, every interactive element has `:focus-visible` styles;
-   - `/system` and `llms.txt` stay in sync with the contracts (snapshot).
+Done; build notes in `docs/v1x-log.md`, decision in ADR-0002. Component contracts (`src/system/`) generate `/system/`, `system.md`, `llms.txt` and the guardrail tests (`tests/system.test.ts`).
 
 ## 4. Learning notes (what each concept is, and how this repo shows it)
 

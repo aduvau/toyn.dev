@@ -130,6 +130,12 @@ ol {
   padding-top: var(--space-12);
 }
 
+/* Room at the end of pages that have no footer (all but home). Not `:last-child`: the dev
+   server's live-reload script comes after `main`. */
+.page:not(:has(+ .site-footer)) {
+  padding-bottom: var(--space-16);
+}
+
 .site-nav ul {
   display: flex;
   flex-wrap: wrap;
@@ -520,6 +526,23 @@ figcaption {
   border-radius: var(--radius-sm);
   white-space: pre-wrap;
   overflow-wrap: anywhere;
+}
+
+/* A callout set apart from the text, e.g. a post's closing links. */
+.prose blockquote {
+  margin: var(--space-12) 0 0;
+  padding: var(--space-6);
+  background: var(--color-raised);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.prose blockquote > :first-child {
+  margin-top: 0;
+}
+
+.prose blockquote > :last-child {
+  margin-bottom: 0;
 }
 
 /* Writing */

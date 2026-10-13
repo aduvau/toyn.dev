@@ -3,7 +3,7 @@ import { contracts } from "../system/contracts.ts";
 import { contrastRows, ratio, tokenGroups } from "../system/report.ts";
 import { type Contract, contractId } from "../system/schema.ts";
 import { isColor, readTokens, type Tokens } from "../system/tokens.ts";
-import { eyebrow, siteFooter, siteHeader } from "./components.ts";
+import { eyebrow, siteHeader } from "./components.ts";
 import { escapeHtml, html, raw, type SafeHtml } from "./html.ts";
 import { layout } from "./layout.ts";
 import { SYSTEM_ROOT } from "./urls.ts";
@@ -129,8 +129,7 @@ ${Object.entries(KINDS).map(
 ${contracts.filter((c) => c.kind === kind).map((c) => contractEntry(c, site))}
 </section>`,
 )}
-</main>
-${siteFooter(site, SYSTEM_ROOT)}`;
+</main>`;
   return layout({
     title: `Design system — ${site.profile.name}`,
     description: "The tokens and component contracts of toyn.dev, generated from the code.",

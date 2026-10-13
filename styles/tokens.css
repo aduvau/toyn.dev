@@ -6,6 +6,7 @@
   /* Colour — light theme */
   --color-bg: oklch(98.5% 0.006 85);
   --color-surface: oklch(96% 0.008 85);
+  --color-raised: oklch(100% 0 0);
   --color-fg: oklch(22% 0.01 70);
   --color-muted: oklch(46% 0.012 70);
   --color-border: oklch(88% 0.01 80);
@@ -71,6 +72,7 @@
   :root {
     --color-bg: oklch(18% 0.008 70);
     --color-surface: oklch(22% 0.01 70);
+    --color-raised: oklch(26% 0.01 70);
     --color-fg: oklch(93% 0.008 85);
     --color-muted: oklch(72% 0.01 80);
     --color-border: oklch(32% 0.01 70);

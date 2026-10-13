@@ -199,6 +199,10 @@ export const contracts = defineContracts([
       "Headings in the Markdown start at `h2`, under the page's `h1`.",
       "Code blocks wrap instead of scrolling sideways, so they never need a horizontal scroll or a keyboard stop.",
     ],
+    contrast: [
+      { fg: "--color-fg", bg: "--color-raised", min: 4.5, use: "callouts" },
+      { fg: "--color-accent", bg: "--color-raised", min: 4.5, use: "links in callouts" },
+    ],
     example: (site) => {
       const paragraph = site.work[0]?.html.match(/<p>[\s\S]*?<\/p>/)?.[0] ?? "";
       return html`<div class="prose">${raw(paragraph)}</div>`;
@@ -209,7 +213,8 @@ export const contracts = defineContracts([
   {
     name: "Page",
     kind: "layout",
-    purpose: "Page frame: centred column, header, sections and the contact footer.",
+    purpose:
+      "Page frame: centred column, header, sections, and the contact footer (home page only).",
     classes: [
       "page",
       "section",

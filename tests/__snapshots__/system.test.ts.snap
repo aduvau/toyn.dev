@@ -58,6 +58,7 @@ Rules for anyone changing the site, human or agent:
 | --- | --- | --- |
 | \`--color-bg\` | \`oklch(98.5% 0.006 85)\` | \`oklch(18% 0.008 70)\` |
 | \`--color-surface\` | \`oklch(96% 0.008 85)\` | \`oklch(22% 0.01 70)\` |
+| \`--color-raised\` | \`oklch(100% 0 0)\` | \`oklch(26% 0.01 70)\` |
 | \`--color-fg\` | \`oklch(22% 0.01 70)\` | \`oklch(93% 0.008 85)\` |
 | \`--color-muted\` | \`oklch(46% 0.012 70)\` | \`oklch(72% 0.01 80)\` |
 | \`--color-border\` | \`oklch(88% 0.01 80)\` | \`oklch(32% 0.01 70)\` |
@@ -185,6 +186,8 @@ Rules for anyone changing the site, human or agent:
 | \`--color-bg\` | \`--color-fg\` | 4.50:1 | 16.60:1 | 15.31:1 | Button: label on the inverted pill |
 | \`--color-fg\` | \`--color-surface\` | 4.50:1 | 15.43:1 | 14.10:1 | Card: title and summary; Design system page: examples |
 | \`--color-muted\` | \`--color-surface\` | 4.50:1 | 6.36:1 | 6.98:1 | Card: eyebrow and impact labels; Muted: secondary text on surfaces |
+| \`--color-fg\` | \`--color-raised\` | 4.50:1 | 17.33:1 | 12.66:1 | Prose: callouts |
+| \`--color-accent\` | \`--color-raised\` | 4.50:1 | 6.72:1 | 7.20:1 | Prose: links in callouts |
 | \`--color-fg\` | \`--color-bg\` | 4.50:1 | 16.60:1 | 15.31:1 | Page: body text; Writing: body text; Design system page: body text; Résumé: body text |
 | \`--color-muted\` | \`--color-bg\` | 4.50:1 | 6.84:1 | 7.58:1 | Page: secondary text; Writing: secondary text; Design system page: secondary text; Résumé: secondary text; Muted: secondary text |
 | \`--color-accent\` | \`--color-surface\` | 4.50:1 | 5.98:1 | 8.02:1 | Design system page: links in examples |
@@ -379,7 +382,7 @@ Rules for anyone changing the site, human or agent:
 
 ### Page
 
-*layout.* Page frame: centred column, header, sections and the contact footer.
+*layout.* Page frame: centred column, header, sections, and the contact footer (home page only).
 
 **Selectors:** \`.page\` \`.section\` \`.subheading\` \`.site-header\` \`.site-nav\` \`.site-footer\` \`.contact-lead\` \`.contact-links\` \`.colophon\` \`body\` \`h1\` \`h2\` \`h3\` \`p\` \`ul\` \`ol\` \`img\` \`figcaption\` \`code\`
 

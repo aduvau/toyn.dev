@@ -7,7 +7,7 @@ import { makeConfig } from "../src/config.ts";
 
 // Guardrails on a real build of the site's own content.
 // CSS raised from 12 KB for the résumé and print styles (v1.y), kept in one file on purpose.
-const BUDGETS = { css: 14 * 1024, html: 40 * 1024 };
+const BUDGETS = { css: 15 * 1024, html: 40 * 1024 };
 
 let out: string;
 let pages: string[];

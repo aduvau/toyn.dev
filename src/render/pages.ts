@@ -90,8 +90,7 @@ ${impact(work)}
 ${gallery(work, WORK_ROOT)}
 ${work.links.length > 0 && html`<ul class="case-links">${work.links.map((l) => html`<li>${linkTo(l.url, l.label)}</li>`)}</ul>`}
 ${next && next !== work && html`<nav class="next" aria-label="Next case study">${eyebrow("Next")}<a href="${WORK_ROOT}${workPath(next.slug)}">${next.title}</a></nav>`}
-</main>
-${siteFooter(site, WORK_ROOT)}`;
+</main>`;
   return layout({
     title: `${work.title} — ${site.profile.name}`,
     description: work.summary,
@@ -108,8 +107,7 @@ ${eyebrow("Writing")}
 <h1>Notes on how I build</h1>
 </header>
 ${postList(site.posts, WRITING_ROOT)}
-</main>
-${siteFooter(site, WRITING_ROOT)}`;
+</main>`;
   return layout({
     title: `Writing — ${site.profile.name}`,
     description: `Articles by ${site.profile.name}.`,
@@ -130,8 +128,7 @@ export function postPage(site: Site, post: Post): string {
 </header>
 <div class="prose">${raw(post.html)}</div>
 </article>
-</main>
-${siteFooter(site, POST_ROOT)}`;
+</main>`;
   return layout({
     title: `${post.title} — ${site.profile.name}`,
     description: post.summary,

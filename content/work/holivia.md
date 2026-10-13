@@ -7,9 +7,12 @@ order: 4
 summary: The whole frontend of a mental-health platform, designed and rebuilt — including a calming audio player and video calls with therapists, in vanilla JavaScript, CSS and HTML.
 stack: [Ruby on Rails, JavaScript, CSS, HTML]
 cover:
-  src: work/holivia/video-call.webp
-  alt: Holivia mobile app during a video call with a therapist, with camera, microphone, chat and hang-up controls.
+  src: work/holivia/cover.webp
+  alt: Three Holivia screens on phones — the audio player for a breathing session, a video call with a therapist, and wellbeing questionnaire results.
 gallery:
+  - src: work/holivia/video-call.webp
+    alt: Holivia mobile app during a video call with a therapist, with camera, microphone, chat and hang-up controls.
+    caption: Video calls with a therapist — familiar controls, a calmer setting.
   - src: work/holivia/audio-player.webp
     alt: Audio player for a "Cohérence cardiaque" breathing session, with a soft animated play button, clouds and a progress bar.
     caption: The audio player for guided sessions. The animations follow the relaxing pace of the content.

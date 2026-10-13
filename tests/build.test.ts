@@ -90,3 +90,7 @@ test("no private data or unresolved notes reach the output", async () => {
     expect(html).not.toContain("TODO");
   }
 });
+
+test("_redirects reaches the output, so the bare domain keeps redirecting to www", async () => {
+  expect(await read("_redirects")).toContain("//toyn.dev/* https://www.toyn.dev/:splat 302!");
+});

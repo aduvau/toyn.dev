@@ -15,7 +15,7 @@ Last updated 2026-10-13.
 | Positioning   | Title **Product Engineer** (matches LinkedIn). Tagline bridges to design engineering: *"I build design systems, polished UI, and the guardrails that let teams — and agents — ship them."* Not Front-specific: aimed at design-engineering / product-engineering roles in general |
 | Language      | English only, `<html lang="en">` |
 | Hosting       | Codeberg Pages. Source `toyn/toyn`, output `toyn/toyn_output` (branch `pages`), cloned into `dist/` |
-| Domain        | Bare `toyn.dev` preferred. **Unverified:** depends on apex DNS support (dadama serves on `www` with an apex redirect in `_redirects`). Fall back to the same pattern if needed |
+| Domain        | Served at `https://www.toyn.dev/`; the bare `toyn.dev` redirects there (`_redirects`, same pattern as dadama). DNS: apex A `217.197.84.141`, `www` CNAME `codeberg.page.`, `_git-pages-repository` TXT on both → `https://codeberg.org/toyn/toyn_output.git` |
 | Stack         | Same as `../dadama` (see `CLAUDE.md`); no d3 unless a case study needs a chart |
 | Design        | Tokens as CSS custom properties (`styles/tokens.css`); light/dark via `prefers-color-scheme` only, no toggle, no JS; system fonts |
 | Privacy       | No phone, no date of birth. Email + LinkedIn + Codeberg/GitHub only |

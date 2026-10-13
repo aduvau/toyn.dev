@@ -137,6 +137,7 @@ test("_redirects reaches the output, so the bare domain keeps redirecting to www
 test("every page has the main nav, marking the current page", async () => {
   const current: Record<string, string | undefined> = {
     "index.html": "Home",
+    "writing/index.html": "Writing",
     "resume/index.html": "Résumé",
     "system/index.html": "Design system",
   };

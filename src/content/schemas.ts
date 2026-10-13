@@ -78,7 +78,17 @@ export const workSchema = z.strictObject({
   draft: z.boolean().default(false),
 });
 
+export const postSchema = z.strictObject({
+  title: z.string().min(1),
+  /** One or two sentences, shown on the index, in the meta description and in `llms.txt`. */
+  summary: z.string().min(1),
+  /** Publication date, `YYYY-MM-DD`. Posts are listed newest first. */
+  date: z.iso.date(),
+  draft: z.boolean().default(false),
+});
+
 export type Profile = z.infer<typeof profileSchema>;
 export type Timeline = z.infer<typeof timelineSchema>;
 export type WorkMeta = z.infer<typeof workSchema>;
+export type PostMeta = z.infer<typeof postSchema>;
 export type ImageMeta = z.infer<typeof image>;

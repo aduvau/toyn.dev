@@ -3,6 +3,7 @@ import {
   eyebrow,
   impact,
   linkTo,
+  postList,
   practice,
   shot,
   tags,
@@ -192,9 +193,12 @@ export const contracts = defineContracts([
   {
     name: "Prose",
     kind: "component",
-    purpose: "The Markdown body of a case study, at a readable line length.",
+    purpose: "The Markdown body of a case study or a post, at a readable line length.",
     classes: ["prose"],
-    a11y: ["Headings in the Markdown start at `h2`, under the case study's `h1`."],
+    a11y: [
+      "Headings in the Markdown start at `h2`, under the page's `h1`.",
+      "Code blocks wrap instead of scrolling sideways, so they never need a horizontal scroll or a keyboard stop.",
+    ],
     example: (site) => {
       const paragraph = site.work[0]?.html.match(/<p>[\s\S]*?<\/p>/)?.[0] ?? "";
       return html`<div class="prose">${raw(paragraph)}</div>`;
@@ -222,7 +226,7 @@ export const contracts = defineContracts([
       'One `h1` per page, headings never skip a level, `<html lang="en">`.',
       "Sections are labelled by their heading (`aria-labelledby`).",
       "Light and dark themes follow `prefers-color-scheme`; there is no toggle.",
-      'Every page has a header `<nav aria-label="Main">` (Home, Résumé, Design system); the current page has `aria-current="page"` and stays underlined, so it doesn\'t rely on colour.',
+      'Every page has a header `<nav aria-label="Main">` (Home, Writing once a post is published, Résumé, Design system); the current page has `aria-current="page"` and stays underlined, so it doesn\'t rely on colour.',
     ],
     contrast: [...TEXT_ON_BG],
   },
@@ -233,6 +237,24 @@ export const contracts = defineContracts([
       "The structure of a case study page: back link, header, cover, impact, prose, links, next.",
     classes: ["case", "back", "case-header", "case-links", "next"],
     a11y: ["The “Next case study” block is a `<nav>` with its own label."],
+  },
+  {
+    name: "Writing",
+    kind: "layout",
+    purpose:
+      "The `/writing` index (posts newest first) and a post page (back link, case-study header, prose). Not built until a post is published.",
+    classes: ["post-item"],
+    a11y: [
+      "The index is an ordered list; each title is an `h2` link under the page's `h1`.",
+      "Dates are `<time datetime>` elements, so they're machine-readable.",
+      "A post is an `<article>` inside `main`.",
+    ],
+    dont: ["Don't publish a post with open notes for Antoine: the build warns about them."],
+    contrast: [...TEXT_ON_BG],
+    example: (site, root) =>
+      site.posts.length > 0
+        ? postList(site.posts.slice(0, 1), root)
+        : html`<p class="muted">No post is published yet.</p>`,
   },
   {
     name: "Design system page",

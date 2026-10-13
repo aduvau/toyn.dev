@@ -1,4 +1,4 @@
-import type { Site, Work } from "../content/load.ts";
+import type { Post, Site, Work } from "../content/load.ts";
 import {
   button,
   eyebrow,
@@ -6,6 +6,8 @@ import {
   impact,
   linkTo,
   picture,
+  postDate,
+  postList,
   practice,
   siteFooter,
   siteHeader,
@@ -18,11 +20,20 @@ import { layout } from "./layout.ts";
 import { llmsTxt, systemMarkdown } from "./llms.ts";
 import { resumePage } from "./resume.ts";
 import { systemPage } from "./system.ts";
-import { RESUME_PATH, SYSTEM_PATH, WORK_ROOT, workPath } from "./urls.ts";
+import {
+  POST_ROOT,
+  postPath,
+  RESUME_PATH,
+  SYSTEM_PATH,
+  WORK_ROOT,
+  WRITING_PATH,
+  WRITING_ROOT,
+  workPath,
+} from "./urls.ts";
 
 export function homePage(site: Site): string {
   const { profile, timeline } = site;
-  const body = html`${siteHeader("", "home")}
+  const body = html`${siteHeader(site, "", "home")}
 <main id="main" class="page">
 <section class="hero" aria-labelledby="hero-title">
 <h1 id="hero-title"><span class="hero-name">${profile.name}</span> <span class="hero-role">${profile.title} · ${profile.location}</span></h1>
@@ -63,7 +74,7 @@ ${siteFooter(site, "")}`;
 export function workPage(site: Site, work: Work): string {
   const index = site.work.indexOf(work);
   const next = site.work[(index + 1) % site.work.length];
-  const body = html`${siteHeader(WORK_ROOT)}
+  const body = html`${siteHeader(site, WORK_ROOT)}
 <main id="main" class="page case">
 <p class="back"><a href="${WORK_ROOT}#work-title">← All work</a></p>
 <header class="case-header">
@@ -89,9 +100,49 @@ ${siteFooter(site, WORK_ROOT)}`;
   });
 }
 
+export function writingPage(site: Site): string {
+  const body = html`${siteHeader(site, WRITING_ROOT, "writing")}
+<main id="main" class="page">
+<header class="case-header">
+${eyebrow("Writing")}
+<h1>Notes on how I build</h1>
+</header>
+${postList(site.posts, WRITING_ROOT)}
+</main>
+${siteFooter(site, WRITING_ROOT)}`;
+  return layout({
+    title: `Writing — ${site.profile.name}`,
+    description: `Articles by ${site.profile.name}.`,
+    body,
+    root: WRITING_ROOT,
+  });
+}
+
+export function postPage(site: Site, post: Post): string {
+  const body = html`${siteHeader(site, POST_ROOT)}
+<main id="main" class="page">
+<p class="back"><a href="${POST_ROOT}${WRITING_PATH}">← All writing</a></p>
+<article>
+<header class="case-header">
+<p class="eyebrow">${postDate(post)} · ${site.profile.name}</p>
+<h1>${post.title}</h1>
+<p class="tagline">${post.summary}</p>
+</header>
+<div class="prose">${raw(post.html)}</div>
+</article>
+</main>
+${siteFooter(site, POST_ROOT)}`;
+  return layout({
+    title: `${post.title} — ${site.profile.name}`,
+    description: post.summary,
+    body,
+    root: POST_ROOT,
+  });
+}
+
 export function notFoundPage(site: Site): string {
   // Served at any depth by the host, so links are absolute (the site lives at the domain root).
-  const body = html`${siteHeader("/")}
+  const body = html`${siteHeader(site, "/")}
 <main id="main" class="page"><h1>Page not found</h1><p><a href="/">Back to the home page</a></p></main>`;
   return layout({
     title: `Not found — ${site.profile.name}`,
@@ -112,5 +163,8 @@ export function renderPages(site: Site): Map<string, string> {
     ["system.md", systemMarkdown(site)],
   ]);
   for (const work of site.work) pages.set(`${workPath(work.slug)}index.html`, workPage(site, work));
+  if (site.posts.length > 0) pages.set(`${WRITING_PATH}index.html`, writingPage(site));
+  for (const post of site.posts)
+    pages.set(`${postPath(post.slug)}index.html`, postPage(site, post));
   return pages;
 }

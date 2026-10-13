@@ -16,6 +16,10 @@ Before code, I was a journalist. I still write docs as if someone is actually go
 - [dadama — an AI-built data-journalism engine, with guardrails](https://www.toyn.dev/work/dadama/): A framework-free static site generator for data stories, built with Claude Code in a few days. The interesting part isn't the speed — it's the frame that kept the agent honest.
 - [Designing and building a calmer mental-health app](https://www.toyn.dev/work/holivia/): The whole frontend of a mental-health platform, designed and rebuilt — including a calming audio player and video calls with therapists, in vanilla JavaScript, CSS and HTML.
 
+## Writing
+
+- [Framing the agent: how this site was built](https://www.toyn.dev/writing/framing-the-agent/): A walkthrough of the context, decisions and automatic checks that let a coding agent build this portfolio without making things up.
+
 ## Résumé
 
 - [Résumé](https://www.toyn.dev/resume/): experience, projects, skills, languages and education, printable as a PDF.
@@ -181,8 +185,8 @@ Rules for anyone changing the site, human or agent:
 | \`--color-bg\` | \`--color-fg\` | 4.50:1 | 16.60:1 | 15.31:1 | Button: label on the inverted pill |
 | \`--color-fg\` | \`--color-surface\` | 4.50:1 | 15.43:1 | 14.10:1 | Card: title and summary; Design system page: examples |
 | \`--color-muted\` | \`--color-surface\` | 4.50:1 | 6.36:1 | 6.98:1 | Card: eyebrow and impact labels; Muted: secondary text on surfaces |
-| \`--color-fg\` | \`--color-bg\` | 4.50:1 | 16.60:1 | 15.31:1 | Page: body text; Design system page: body text; Résumé: body text |
-| \`--color-muted\` | \`--color-bg\` | 4.50:1 | 6.84:1 | 7.58:1 | Page: secondary text; Design system page: secondary text; Résumé: secondary text; Muted: secondary text |
+| \`--color-fg\` | \`--color-bg\` | 4.50:1 | 16.60:1 | 15.31:1 | Page: body text; Writing: body text; Design system page: body text; Résumé: body text |
+| \`--color-muted\` | \`--color-bg\` | 4.50:1 | 6.84:1 | 7.58:1 | Page: secondary text; Writing: secondary text; Design system page: secondary text; Résumé: secondary text; Muted: secondary text |
 | \`--color-accent\` | \`--color-surface\` | 4.50:1 | 5.98:1 | 8.02:1 | Design system page: links in examples |
 | \`--color-accent-fg\` | \`--color-accent\` | 4.50:1 | 6.44:1 | 8.71:1 | Skip link: label |
 
@@ -364,13 +368,14 @@ Rules for anyone changing the site, human or agent:
 
 ### Prose
 
-*component.* The Markdown body of a case study, at a readable line length.
+*component.* The Markdown body of a case study or a post, at a readable line length.
 
 **Selectors:** \`.prose\`
 
 **Accessibility**
 
-- Headings in the Markdown start at \`h2\`, under the case study's \`h1\`.
+- Headings in the Markdown start at \`h2\`, under the page's \`h1\`.
+- Code blocks wrap instead of scrolling sideways, so they never need a horizontal scroll or a keyboard stop.
 
 ### Page
 
@@ -383,7 +388,7 @@ Rules for anyone changing the site, human or agent:
 - One \`h1\` per page, headings never skip a level, \`<html lang="en">\`.
 - Sections are labelled by their heading (\`aria-labelledby\`).
 - Light and dark themes follow \`prefers-color-scheme\`; there is no toggle.
-- Every page has a header \`<nav aria-label="Main">\` (Home, Résumé, Design system); the current page has \`aria-current="page"\` and stays underlined, so it doesn't rely on colour.
+- Every page has a header \`<nav aria-label="Main">\` (Home, Writing once a post is published, Résumé, Design system); the current page has \`aria-current="page"\` and stays underlined, so it doesn't rely on colour.
 
 ### Case study
 
@@ -394,6 +399,22 @@ Rules for anyone changing the site, human or agent:
 **Accessibility**
 
 - The “Next case study” block is a \`<nav>\` with its own label.
+
+### Writing
+
+*layout.* The \`/writing\` index (posts newest first) and a post page (back link, case-study header, prose). Not built until a post is published.
+
+**Selectors:** \`.post-item\`
+
+**Accessibility**
+
+- The index is an ordered list; each title is an \`h2\` link under the page's \`h1\`.
+- Dates are \`<time datetime>\` elements, so they're machine-readable.
+- A post is an \`<article>\` inside \`main\`.
+
+**Don't**
+
+- Don't publish a post with open notes for Antoine: the build warns about them.
 
 ### Design system page
 

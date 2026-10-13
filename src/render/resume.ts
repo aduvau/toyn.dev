@@ -53,7 +53,7 @@ export function resumePage(site: Site): string {
   // Case studies not tied to a role (side projects) get their own section.
   const linked = new Set(timeline.experience.flatMap((e) => e.roles.map((r) => r.work)));
   const projects = site.work.filter((w) => !linked.has(w.slug));
-  const body = html`${siteHeader(RESUME_ROOT, "resume")}
+  const body = html`${siteHeader(site, RESUME_ROOT, "resume")}
 <main id="main" class="page resume">
 <header class="resume-header">
 <h1><span class="hero-name">${profile.name}</span> <span class="hero-role">${profile.title} · ${profile.location}</span></h1>

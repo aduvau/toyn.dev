@@ -7,7 +7,9 @@ import { webpSize } from "./images.ts";
 import { renderMarkdown, splitFrontMatter } from "./markdown.ts";
 import {
   type ImageMeta,
+  type PostMeta,
   type Profile,
+  postSchema,
   profileSchema,
   type Timeline,
   timelineSchema,
@@ -27,11 +29,18 @@ export interface Work extends Omit<WorkMeta, "cover" | "gallery"> {
   gallery: Image[];
 }
 
+export interface Post extends PostMeta {
+  slug: string;
+  html: string;
+}
+
 export interface Site {
   profile: Profile;
   timeline: Timeline;
   /** Published case studies, in display order. */
   work: Work[];
+  /** Published posts, newest first. Empty while every post is a draft. */
+  posts: Post[];
 }
 
 export type LoadResult =
@@ -127,6 +136,32 @@ export async function loadSite(config: Config): Promise<LoadResult> {
   }
   work.sort((a, b) => a.order - b.order);
 
+  const postDir = join(config.contentDir, "writing");
+  const postNames = (await readdir(postDir).catch(() => []))
+    .filter((n) => n.endsWith(".md"))
+    .sort();
+  const posts: Post[] = [];
+  for (const name of postNames) {
+    const path = join(postDir, name);
+    const source = await read(path);
+    if (source === undefined) continue;
+    try {
+      const { data, body } = splitFrontMatter(source);
+      const meta = postSchema.safeParse(data);
+      if (!meta.success) {
+        errors.push(...issues(rel(path), meta.error));
+        continue;
+      }
+      if (meta.data.draft) continue;
+      const rendered = await renderMarkdown(body);
+      errors.push(...rendered.errors.map((e) => `${rel(path)}: ${e}`));
+      posts.push({ ...meta.data, slug: basename(name, ".md"), html: rendered.html });
+    } catch (e) {
+      errors.push(`${rel(path)}: ${(e as Error).message}`);
+    }
+  }
+  posts.sort((a, b) => b.date.localeCompare(a.date));
+
   const slugs = new Set(work.map((w) => w.slug));
   for (const role of timeline?.experience.flatMap((e) => e.roles) ?? []) {
     if (role.work && !slugs.has(role.work)) {
@@ -137,5 +172,5 @@ export async function loadSite(config: Config): Promise<LoadResult> {
   }
 
   if (errors.length > 0 || !profile || !timeline) return { ok: false, errors, warnings };
-  return { ok: true, site: { profile, timeline, work }, warnings };
+  return { ok: true, site: { profile, timeline, work, posts }, warnings };
 }

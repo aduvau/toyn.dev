@@ -1,7 +1,7 @@
-import type { Image, Site, Work } from "../content/load.ts";
+import type { Image, Post, Site, Work } from "../content/load.ts";
 import type { Profile, Timeline } from "../content/schemas.ts";
 import { html, raw, type SafeHtml } from "./html.ts";
-import { RESUME_PATH, SYSTEM_PATH, workPath } from "./urls.ts";
+import { postPath, RESUME_PATH, SYSTEM_PATH, WRITING_PATH, workPath } from "./urls.ts";
 
 // The site's components. Each one has a contract in `src/system/contracts.ts`; `root` is the prefix
 // from the current page back to the site root (`""`, `"../"`, `"../../"`).
@@ -60,6 +60,25 @@ ${impact(work)}
 </li>`;
 }
 
+/** A post's date, e.g. "13 October 2026", machine-readable in `datetime`. */
+export function postDate(post: Post): SafeHtml {
+  const label = new Date(`${post.date}T00:00:00Z`).toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+  return html`<time datetime="${post.date}">${label}</time>`;
+}
+
+/** The list of posts on `/writing`, newest first. */
+export function postList(posts: Post[], root: string): SafeHtml {
+  return html`<ol>${posts.map(
+    (p) =>
+      html`<li class="post-item"><p class="eyebrow">${postDate(p)}</p><h2><a href="${root}${postPath(p.slug)}">${p.title}</a></h2><p>${p.summary}</p></li>`,
+  )}</ol>`;
+}
+
 export function practice(p: Profile["practices"][number]): SafeHtml {
   return html`<li class="practice"><h3>${p.title}</h3><p>${p.body}</p></li>`;
 }
@@ -77,13 +96,22 @@ ${e.roles.map(
 /** The pages linked from the header nav, keyed by what a page passes as `current`. */
 const NAV = [
   { key: "home", label: "Home", path: "" },
+  { key: "writing", label: "Writing", path: WRITING_PATH },
   { key: "resume", label: "Résumé", path: RESUME_PATH },
   { key: "system", label: "Design system", path: SYSTEM_PATH },
 ] as const;
 
-/** Header of every page. `current` marks the page you're on, if it's in the nav. */
-export function siteHeader(root: string, current?: (typeof NAV)[number]["key"]): SafeHtml {
-  return html`<header class="site-header"><nav class="site-nav" aria-label="Main"><ul>${NAV.map(
+/**
+ * Header of every page. `current` marks the page you're on, if it's in the nav. "Writing" only
+ * shows once a post is published, since `/writing` isn't built before.
+ */
+export function siteHeader(
+  site: Site,
+  root: string,
+  current?: (typeof NAV)[number]["key"],
+): SafeHtml {
+  const items = NAV.filter((item) => item.key !== "writing" || site.posts.length > 0);
+  return html`<header class="site-header"><nav class="site-nav" aria-label="Main"><ul>${items.map(
     (item) =>
       html`<li><a href="${root + item.path || "./"}"${item.key === current ? raw(' aria-current="page"') : ""}>${item.label}</a></li>`,
   )}</ul></nav></header>`;

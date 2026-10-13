@@ -73,4 +73,4 @@ So that "let's do everything all at once without asking" behavior I experienced 
 
 > ## Links
 >
-> The source is on [Codeberg](https://codeberg.org/toyn/toyn.dev): `CLAUDE.md`, the plan, the ADRs, the contracts and the tests are all there. The [design system page](../../system/) shows what the contracts generate.
+> - The [design system page](../../system/) shows what the contracts generate.

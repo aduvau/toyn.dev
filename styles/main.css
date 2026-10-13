@@ -659,6 +659,11 @@ figcaption {
   margin-top: var(--space-8);
 }
 
+/* The anchor links already separate the header from the first section. */
+.system-toc + .section {
+  border-top: none;
+}
+
 .swatches {
   display: grid;
   gap: var(--space-4);

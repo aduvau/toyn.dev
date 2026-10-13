@@ -1,0 +1,13 @@
+{
+  "$schema": "./node_modules/@stryker-mutator/core/schema/stryker-schema.json",
+  "testRunner": "command",
+  "commandRunner": { "command": "bun test tests/theme.test.ts" },
+  "mutate": ["client/theme.ts"],
+  "coverageAnalysis": "off",
+  "reporters": ["clear-text", "progress", "html"],
+  "htmlReporter": { "fileName": "reports/mutation/index.html" },
+  "ignorePatterns": ["dist", "playwright-report", "test-results", "reports", ".story-pipeline"],
+  "tsconfigFile": "",
+  "tempDirName": ".stryker-tmp",
+  "cleanTempDir": "always"
+}

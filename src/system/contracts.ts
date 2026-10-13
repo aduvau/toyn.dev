@@ -7,6 +7,7 @@ import {
   practice,
   shot,
   tags,
+  themeToggle,
   timelineItem,
   workCard,
 } from "../render/components.ts";
@@ -65,6 +66,35 @@ export const contracts = defineContracts([
     dont: ["Don't put it on an `<a>` for an action, or on a `<button>` for navigation."],
     contrast: [{ fg: "--color-bg", bg: "--color-fg", min: 4.5, use: "label on the inverted pill" }],
     example: () => html`<p>${button("#contact", "Get in touch")}</p>`,
+  },
+  {
+    name: "Theme toggle",
+    kind: "component",
+    purpose:
+      "Switches between the light and dark themes, at the end of every page's header. Follows the system until used; the choice is then remembered (ADR-0005).",
+    classes: ["theme-toggle"],
+    states: [
+      "not pressed (light theme shown)",
+      "pressed (dark theme shown; the disc turns over on `--duration-normal`)",
+      "hover (border darkens)",
+      "focus-visible",
+      "narrow screens (below `48rem`): top of the header, 42px touch target",
+      "hidden without JavaScript: the theme then follows the system",
+    ],
+    a11y: [
+      'A `<button type="button">` named “Dark theme” (visually hidden text, the icon is `aria-hidden`), its state in `aria-pressed`, so screen readers say “Dark theme, toggle button, pressed”.',
+      "`aria-pressed` reflects the theme shown, whether it comes from the system or the visitor's choice, and updates when the system changes.",
+      "The stored theme is applied in `<head>` before the stylesheet, so there is no flash of the other theme.",
+      "Hidden with `@media (scripting: none)`: no dead button without JavaScript.",
+    ],
+    do: ["Render it with `themeToggle()`; every `.theme-toggle` on a page acts on the same theme."],
+    dont: [
+      "Don't change the label with the state: the name stays “Dark theme”, `aria-pressed` carries the state.",
+      "Don't print the chosen theme: dark tokens are screen-only.",
+    ],
+    // The icon is `--color-fg` on `--color-bg`, already held to 4.5:1 as body text (Page).
+    contrast: [{ fg: "--color-focus", bg: "--color-bg", min: 3, use: "focus ring" }],
+    example: () => html`<p>${themeToggle()}</p>`,
   },
   {
     name: "Card",
@@ -230,7 +260,7 @@ export const contracts = defineContracts([
     a11y: [
       'One `h1` per page, headings never skip a level, `<html lang="en">`.',
       "Sections are labelled by their heading (`aria-labelledby`).",
-      "Light and dark themes follow `prefers-color-scheme`; there is no toggle.",
+      "Light and dark themes follow `prefers-color-scheme` until the visitor uses the Theme toggle.",
       'Every page has a header `<nav aria-label="Main">` (Home, Writing once a post is published, Résumé, Design system); the current page has `aria-current="page"` and stays underlined, so it doesn\'t rely on colour.',
     ],
     contrast: [...TEXT_ON_BG],

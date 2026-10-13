@@ -13,6 +13,17 @@ html {
   text-size-adjust: 100%;
 }
 
+/* A theme chosen with the toggle also sets the browser's own colours (scrollbars, form controls). */
+html[data-theme="light"] {
+  color-scheme: light;
+}
+
+@media screen {
+  html[data-theme="dark"] {
+    color-scheme: dark;
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;
@@ -122,6 +133,10 @@ ol {
 }
 
 .site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
   padding-block: var(--space-6);
 }
 
@@ -152,6 +167,49 @@ ol {
 .site-nav a[aria-current="page"] {
   text-decoration: underline;
   text-decoration-thickness: var(--border-width-thick);
+}
+
+.theme-toggle {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  /* 26px: above the 24px target size, below the nav's line height, so the header keeps its height. */
+  padding: var(--space-1);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: none;
+  color: var(--color-fg);
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  border-color: var(--color-fg);
+}
+
+.theme-toggle svg {
+  width: var(--space-4);
+  height: var(--space-4);
+  transition: transform var(--duration-normal) var(--ease-out);
+}
+
+.theme-toggle[aria-pressed="true"] svg {
+  transform: rotate(0.5turn);
+}
+
+/* Narrow screens: the nav wraps, so the toggle sits at the top, with a bigger touch target (42px). */
+@media (width < 48rem) {
+  .site-header {
+    align-items: flex-start;
+  }
+
+  .theme-toggle {
+    padding: var(--space-2);
+  }
+
+  .theme-toggle svg {
+    width: var(--space-6);
+    height: var(--space-6);
+  }
 }
 
 .section {
@@ -745,9 +803,11 @@ code {
   overflow-wrap: anywhere;
 }
 
-/* Progressive enhancement: the print button needs JavaScript; without it, the <noscript> hint shows. */
+/* Progressive enhancement: the print button and the theme toggle need JavaScript. Without it, the
+   résumé's <noscript> hint shows, and the theme follows the system. */
 @media (scripting: none) {
-  .resume-print {
+  .resume-print,
+  .theme-toggle {
     display: none;
   }
 }

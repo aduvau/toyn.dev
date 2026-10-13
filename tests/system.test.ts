@@ -113,6 +113,11 @@ describe("tokens", () => {
     expect(stray).toEqual([]);
   });
 
+  test("the toggle's dark theme repeats the system's dark theme exactly (ADR-0005)", () => {
+    expect(tokens.dark.size).toBeGreaterThan(0);
+    expect([...tokens.chosenDark]).toEqual([...tokens.dark]);
+  });
+
   test("contrast maths matches known values", () => {
     expect(contrast("oklch(100% 0 0)", "oklch(0% 0 0)")).toBeCloseTo(21, 1);
     expect(contrast("oklch(50% 0.1 200)", "oklch(50% 0.1 200)")).toBeCloseTo(1, 5);

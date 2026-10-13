@@ -8,6 +8,8 @@ export interface Tokens {
   light: Map<string, string>;
   /** Tokens overridden by `prefers-color-scheme: dark` (on screen; print stays light). */
   dark: Map<string, string>;
+  /** The same overrides for a dark theme chosen with the toggle (ADR-0005); must equal `dark`. */
+  chosenDark: Map<string, string>;
 }
 
 export const TOKENS_FILE = join(import.meta.dir, "../../styles/tokens.css");
@@ -35,6 +37,7 @@ export function parseTokens(css: string): Tokens {
   return {
     light: declarations(blockAfter(noComments, ":root")),
     dark: declarations(blockAfter(noComments, "@media screen and (prefers-color-scheme: dark)")),
+    chosenDark: declarations(blockAfter(noComments, ':root[data-theme="dark"]')),
   };
 }
 

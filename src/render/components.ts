@@ -114,7 +114,15 @@ export function siteHeader(
   return html`<header class="site-header"><nav class="site-nav" aria-label="Main"><ul>${items.map(
     (item) =>
       html`<li><a href="${root + item.path || "./"}"${item.key === current ? raw(' aria-current="page"') : ""}>${item.label}</a></li>`,
-  )}</ul></nav></header>`;
+  )}</ul></nav>${themeToggle()}</header>`;
+}
+
+/**
+ * Switches between the light and dark themes (ADR-0005). The state is `aria-pressed`, set by the
+ * head script from the theme shown; the half-filled disc turns over when dark is on.
+ */
+export function themeToggle(): SafeHtml {
+  return html`<button class="theme-toggle" type="button" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg><span class="visually-hidden">Dark theme</span></button>`;
 }
 
 export function siteFooter(site: Site, root: string): SafeHtml {

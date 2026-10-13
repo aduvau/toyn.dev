@@ -24,6 +24,10 @@ First use: the résumé's `<button onclick="print()">Save as PDF</button>`, with
 allowlist of inline handlers per page (today: `onclick="print()"` on `/resume` only). It also checks
 that the button and its fallback are both in place.
 
+Second use (ADR-0005): the theme toggle, hidden with `scripting: none` (the theme then follows the
+system). Its script joins the trailing-slash fix in the one inline `<script>`, with a delegated listener
+instead of an `on*` handler.
+
 ## Options Considered
 - **Progressive enhancement with CSS + `<noscript>` (chosen):** no script tag. Each case is handled by
   the browser itself: `scripting: none` hides the button, `<noscript>` shows the hint.

@@ -8,6 +8,7 @@ Last updated 2026-10-13.
 - **v1.x `/system`** done and deployed 2026-10-13 — see `docs/v1x-log.md`, ADR-0002.
 - **v1.y `/resume`** done and deployed 2026-10-13 — see `docs/v1y-log.md`.
 - **v2** done 2026-10-13: `/writing` with the article "Framing the agent" (deployed), and visual regression on `/system` (dev only, ADR-0004) — see `docs/v2-log.md`. No open `TODO(antoine)` notes.
+- **Theme toggle** built 2026-10-13 through the story pipeline (Gherkin → code → CRAP → mutation → e2e), ADR-0005; packet in `.story-pipeline/theme-toggle/`. Not deployed.
 - **Next:** nothing scheduled; see the parked items in §7.
 
 ## 1. Decisions
@@ -19,7 +20,7 @@ Last updated 2026-10-13.
 | Hosting      | Codeberg Pages. Source `toyn/toyn`, output `toyn/toyn_output` (branch `pages`), cloned into `dist/`                                                                                                                                                                               |
 | Domain       | Served at `https://www.toyn.dev/`; the bare `toyn.dev` redirects there (`_redirects`, same pattern as dadama). DNS: apex A `217.197.84.141`, `www` CNAME `codeberg.page.`, `_git-pages-repository` TXT on both → `https://codeberg.org/toyn/toyn_output.git`                      |
 | Stack        | Same as `../dadama` (see `CLAUDE.md`); no d3 unless a case study needs a chart                                                                                                                                                                                                    |
-| Design       | Tokens as CSS custom properties (`styles/tokens.css`); light/dark via `prefers-color-scheme` only, no toggle, no JS; system fonts                                                                                                                                                 |
+| Design       | Tokens as CSS custom properties (`styles/tokens.css`); light/dark follows `prefers-color-scheme`, with a remembered theme toggle (ADR-0005); system fonts                                                                                                                                        |
 | Privacy      | No phone, no date of birth. LinkedIn + Codeberg/GitHub; email (`a@toyn.dev`) on `/resume` only, entity-encoded                                                                                                                                                                    |
 | Truthfulness | Only claims backed by the resume, this repo, or Antoine. The learning-in-public items (§4) are claimed only once built here                                                                                                                                                       |
 
@@ -65,7 +66,7 @@ Done; build notes in `docs/v1y-log.md`. Prints to 2 A4 pages ("Save as PDF"); em
 - **Links:** done (LinkedIn, Codeberg, GitHub).
 - **Confidentiality (Rail Europe):** case studies approved by Antoine 2026-10-13. Not mentioned on the site: the platform's decommissioning after the acquisition.
 - **Climate sites:** demoted to the timeline (`draft: true`), per Antoine.
-- **Theme:** `prefers-color-scheme` only — decided 2026-10-13.
+- **Theme:** `prefers-color-scheme` only — decided 2026-10-13; reopened the same day for a remembered toggle (ADR-0005).
 
 ## 7. v2 and after
 
@@ -74,4 +75,4 @@ v2 done 2026-10-13; build notes in `docs/v2-log.md`.
 **Parked:**
 
 - **Figma file + Code Connect.** Code Connect needs a paid plan with Dev Mode. Antoine's employer has a Figma plan, but nothing for this portfolio may live in a work account (it's for applying elsewhere). Revisit only with a personal plan. The cheaper version is a free Figma file with variables generated from `styles/tokens.css`.
-- **Gherkin specs.** Nothing on the site needs specifying yet. Later: a theme toggle as the real use case, specified in Gherkin, plus a blog article about it. That reopens the "no toggle, `prefers-color-scheme` only" decision (§1, §6) and needs a no-JS fallback (ADR-0003).
+- **Gherkin specs.** First use: the theme toggle (`.story-pipeline/theme-toggle/acceptance.feature`). Still parked: a blog article about it.

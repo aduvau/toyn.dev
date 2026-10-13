@@ -1,11 +1,12 @@
 import { defineConfig, devices } from "@playwright/test";
 
-// Visual regression only (ADR-0004). `bun test` runs everything else; it ignores `*.visual.ts`.
+// Visual regression (ADR-0004) and browser QA scripts (`*.e2e.ts`, ADR-0005). `bun test` runs
+// everything else; it ignores both suffixes.
 const PORT = 4173;
 
 export default defineConfig({
   testDir: "tests/visual",
-  testMatch: "*.visual.ts",
+  testMatch: ["*.visual.ts", "*.e2e.ts"],
   snapshotPathTemplate: "{testDir}/__screenshots__/{arg}-{platform}{ext}",
   outputDir: "test-results",
   reporter: [["list"], ["html", { open: "never" }]],

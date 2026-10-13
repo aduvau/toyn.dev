@@ -1,10 +1,15 @@
-import { html, type SafeHtml } from "./html.ts";
+import { initTheme } from "../../client/theme.ts";
+import { html, raw, type SafeHtml } from "./html.ts";
 
 /**
- * Relative URLs need the page's canonical URL, which ends with a slash. Some static hosts serve
- * `/work/slug` without redirecting, and `../../` would then resolve one level too high.
+ * The page's one inline script (ADR-0003), in `<head>` before the stylesheet:
+ * - Relative URLs need the page's canonical URL, which ends with a slash. Some static hosts serve
+ *   `/work/slug` without redirecting, and `../../` would then resolve one level too high.
+ * - The theme toggle (ADR-0005) applies a stored theme before the first paint.
  */
-const TRAILING_SLASH_SCRIPT = html`<script>var p=location.pathname;if(!p.endsWith("/")&&!p.endsWith(".html"))location.replace(p+"/"+location.search+location.hash)</script>`;
+export const HEAD_SCRIPT = raw(
+  `<script>var p=location.pathname;if(!p.endsWith("/")&&!p.endsWith(".html"))location.replace(p+"/"+location.search+location.hash);(${initTheme})(document,window)</script>`,
+);
 
 export function layout({
   title,
@@ -22,7 +27,7 @@ export function layout({
 <html lang="en">
 <head>
 <meta charset="utf-8">
-${TRAILING_SLASH_SCRIPT}
+${HEAD_SCRIPT}
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <title>${title}</title>

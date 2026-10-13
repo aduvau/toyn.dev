@@ -181,7 +181,7 @@ Rules for anyone changing the site, human or agent:
 | Text / UI | On | Minimum | Light | Dark | Used for |
 | --- | --- | --- | --- | --- | --- |
 | \`--color-accent\` | \`--color-bg\` | 4.50:1 | 6.44:1 | 8.71:1 | Link: link text |
-| \`--color-focus\` | \`--color-bg\` | 3.00:1 | 4.83:1 | 9.11:1 | Link: focus ring |
+| \`--color-focus\` | \`--color-bg\` | 3.00:1 | 4.83:1 | 9.11:1 | Link: focus ring; Theme toggle: focus ring |
 | \`--color-focus\` | \`--color-surface\` | 3.00:1 | 4.48:1 | 8.39:1 | Link: focus ring on surfaces |
 | \`--color-bg\` | \`--color-fg\` | 4.50:1 | 16.60:1 | 15.31:1 | Button: label on the inverted pill |
 | \`--color-fg\` | \`--color-surface\` | 4.50:1 | 15.43:1 | 14.10:1 | Card: title and summary; Design system page: examples |
@@ -246,6 +246,37 @@ Rules for anyone changing the site, human or agent:
 **Don't**
 
 - Don't put it on an \`<a>\` for an action, or on a \`<button>\` for navigation.
+
+### Theme toggle
+
+*component.* Switches between the light and dark themes, at the end of every page's header. Follows the system until used; the choice is then remembered (ADR-0005).
+
+**Selectors:** \`.theme-toggle\`
+
+**States**
+
+- not pressed (light theme shown)
+- pressed (dark theme shown; the disc turns over on \`--duration-normal\`)
+- hover (border darkens)
+- focus-visible
+- narrow screens (below \`48rem\`): top of the header, 42px touch target
+- hidden without JavaScript: the theme then follows the system
+
+**Accessibility**
+
+- A \`<button type="button">\` named “Dark theme” (visually hidden text, the icon is \`aria-hidden\`), its state in \`aria-pressed\`, so screen readers say “Dark theme, toggle button, pressed”.
+- \`aria-pressed\` reflects the theme shown, whether it comes from the system or the visitor's choice, and updates when the system changes.
+- The stored theme is applied in \`<head>\` before the stylesheet, so there is no flash of the other theme.
+- Hidden with \`@media (scripting: none)\`: no dead button without JavaScript.
+
+**Do**
+
+- Render it with \`themeToggle()\`; every \`.theme-toggle\` on a page acts on the same theme.
+
+**Don't**
+
+- Don't change the label with the state: the name stays “Dark theme”, \`aria-pressed\` carries the state.
+- Don't print the chosen theme: dark tokens are screen-only.
 
 ### Card
 
@@ -390,7 +421,7 @@ Rules for anyone changing the site, human or agent:
 
 - One \`h1\` per page, headings never skip a level, \`<html lang="en">\`.
 - Sections are labelled by their heading (\`aria-labelledby\`).
-- Light and dark themes follow \`prefers-color-scheme\`; there is no toggle.
+- Light and dark themes follow \`prefers-color-scheme\` until the visitor uses the Theme toggle.
 - Every page has a header \`<nav aria-label="Main">\` (Home, Writing once a post is published, Résumé, Design system); the current page has \`aria-current="page"\` and stays underlined, so it doesn't rely on colour.
 
 ### Case study

@@ -19,7 +19,7 @@ Add Playwright as a **dev dependency only**. A visual test builds the site into 
 `/system` in both themes. It fails when a screenshot differs from its committed baseline.
 
 - **What gets screenshotted:** one element shot per `<article class="contract">`, in light and in dark.
-  The site has no theme toggle, only `prefers-color-scheme`, so emulating `colorScheme` covers both themes.
+  Emulating `colorScheme` covers both themes: until a visitor uses the theme toggle (ADR-0005), the site follows `prefers-color-scheme`.
   The list of shots is derived from the `contracts` array (ADR-0002: tests derive from contracts):
   a new contract gets screenshots automatically, a test checks `/system` shows exactly one article per
   contract, and another fails on a baseline left behind by a removed contract.

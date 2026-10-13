@@ -6,8 +6,9 @@ import { build } from "../src/build/build.ts";
 import { makeConfig } from "../src/config.ts";
 
 // Guardrails on a real build of the site's own content.
-// CSS raised from 12 KB for the résumé and print styles (v1.y), kept in one file on purpose.
-const BUDGETS = { css: 15 * 1024, html: 40 * 1024 };
+// CSS raised from 12 KB for the résumé and print styles (v1.y), then from 15 KB for the theme
+// toggle's repeated dark block (ADR-0005). Kept in one file on purpose.
+const BUDGETS = { css: 16 * 1024, html: 40 * 1024 };
 
 let out: string;
 let pages: string[];
@@ -38,7 +39,7 @@ test("stylesheet and pages stay within budget", async () => {
     expect(Bun.file(join(out, page)).size).toBeLessThanOrEqual(BUDGETS.html);
 });
 
-test("no page ships JavaScript beyond the trailing-slash fix and the résumé's print button", async () => {
+test("no page ships JavaScript beyond the head script and the résumé's print button", async () => {
   for (const page of pages) {
     const html = await read(page);
     expect(html).not.toMatch(/<script[^>]+src=/);
@@ -55,7 +56,43 @@ test("the print button is progressively enhanced: hidden without JavaScript, hin
   );
   expect(resume).toMatch(/<noscript><p class="resume-hint[^"]*">[^<]+<\/p><\/noscript>/);
   const css = await Bun.file(join(out, "styles/main.css")).text();
-  expect(css).toMatch(/@media \(scripting:\s*none\)\s*\{\s*\.resume-print\s*\{\s*display:\s*none/);
+  expect(css).toMatch(/@media \(scripting:\s*none\)\s*\{[^}]*\.resume-print[^}]*display:\s*none/);
+});
+
+test("every page's header has the theme toggle, hidden without JavaScript (ADR-0005)", async () => {
+  for (const page of pages) {
+    expect(await read(page)).toMatch(
+      /<\/nav><button class="theme-toggle" type="button" aria-pressed="false">.*?<span class="visually-hidden">Dark theme<\/span><\/button><\/header>/,
+    );
+  }
+  const css = await Bun.file(join(out, "styles/main.css")).text();
+  expect(css).toMatch(/@media \(scripting:\s*none\)\s*\{[^}]*\.theme-toggle[^}]*display:\s*none/);
+});
+
+test("the head script runs before the stylesheet and applies a stored theme", async () => {
+  const html = await read("index.html");
+  const script = html.match(/<script>([\s\S]*?)<\/script>/)?.[1] ?? "";
+  expect(html.indexOf("<script>")).toBeLessThan(html.indexOf('rel="stylesheet"'));
+  const root = { dataset: {} as Record<string, string> };
+  const listeners: string[] = [];
+  const document = {
+    documentElement: root,
+    addEventListener: (type: string) => listeners.push(type),
+  };
+  const window = {
+    matchMedia: () => ({ matches: false, addEventListener: () => {} }),
+    localStorage: { getItem: () => "dark" },
+  };
+  const location = { pathname: "/", replace: () => {} };
+  new Function("document", "window", "location", script)(document, window, location);
+  expect(root.dataset.theme).toBe("dark");
+  expect(listeners).toEqual(["DOMContentLoaded", "click"]);
+});
+
+test("the chosen dark theme is screen-only, so printing stays light", async () => {
+  const css = await Bun.file(join(out, "styles/main.css")).text();
+  expect(css).toMatch(/@media screen\s*\{\s*:root\[data-theme="?dark"?\]/);
+  expect(css).not.toMatch(/(?:^|\})\s*:root\[data-theme="?dark"?\]/);
 });
 
 test("every page has one h1, a lang, a title and a skip link to #main", async () => {

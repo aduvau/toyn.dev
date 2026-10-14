@@ -212,14 +212,30 @@ ol {
   border-top: var(--border-width) solid var(--color-border);
 }
 
-/* The home page separates its sections by space alone. */
+/* The home page separates its sections by space alone: one gap between every block, the footer
+   included (its own top padding). */
+.page:has(> .hero) {
+  --home-gap: var(--space-16);
+}
+
+@media (width < 48rem) {
+  .page:has(> .hero) {
+    --home-gap: var(--space-12);
+  }
+}
+
 .hero ~ .section {
   border-top: none;
+  padding-block: 0;
+}
+
+.hero ~ .section,
+.hero ~ .cta-banner {
+  margin-block: var(--home-gap) 0;
 }
 
 /* Hero */
 .hero {
-  padding-bottom: var(--space-16);
   max-width: 48rem;
 }
 
@@ -826,6 +842,7 @@ figcaption {
   .site-footer {
     flex-direction: column;
     justify-content: center;
+    padding-top: var(--space-12);
   }
 }
 

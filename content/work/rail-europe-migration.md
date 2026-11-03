@@ -1,7 +1,7 @@
 ---
 title: Modernising a ten-year-old booking platform, one layer at a time
 client: Rail Europe
-role: Senior Product Engineer
+role: Senior Frontend Engineer
 period: 2025 — now
 order: 1
 summary: Instead of a rewrite, a revamp — a legacy Rails monolith moved toward modern Rails and Hotwire, the mobile apps brought onto the same codebase, and booking pages made to feel faster.

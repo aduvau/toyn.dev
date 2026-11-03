@@ -1,7 +1,7 @@
 name: Antoine Duvauchelle
-title: Product Engineer
+title: Senior Frontend Engineer | Product Engineer
 location: Paris
-tagline: I build design systems, polished UI, and the guardrails that let teams — and agents — ship them.
+tagline: I build design systems, polished UI, and the guardrails that let teams and agents ship them.
 intro:
   - Ten years shipping production frontends, from startup studios to the booking funnel of Rail Europe. I care about the last 10% (interaction details, accessibility, perceived speed) and about making the right path the easy one for whoever builds next.
   - Before code, I was a journalist. I still write docs as if someone is actually going to read them.
@@ -30,6 +30,7 @@ skills:
         JavaScript,
         HTML,
         CSS,
+        Tailwind,
         Svelte,
         SvelteKit,
         React,
@@ -48,7 +49,14 @@ skills:
     items: [Playwright, Vitest, Biome, Bun, zod, D3]
   - group: AI
     items:
-      [Claude Code, Codex, agent harnessing, agent skills, agent orchestration, Browser-side APIs]
+      [
+        Claude Code,
+        Codex,
+        agent harnessing,
+        agent skills,
+        agent orchestration,
+        Browser-side APIs,
+      ]
 languages:
   - name: French
     level: native

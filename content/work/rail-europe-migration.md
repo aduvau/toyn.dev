@@ -1,7 +1,7 @@
 ---
 title: Modernising a ten-year-old booking platform, one layer at a time
 client: Rail Europe
-role: Senior Software Engineer
+role: Senior Product Engineer
 period: 2025 — now
 order: 1
 summary: Instead of a rewrite, a revamp — a legacy Rails monolith moved toward modern Rails and Hotwire, the mobile apps brought onto the same codebase, and booking pages made to feel faster.
@@ -10,7 +10,17 @@ impact:
     label: front-end bundle size
   - value: "−1.3 s"
     label: average, critical booking pages
-stack: [Ruby on Rails, Hotwire, Turbo, Stimulus, Capacitor, TypeScript]
+stack:
+  [
+    TypeScript,
+    React,
+    React Native,
+    Capacitor,
+    Ruby on Rails,
+    Hotwire,
+    Turbo,
+    Stimulus,
+  ]
 cover:
   src: work/rail-europe-migration/home.webp
   alt: Rail Europe homepage with the train ticket search form on the left — from, to, dates and passengers — over a photo of Paris with the Eiffel Tower.

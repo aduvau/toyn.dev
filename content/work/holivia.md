@@ -5,7 +5,7 @@ role: Frontend Engineer
 period: 2022 — 2024
 order: 4
 summary: The whole frontend of a mental-health platform, designed and rebuilt — including a calming audio player and video calls with therapists, in vanilla JavaScript, CSS and HTML.
-stack: [Ruby on Rails, JavaScript, CSS, HTML]
+stack: [React, Ruby on Rails, JavaScript, CSS, HTML]
 cover:
   src: work/holivia/cover.webp
   alt: Three Holivia screens on phones — the audio player for a breathing session, a video call with a therapist, and wellbeing questionnaire results.

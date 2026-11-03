@@ -10,7 +10,17 @@ impact:
     label: people on the team
   - value: "1st"
     label: in-house engineer
-stack: [Svelte 5, SvelteKit, TypeScript, Storybook, Playwright, Vitest, Tailwind, Superforms]
+stack:
+  [
+    TypeScript,
+    Svelte 5,
+    SvelteKit,
+    Storybook,
+    Playwright,
+    Vitest,
+    Tailwind,
+    Superforms,
+  ]
 cover:
   src: work/rail-europe-sveltekit/storybook.webp
   alt: Storybook with the ExchangeItem component selected, showing a Paris to Rennes trip for six travellers, with its controls panel below.

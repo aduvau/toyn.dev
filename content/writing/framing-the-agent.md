@@ -36,7 +36,7 @@ If you think about it, that's just what being a senior dev is about. A few years
 
 ## Contracts: one source, four outputs
 
-Every component on this site has a contract in `src/system/contracts.ts`: what it's for, the CSS classes it owns, its states, its accessibility rules, what to do and not do. Here is part of the button's:
+Every component on this site has a contract in `src/system/contracts.tsx`: what it's for, the CSS classes it owns, its states, its accessibility rules, what to do and not do. Here is part of the button's:
 
 ```
 {

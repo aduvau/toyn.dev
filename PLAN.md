@@ -89,7 +89,7 @@ CSS only, no script.
   - Recrop `exchange-item.webp` without its own white margin and border (it looks double-framed).
   - Update the Card contract (cover rule, hover state). Case-study pages keep their full screenshots.
 - **B. "View contract" on cards.** A `<details class="contract">` at the end of each card, with a `{ } View contract` summary. When open, `.card:has(.contract[open])` outlines each part (`data-part` → dashed accent outline and a mono label with the class name) and the card stops lifting. The panel lists purpose, a11y, contrast and don't, with links to `contracts.ts`, the test and `/system`.
-  - Render the panel **from the Card contract** in `src/system/contracts.ts`, never hand-written, so it can't drift.
+  - Render the panel **from the Card contract** in `src/system/contracts.tsx`, never hand-written, so it can't drift.
   - The summary needs `position: relative; z-index: 1` to sit above the stretched `.card-link::after`. Amend the Card contract's "no second link" rule to allow this one control, and add a contract for the toggle (guardrail tests will ask for it).
   - Keyboard: the summary is reachable and has a visible `:focus-visible`. Reduced motion: tokens already zero the durations.
 

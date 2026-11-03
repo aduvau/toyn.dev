@@ -4,7 +4,7 @@ import type { Config } from "../config.ts";
 import { loadSite } from "../content/load.ts";
 import { isInside } from "../paths.ts";
 import { escapeHtml } from "../render/html.ts";
-import { renderPages } from "../render/pages.ts";
+import { renderPages } from "../render/pages.tsx";
 import { watchDirs } from "./livereload.ts";
 
 const HTML_HEADERS = { "Content-Type": "text/html; charset=utf-8" };

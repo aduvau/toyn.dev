@@ -14,7 +14,8 @@ When a phase is done, compact its build notes into `docs/<phase>-log.md` and kee
 Same setup as `../dadama` (copy and trim, don't share a package). Challengeable, but not edited without human approval.
 - Bun (runtime, dev server, bundler, test runner) + TypeScript (strict)
 - vanilla TS + CSS + HTML in the browser — no UI framework
-- HTML: tagged template literals with an `escapeHtml()` helper, no template engine
+- HTML: TSX compiled by a local JSX runtime (`src/render/jsx-runtime.ts`, ADR-0007) to escaped HTML
+  strings at build time; no React, no virtual DOM, nothing shipped to the browser
 - content: Markdown (remark/unified) for case studies, YAML for profile/timeline, validated with zod
 - Biome (lint + format), `tsc --noEmit`, `bun test`
 - Playwright (dev only, ADR-0004): `bun run test:visual` screenshots every `/system` component in both themes

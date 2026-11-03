@@ -18,6 +18,7 @@ Before code, I was a journalist. I still write docs as if someone is actually go
 
 ## Writing
 
+- [AI: The Browser Has It All (Well, Almost)](https://www.toyn.dev/writing/ai-the-browser-has-it-all-well-almost/): Most AI features travel from the browser to your server, to an AI API, and back again. For simple tasks, the browser can do it on its own.
 - [The thing is, I love coding](https://www.toyn.dev/writing/the-thing-is-i-still-love-coding/): You can keep saying that the value isn’t in the code, and that this was true even before the age of AI; I still love it as a practice.
 - [Framing the agent: how this site was built](https://www.toyn.dev/writing/framing-the-agent/): A walkthrough of the context, decisions and automatic checks that let a coding agent build this portfolio without making things up.
 
@@ -40,7 +41,7 @@ Before code, I was a journalist. I still write docs as if someone is actually go
 exports[`generated docs stay in sync with the contracts snapshots: llms.txt and system.md 2`] = `
 "# Antoine Duvauchelle — design system
 
-Generated from \`styles/tokens.css\` and \`src/system/contracts.ts\`; don't edit by hand.
+Generated from \`styles/tokens.css\` and \`src/system/contracts.tsx\`; don't edit by hand.
 Rules for anyone changing the site, human or agent:
 
 - Colours, px values and durations come from the tokens below; a test fails on any raw one elsewhere.
@@ -175,7 +176,6 @@ Rules for anyone changing the site, human or agent:
 | Token | Value |
 | --- | --- |
 | \`--print-root-size\` | \`9pt\` |
-| \`--print-margin\` | \`12mm\` |
 
 ## Contrast pairs
 
@@ -218,7 +218,7 @@ Rules for anyone changing the site, human or agent:
 
 **Do**
 
-- Use \`linkTo()\` for links built from content, so external links are labelled.
+- Use \`<LinkTo>\` for links built from content, so external links are labelled.
 
 **Don't**
 
@@ -271,7 +271,7 @@ Rules for anyone changing the site, human or agent:
 
 **Do**
 
-- Render it with \`socialLinks()\`, from \`profile.links\` in \`content/profile.yaml\`; a link needs a logo in \`SOCIAL_ICONS\`, or the build fails.
+- Render it with \`<SocialLinks>\`, from \`profile.links\` in \`content/profile.yaml\`; a link needs a logo in \`SOCIAL_ICONS\`, or the build fails.
 
 **Don't**
 
@@ -301,7 +301,7 @@ Rules for anyone changing the site, human or agent:
 
 **Do**
 
-- Render it with \`themeToggle()\`; every \`.theme-toggle\` on a page acts on the same theme.
+- Render it with \`<ThemeToggle>\`; every \`.theme-toggle\` on a page acts on the same theme.
 
 **Don't**
 
@@ -363,7 +363,7 @@ Rules for anyone changing the site, human or agent:
 
 **Do**
 
-- Render the panel from the contract with \`workCard(work, root, contract)\`, never by hand, so it can't drift.
+- Render the panel from the contract with \`<WorkCard work root contract>\`, never by hand, so it can't drift.
 - Label each part with \`data-part\`, set to a class the element has and a contract owns (a test checks both).
 
 **Don't**

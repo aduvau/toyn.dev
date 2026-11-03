@@ -1,5 +1,5 @@
 import type { Site } from "../content/load.ts";
-import { contracts } from "../system/contracts.ts";
+import { contracts } from "../system/contracts.tsx";
 import { contrastRows, ratio, tokenGroups } from "../system/report.ts";
 import { readTokens } from "../system/tokens.ts";
 import { postPath, RESUME_PATH, SITE_URL, SYSTEM_PATH, workPath } from "./urls.ts";
@@ -72,7 +72,7 @@ export function systemMarkdown(site: Site): string {
   });
   return `# ${site.profile.name} — design system
 
-Generated from \`styles/tokens.css\` and \`src/system/contracts.ts\`; don't edit by hand.
+Generated from \`styles/tokens.css\` and \`src/system/contracts.tsx\`; don't edit by hand.
 Rules for anyone changing the site, human or agent:
 
 - Colours, px values and durations come from the tokens below; a test fails on any raw one elsewhere.

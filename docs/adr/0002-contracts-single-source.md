@@ -10,7 +10,7 @@ and an agent can't follow a style guide it can't read. We need one place that sa
 UI is, and checks that fail when the code stops matching it.
 
 ## Decision
-Every component, layout block and utility class has a **contract** in `src/system/contracts.ts`
+Every component, layout block and utility class has a **contract** in `src/system/contracts.tsx`
 (validated by zod in `src/system/schema.ts`): purpose, owned classes, states, accessibility rules,
 do/don't, the colour pairs it relies on, and an optional example rendered from the real content.
 

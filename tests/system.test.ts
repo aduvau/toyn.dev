@@ -4,7 +4,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { build } from "../src/build/build.ts";
 import { makeConfig } from "../src/config.ts";
-import { contracts } from "../src/system/contracts.ts";
+import { contracts } from "../src/system/contracts.tsx";
 import { contrastRows } from "../src/system/report.ts";
 import { contractId } from "../src/system/schema.ts";
 import { contrast, isColor, readTokens, TOKENS_FILE } from "../src/system/tokens.ts";

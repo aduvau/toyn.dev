@@ -1,18 +1,18 @@
 import {
-  button,
-  eyebrow,
-  impact,
-  linkTo,
-  postList,
-  practice,
-  resumeBanner,
-  shot,
-  socialLinks,
-  tags,
-  themeToggle,
-  workCard,
-} from "../render/components.ts";
-import { html, raw } from "../render/html.ts";
+  Button,
+  Eyebrow,
+  Impact,
+  LinkTo,
+  PostList,
+  Practice,
+  ResumeBanner,
+  Shot,
+  SocialLinks,
+  Tags,
+  ThemeToggle,
+  WorkCard,
+} from "../render/components.tsx";
+import { raw } from "../render/html.ts";
 import { type Contract, defineContracts } from "./schema.ts";
 
 /** Base text pairs: every page sets its text on `--color-bg`. */
@@ -40,7 +40,7 @@ export const contracts = defineContracts([
       'External links get a visually hidden “(external)” and `rel="noopener"`.',
       "Every focusable element shows the global `:focus-visible` ring (`--focus-width`, `--color-focus`).",
     ],
-    do: ["Use `linkTo()` for links built from content, so external links are labelled."],
+    do: ["Use `<LinkTo>` for links built from content, so external links are labelled."],
     dont: ["Don't remove the underline or the focus ring."],
     contrast: [
       { fg: "--color-accent", bg: "--color-bg", min: 4.5, use: "link text" },
@@ -49,7 +49,7 @@ export const contracts = defineContracts([
     ],
     example: (site) => {
       const link = site.profile.links[0];
-      return html`<p>${link && linkTo(link.url, link.label)}</p>`;
+      return <p>{link && <LinkTo url={link.url}>{link.label}</LinkTo>}</p>;
     },
   },
   {
@@ -66,7 +66,11 @@ export const contracts = defineContracts([
     do: ["Keep one per block, for its main action: the closing CTA banner has one."],
     dont: ["Don't put it on an `<a>` for an action, or on a `<button>` for navigation."],
     contrast: [{ fg: "--color-bg", bg: "--color-fg", min: 4.5, use: "label on the inverted pill" }],
-    example: () => html`<p>${button("../resume/", "Read my résumé")}</p>`,
+    example: () => (
+      <p>
+        <Button href="../resume/">Read my résumé</Button>
+      </p>
+    ),
   },
   {
     name: "Social links",
@@ -81,11 +85,11 @@ export const contracts = defineContracts([
       "The lift is a transform on `--duration-fast`, which is 0 under reduced motion.",
     ],
     do: [
-      "Render it with `socialLinks()`, from `profile.links` in `content/profile.yaml`; a link needs a logo in `SOCIAL_ICONS`, or the build fails.",
+      "Render it with `<SocialLinks>`, from `profile.links` in `content/profile.yaml`; a link needs a logo in `SOCIAL_ICONS`, or the build fails.",
     ],
     dont: ["Don't add a visible text label next to the logos, or a logo without a name."],
     contrast: [{ fg: "--color-bg", bg: "--color-fg", min: 3, use: "logo on the inverted disc" }],
-    example: (site) => socialLinks(site),
+    example: (site) => <SocialLinks site={site} />,
   },
   {
     name: "Theme toggle",
@@ -107,14 +111,18 @@ export const contracts = defineContracts([
       "The stored theme is applied in `<head>` before the stylesheet, so there is no flash of the other theme.",
       "Hidden with `@media (scripting: none)`: no dead button without JavaScript.",
     ],
-    do: ["Render it with `themeToggle()`; every `.theme-toggle` on a page acts on the same theme."],
+    do: ["Render it with `<ThemeToggle>`; every `.theme-toggle` on a page acts on the same theme."],
     dont: [
       "Don't change the label with the state: the name stays “Dark theme”, `aria-pressed` carries the state.",
       "Don't print the chosen theme: dark tokens are screen-only.",
     ],
     // The icon is `--color-fg` on `--color-bg`, already held to 4.5:1 as body text (Page).
     contrast: [{ fg: "--color-focus", bg: "--color-bg", min: 3, use: "focus ring" }],
-    example: () => html`<p>${themeToggle()}</p>`,
+    example: () => (
+      <p>
+        <ThemeToggle />
+      </p>
+    ),
   },
   {
     name: "Card",
@@ -159,7 +167,11 @@ export const contracts = defineContracts([
     ],
     example: (site, root) => {
       const work = site.work[0];
-      return html`<ul class="cards">${work && workCard(work, root, cardContract())}</ul>`;
+      return (
+        <ul class="cards">
+          {work && <WorkCard work={work} root={root} contract={cardContract()} />}
+        </ul>
+      );
     },
   },
   {
@@ -182,7 +194,7 @@ export const contracts = defineContracts([
       "The summary and the panel sit above the stretched card link (`z-index: 1`), so they can be clicked.",
     ],
     do: [
-      "Render the panel from the contract with `workCard(work, root, contract)`, never by hand, so it can't drift.",
+      "Render the panel from the contract with `<WorkCard work root contract>`, never by hand, so it can't drift.",
       "Label each part with `data-part`, set to a class the element has and a contract owns (a test checks both).",
     ],
     dont: [
@@ -202,7 +214,11 @@ export const contracts = defineContracts([
     ],
     example: (site, root) => {
       const work = site.work[1] ?? site.work[0];
-      return html`<ul class="cards">${work && workCard(work, root, cardContract(), { open: true })}</ul>`;
+      return (
+        <ul class="cards">
+          {work && <WorkCard work={work} root={root} contract={cardContract()} open />}
+        </ul>
+      );
     },
   },
   {
@@ -214,7 +230,15 @@ export const contracts = defineContracts([
     dont: ["Don't use it as a heading."],
     example: (site) => {
       const work = site.work[0];
-      return work ? eyebrow(`${work.client} · ${work.period}`) : html``;
+      return (
+        <>
+          {work && (
+            <Eyebrow>
+              {work.client} · {work.period}
+            </Eyebrow>
+          )}
+        </>
+      );
     },
   },
   {
@@ -230,7 +254,7 @@ export const contracts = defineContracts([
     dont: ["Don't round or invent numbers to fill the row."],
     example: (site) => {
       const work = site.work.find((w) => w.impact.length > 0);
-      return work ? impact(work) : html``;
+      return <>{work && <Impact work={work} />}</>;
     },
   },
   {
@@ -240,7 +264,7 @@ export const contracts = defineContracts([
     classes: ["tags", "tag"],
     a11y: ["A `<ul>` labelled “Stack”, so it is announced as a list."],
     dont: ["Don't make tags interactive: they are not filters."],
-    example: (site) => tags(site.work[0]?.stack ?? []),
+    example: (site) => <Tags items={site.work[0]?.stack ?? []} />,
   },
   {
     name: "Screenshot",
@@ -255,7 +279,7 @@ export const contracts = defineContracts([
     ],
     example: (site, root) => {
       const img = site.work.flatMap((w) => w.gallery)[0];
-      return img ? shot(img, root) : html``;
+      return <>{img && <Shot img={img} root={root} />}</>;
     },
   },
   {
@@ -269,8 +293,12 @@ export const contracts = defineContracts([
       "Only on the home page, since it holds the `h1`; the example shows the tagline and intro only.",
       "The résumé header reuses `.hero-name` and `.hero-role` for its own `h1`.",
     ],
-    example: (site) =>
-      html`<p class="tagline">${site.profile.tagline}</p><p class="intro">${site.profile.intro[0]}</p>`,
+    example: (site) => (
+      <>
+        <p class="tagline">{site.profile.tagline}</p>
+        <p class="intro">{site.profile.intro[0]}</p>
+      </>
+    ),
   },
   {
     name: "Practice",
@@ -280,7 +308,7 @@ export const contracts = defineContracts([
     a11y: ["Each practice is a list item with an `h3`, under the section's `h2`."],
     example: (site) => {
       const first = site.profile.practices[0];
-      return html`<ul class="practices">${first && practice(first)}</ul>`;
+      return <ul class="practices">{first && <Practice practice={first} />}</ul>;
     },
   },
   {
@@ -299,7 +327,7 @@ export const contracts = defineContracts([
       { fg: "--color-fg", bg: "--color-surface", min: 4.5, use: "banner heading" },
       { fg: "--color-muted", bg: "--color-surface", min: 4.5, use: "banner text" },
     ],
-    example: (_site, root) => resumeBanner(root),
+    example: (_site, root) => <ResumeBanner root={root} />,
   },
   {
     name: "Prose",
@@ -316,7 +344,7 @@ export const contracts = defineContracts([
     ],
     example: (site) => {
       const paragraph = site.work[0]?.html.match(/<p>[\s\S]*?<\/p>/)?.[0] ?? "";
-      return html`<div class="prose">${raw(paragraph)}</div>`;
+      return <div class="prose">{raw(paragraph)}</div>;
     },
   },
 
@@ -366,9 +394,11 @@ export const contracts = defineContracts([
     dont: ["Don't publish a post with open notes for Antoine: the build warns about them."],
     contrast: [...TEXT_ON_BG],
     example: (site, root) =>
-      site.posts.length > 0
-        ? postList(site.posts.slice(0, 1), root)
-        : html`<p class="muted">No post is published yet.</p>`,
+      site.posts.length > 0 ? (
+        <PostList posts={site.posts.slice(0, 1)} root={root} />
+      ) : (
+        <p class="muted">No post is published yet.</p>
+      ),
   },
   {
     name: "Design system page",
@@ -440,7 +470,16 @@ export const contracts = defineContracts([
     contrast: [...TEXT_ON_BG],
     example: (site) => {
       const first = site.profile.skills[0];
-      return html`<dl class="resume-list">${first && html`<div><dt>${first.group}</dt><dd>${first.items.join(", ")}</dd></div>`}</dl>`;
+      return (
+        <dl class="resume-list">
+          {first && (
+            <div>
+              <dt>{first.group}</dt>
+              <dd>{first.items.join(", ")}</dd>
+            </div>
+          )}
+        </dl>
+      );
     },
   },
 

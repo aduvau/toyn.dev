@@ -18,27 +18,20 @@ export function escapeHtml(text: string): string {
   return text.replace(/[&<>"']/g, (c) => ESCAPES[c] ?? c);
 }
 
-/** Marks trusted HTML (e.g. the markdown pipeline output) so `html` won't escape it. */
+/** Marks trusted HTML (e.g. the markdown pipeline output) so JSX won't escape it. */
 export function raw(value: string): SafeHtml {
   return new SafeHtml(value);
 }
 
-type Value = SafeHtml | string | number | boolean | null | undefined | Value[];
+/** What JSX accepts as children: nested arrays are flattened, `false`/`null`/`undefined` skipped. */
+export type Child = SafeHtml | string | number | boolean | null | undefined | Child[];
 
-function render(value: Value): string {
+/** A child as HTML: escaped unless it is `SafeHtml`. Used by the JSX runtime (`jsx-runtime.ts`). */
+export function renderChild(value: Child): string {
   if (value instanceof SafeHtml) return value.value;
-  if (Array.isArray(value)) return value.map(render).join("");
-  if (value === null || value === undefined || value === false) return "";
+  if (Array.isArray(value)) return value.map(renderChild).join("");
+  if (value === null || value === undefined || value === false || value === true) return "";
   return escapeHtml(String(value));
-}
-
-/** Tagged template: interpolated values are escaped unless they are `SafeHtml`. */
-export function html(strings: TemplateStringsArray, ...values: Value[]): SafeHtml {
-  let out = strings[0] ?? "";
-  values.forEach((value, i) => {
-    out += render(value) + (strings[i + 1] ?? "");
-  });
-  return new SafeHtml(out);
 }
 
 /**

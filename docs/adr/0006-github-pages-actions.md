@@ -46,5 +46,5 @@ A GitHub Actions workflow (`.github/workflows/pages.yml`) publishes the site. On
   work there, but `404.html` uses root-absolute ones and loses its styles. Only the custom domain is
   meant to be visited.
 - GitHub already redirects `/resume` to `/resume/`. The inline trailing-slash script in
-  `src/render/layout.ts` is kept: it is harmless and keeps working on any other static host.
+  `src/render/layout.tsx` is kept: it is harmless and keeps working on any other static host.
 - The case study about dadama still says it runs on Codeberg Pages. That is true of dadama, so it stays.

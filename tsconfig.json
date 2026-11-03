@@ -9,6 +9,12 @@
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "noEmit": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "#jsx",
+    "paths": {
+      "#jsx/jsx-runtime": ["./src/render/jsx-runtime.ts"],
+      "#jsx/jsx-dev-runtime": ["./src/render/jsx-runtime.ts"]
+    },
     "skipLibCheck": true,
 
     "strict": true,

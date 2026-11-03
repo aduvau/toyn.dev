@@ -1,7 +1,7 @@
 import { readdirSync } from "node:fs";
 import { join } from "node:path";
 import { expect, test } from "@playwright/test";
-import { contracts } from "../../src/system/contracts.ts";
+import { contracts } from "../../src/system/contracts.tsx";
 import { contractId } from "../../src/system/schema.ts";
 
 // Visual regression (ADR-0004): every contract on `/system`, in both themes, against committed

@@ -2,9 +2,9 @@ import { beforeAll, describe, expect, test } from "bun:test";
 import { join } from "node:path";
 import { makeConfig } from "../src/config.ts";
 import { loadSite, type Work } from "../src/content/load.ts";
-import { workCard } from "../src/render/components.ts";
+import { WorkCard } from "../src/render/components.tsx";
 import { escapeHtml } from "../src/render/html.ts";
-import { cardContract, contracts } from "../src/system/contracts.ts";
+import { cardContract, contracts } from "../src/system/contracts.tsx";
 import { type Contract, defineContracts } from "../src/system/schema.ts";
 
 // "View contract" on cards (PLAN §8 B, `.story-pipeline/card-contract/`): the panel is rendered from
@@ -21,7 +21,7 @@ beforeAll(async () => {
 });
 
 const card = (w: Work = work, root = "", contract = cardContract(), open = false) =>
-  workCard(w, root, contract, { open }).value;
+  WorkCard({ work: w, root, contract, open }).value;
 
 /** A made-up contract, to prove the panel prints whatever the contract says. */
 const fake: Contract = defineContracts([
@@ -41,11 +41,11 @@ describe("the contract toggle", () => {
     expect(card()).toMatch(
       /<\/article>\s*<details class="card-contract"><summary><span aria-hidden="true">\{ \}<\/span> View contract<\/summary>/,
     );
-    expect(card()).toEndWith("</details>\n</li>");
+    expect(card()).toMatch(/<\/details>\s*<\/li>$/);
   });
 
   test("is closed unless asked otherwise", () => {
-    expect(workCard(work, "", cardContract()).value).toContain(
+    expect(WorkCard({ work, root: "", contract: cardContract() }).value).toContain(
       '<details class="card-contract"><summary>',
     );
   });
@@ -94,7 +94,7 @@ describe("the panel is generated from the contract", () => {
 
   test("it names its sources and links to the contract's entry on /system", () => {
     expect(panel(fake)).toContain(
-      '<p class="muted">From <code>src/system/contracts.ts</code> · checked by <code>tests/system.test.ts</code> · <a href="system/#c-fake-card">Fake card on /system</a></p>',
+      '<p class="muted">From <code>src/system/contracts.tsx</code> · checked by <code>tests/system.test.ts</code> · <a href="system/#c-fake-card">Fake card on /system</a></p>',
     );
     expect(panel(fake, "../")).toContain('<a href="../system/#c-fake-card">');
   });
@@ -158,7 +158,7 @@ describe("the card's content", () => {
   test("no impact figures, no impact list and nothing in its place", () => {
     const markup = card({ ...work, impact: [] });
     expect(markup).not.toContain('class="impact"');
-    expect(markup).toMatch(/<\/p>\n\n<\/article>/);
+    expect(markup).toMatch(/<\/p>\s*<\/article>/);
   });
 
   test("the cover's shape picks its rule: taller than wide is portrait, otherwise wide", () => {

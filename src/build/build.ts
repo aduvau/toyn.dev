@@ -3,7 +3,7 @@ import { basename, dirname, join, relative } from "node:path";
 import type { Config } from "../config.ts";
 import { loadSite } from "../content/load.ts";
 import { isInside } from "../paths.ts";
-import { renderPages } from "../render/pages.ts";
+import { renderPages } from "../render/pages.tsx";
 
 export type BuildResult =
   | { ok: true; outDir: string; files: string[]; warnings: string[] }

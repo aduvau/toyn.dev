@@ -27,10 +27,7 @@ export async function bundleStyles(stylesDir: string, minify: boolean): Promise<
   return output.text();
 }
 
-/** Host config files copied from the project root to the root of `outDir` when present. */
-const HOST_FILES = ["_redirects", ".domains"];
-
-/** Kept when `outDir` is emptied, so `dist/` can be a git clone of the deploy repo. */
+/** Kept when `outDir` is emptied, so a git checkout in `dist/` survives a build. */
 const KEEP = ".git";
 
 async function emptyDir(dir: string): Promise<void> {
@@ -72,9 +69,5 @@ export async function build(config: Config, outDir = config.distDir): Promise<Bu
   await mkdir(join(outDir, "styles"), { recursive: true });
   await writeFile(join(outDir, "styles", "main.css"), css);
   await copyDir(config.publicDir, join(outDir, "public"));
-  for (const name of HOST_FILES) {
-    const file = Bun.file(join(config.root, name));
-    if (await file.exists()) await Bun.write(join(outDir, name), file);
-  }
   return { ok: true, outDir, files: await listFiles(outDir), warnings: loaded.warnings };
 }

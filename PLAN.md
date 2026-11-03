@@ -1,10 +1,10 @@
 # toyn.dev — Implementation plan
 
-Last updated 2026-10-13.
+Last updated 2026-11-03.
 
 ## Current status
 
-- **v1** done and deployed 2026-10-13 at https://www.toyn.dev/ — see `docs/v1-log.md`. Publishing needs the **webhook on `toyn_output`** (Settings → Webhooks).
+- **v1** done and deployed 2026-10-13 at https://www.toyn.dev/ — see `docs/v1-log.md`.
 - **v1.x `/system`** done and deployed 2026-10-13 — see `docs/v1x-log.md`, ADR-0002.
 - **v1.y `/resume`** done and deployed 2026-10-13 — see `docs/v1y-log.md`.
 - **v2** done 2026-10-13: `/writing` with the article "Framing the agent" (deployed), and visual regression on `/system` (dev only, ADR-0004) — see `docs/v2-log.md`.
@@ -17,11 +17,11 @@ Last updated 2026-10-13.
 | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Positioning  | Title **Product Engineer** (matches LinkedIn). Tagline bridges to design engineering: _"I build design systems, polished UI, and the guardrails that let teams — and agents — ship them."_ Not Front-specific: aimed at design-engineering / product-engineering roles in general |
 | Language     | English only, `<html lang="en">`                                                                                                                                                                                                                                                  |
-| Hosting      | Codeberg Pages. Source `toyn/toyn`, output `toyn/toyn_output` (branch `pages`), cloned into `dist/`                                                                                                                                                                               |
-| Domain       | Served at `https://www.toyn.dev/`; the bare `toyn.dev` redirects there (`_redirects`, same pattern as dadama). DNS: apex A `217.197.84.141`, `www` CNAME `codeberg.page.`, `_git-pages-repository` TXT on both → `https://codeberg.org/toyn/toyn_output.git`                      |
+| Hosting      | GitHub Pages, published by GitHub Actions on every push to `main` of `aduvau/toyn.dev` (ADR-0006). Previously Codeberg Pages (`toyn/toyn` + `toyn/toyn_output`) |
+| Domain       | Served at `https://www.toyn.dev/` (custom domain in the repo's Settings → Pages); GitHub redirects the bare `toyn.dev` there. DNS for GitHub: apex A `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`; `www` CNAME `aduvau.github.io.`; domain to verify in the GitHub account (TXT) |
 | Stack        | Same as `../dadama` (see `CLAUDE.md`); no d3 unless a case study needs a chart                                                                                                                                                                                                    |
 | Design       | Tokens as CSS custom properties (`styles/tokens.css`); light/dark follows `prefers-color-scheme`, with a remembered theme toggle (ADR-0005); system fonts                                                                                                                                        |
-| Privacy      | No phone, no date of birth. LinkedIn + Codeberg/GitHub; email (`a@toyn.dev`) on `/resume` only, entity-encoded                                                                                                                                                                    |
+| Privacy      | No phone, no date of birth. LinkedIn + GitHub; email (`a@toyn.dev`) on `/resume` only, entity-encoded                                                                                                                                                                    |
 | Truthfulness | Only claims backed by the resume, this repo, or Antoine. The learning-in-public items (§4) are claimed only once built here                                                                                                                                                       |
 
 ## 2. v1 — One page, deployed
@@ -63,7 +63,7 @@ Done; build notes in `docs/v1y-log.md`. Prints to 2 A4 pages ("Save as PDF"); em
 
 - **Slash Lab:** answered 2026-10-13 (brand platforms for Kawaa, Dress in Peace, Base Jaune; no visuals). Role title: "Brand identity & Product builder".
 - **Screenshots:** no Rail Europe before/after search-form shots exist; dropped.
-- **Links:** done (LinkedIn, Codeberg, GitHub).
+- **Links:** done (LinkedIn, GitHub; Codeberg dropped 2026-11-03 with the move to GitHub).
 - **Confidentiality (Rail Europe):** case studies approved by Antoine 2026-10-13. Not mentioned on the site: the platform's decommissioning after the acquisition.
 - **Climate sites:** demoted to the timeline (`draft: true`), per Antoine.
 - **Theme:** `prefers-color-scheme` only — decided 2026-10-13; reopened the same day for a remembered toggle (ADR-0005).

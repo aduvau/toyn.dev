@@ -5,7 +5,7 @@ export interface Config {
   contentDir: string;
   publicDir: string;
   stylesDir: string;
-  /** Where `build` writes the static site. A git clone of the deploy repo when deploying. */
+  /** Where `build` writes the static site. GitHub Actions publishes it to Pages (ADR-0006). */
   distDir: string;
   port: number;
   /** Watch files and reload open pages on change (serve mode only). */

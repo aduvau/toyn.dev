@@ -5,7 +5,6 @@
   "scripts": {
     "dev": "bun src/cli.ts serve",
     "build": "bun src/cli.ts build",
-    "deploy": "bun src/cli.ts deploy",
     "test": "bun test",
     "test:visual": "playwright test",
     "test:mutation": "stryker run",

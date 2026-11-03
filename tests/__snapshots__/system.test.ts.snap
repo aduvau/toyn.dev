@@ -18,6 +18,7 @@ Before code, I was a journalist. I still write docs as if someone is actually go
 
 ## Writing
 
+- [The thing is, I love coding](https://www.toyn.dev/writing/the-thing-is-i-still-love-coding/): You can keep saying that the value isn’t in the code, and that this was true even before the age of AI; I still love it as a practice.
 - [Framing the agent: how this site was built](https://www.toyn.dev/writing/framing-the-agent/): A walkthrough of the context, decisions and automatic checks that let a coding agent build this portfolio without making things up.
 
 ## Résumé
@@ -32,7 +33,6 @@ Before code, I was a journalist. I still write docs as if someone is actually go
 ## Optional
 
 - [LinkedIn](https://www.linkedin.com/in/antoine-duvauchelle-333184433/)
-- [Codeberg](https://codeberg.org/toyn)
 - [GitHub](https://github.com/aduvau)
 "
 `;
@@ -252,7 +252,7 @@ Rules for anyone changing the site, human or agent:
 
 ### Social links
 
-*component.* The profile links (LinkedIn, Codeberg, GitHub) as round logo buttons with inverted colours, at the end of the hero and in every page's footer.
+*component.* The profile links (LinkedIn, GitHub) as round logo buttons with inverted colours, at the end of the hero and in every page's footer.
 
 **Selectors:** \`.social-links\` \`.social-link\`
 

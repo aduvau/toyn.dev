@@ -72,7 +72,7 @@ export const contracts = defineContracts([
     name: "Social links",
     kind: "component",
     purpose:
-      "The profile links (LinkedIn, Codeberg, GitHub) as round logo buttons with inverted colours, at the end of the hero and in every page's footer.",
+      "The profile links (LinkedIn, GitHub) as round logo buttons with inverted colours, at the end of the hero and in every page's footer.",
     classes: ["social-links", "social-link"],
     states: ["default", "hover (lifts by `--lift-sm`)", "active", "focus-visible"],
     a11y: [

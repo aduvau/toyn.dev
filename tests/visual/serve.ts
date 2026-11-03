@@ -6,7 +6,7 @@ import { makeConfig } from "../../src/config.ts";
 import { isInside } from "../../src/paths.ts";
 
 // Static server for the visual tests (started by `playwright.config.ts`): a real build, served as
-// Codeberg Pages would, without the dev server's live-reload script. Never builds into `dist/`.
+// GitHub Pages would, without the dev server's live-reload script. Never builds into `dist/`.
 const port = Number(process.argv[2] ?? 4173);
 const out = await mkdtemp(join(tmpdir(), "toyn-visual-"));
 const result = await build(makeConfig({ root: join(import.meta.dir, "../..") }), out);

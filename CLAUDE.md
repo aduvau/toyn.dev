@@ -18,7 +18,8 @@ Same setup as `../dadama` (copy and trim, don't share a package). Challengeable,
 - content: Markdown (remark/unified) for case studies, YAML for profile/timeline, validated with zod
 - Biome (lint + format), `tsc --noEmit`, `bun test`
 - Playwright (dev only, ADR-0004): `bun run test:visual` screenshots every `/system` component in both themes
-- deploy: `dist/` is a clone of `codeberg.org/toyn/toyn_output`, branch `pages` (Codeberg Pages); source lives in `toyn/toyn`
+- deploy: GitHub Pages via GitHub Actions (`.github/workflows/pages.yml`, ADR-0006): every push to `main` of
+  `github.com/aduvau/toyn.dev` builds and publishes `dist/`, so pushing to `main` is deploying
 
 ## Rules
 - **Truthfulness:** never claim experience, tools, numbers or results that aren't in the resume, in this repo, or

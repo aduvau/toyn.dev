@@ -1,6 +1,6 @@
 # ADR-0001: Reuse the dadama stack, copied and trimmed
 
-**Status:** Accepted
+**Status:** Accepted; hosting and deploy superseded by ADR-0006
 **Date:** 2026-10-13
 **Deciders:** Project owner
 

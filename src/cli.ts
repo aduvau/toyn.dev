@@ -1,6 +1,5 @@
 import { relative } from "node:path";
 import { build } from "./build/build.ts";
-import { DEPLOY_BRANCH, deploy } from "./build/deploy.ts";
 import { makeConfig } from "./config.ts";
 import { loadSite } from "./content/load.ts";
 import { startServer } from "./server/serve.ts";
@@ -38,21 +37,7 @@ switch (command) {
     console.log(`toyn: content OK, ${loaded.warnings.length} open TODO(antoine) note(s)`);
     break;
   }
-  case "deploy": {
-    const result = await deploy(makeConfig());
-    if (!result.ok) {
-      for (const error of result.errors) console.error(error);
-      console.error("toyn: deploy failed, nothing was pushed");
-      process.exit(1);
-    }
-    console.log(
-      result.commit
-        ? `toyn: built ${result.files} files, pushed ${result.commit} to origin/${DEPLOY_BRANCH}`
-        : `toyn: site unchanged, origin/${DEPLOY_BRANCH} is up to date`,
-    );
-    break;
-  }
   default:
-    console.error("usage: toyn <serve|build|check|deploy>");
+    console.error("usage: toyn <serve|build|check>");
     process.exit(1);
 }

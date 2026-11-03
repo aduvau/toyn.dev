@@ -170,10 +170,6 @@ test("the résumé links every case study and prints without dark colours", asyn
   expect(css).toMatch(/@page\s*\{[^}]*size:\s*A4/);
 });
 
-test("_redirects reaches the output, so the bare domain keeps redirecting to www", async () => {
-  expect(await read("_redirects")).toContain("//toyn.dev/* https://www.toyn.dev/:splat 302!");
-});
-
 test("every page has the main nav, marking the current page", async () => {
   const current: Record<string, string | undefined> = {
     "index.html": "Home",

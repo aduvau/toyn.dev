@@ -2,18 +2,18 @@ experience:
   - org: Rail Europe
     period: 2024 — now
     roles:
-      - title: Senior Software Engineer — B2C revamp & mobile
+      - title: Senior Product Engineer — B2C revamp & mobile
         period: 2025 — now
         work: rail-europe-migration
         summary: Revamped the ten-year-old Rails B2C platform (CoffeeScript, jQuery, React SPA) toward a modern Rails and Hotwire stack, took over the mobile apps with Capacitor, cut the front bundle by 40% and the critical booking pages by 1.3 s on average.
-      - title: Software Engineer & Scrum Master — SvelteKit rebuild
+      - title: Product Engineer & Scrum Master — SvelteKit rebuild
         period: 2024
         work: rail-europe-sveltekit
         summary: First in-house engineer on a from-scratch SvelteKit rebuild of the B2C site, alongside Mainmatter consultants. Developer, Scrum Master and team facilitator for 21 people; the project was stopped at around 80% in favour of revamping the existing platform.
   - org: Holivia
     period: 2022 — 2024
     roles:
-      - title: Frontend Engineer
+      - title: Product Engineer
         period: 2022 — 2024
         work: holivia
         summary: Revamped the whole frontend of the mental-health platform's Rails app, set up unit and feature testing, and built in-house libraries for the audio player (guided sound sessions) and therapist video calls.

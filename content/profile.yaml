@@ -47,7 +47,8 @@ skills:
   - group: Testing and tooling
     items: [Playwright, Vitest, Biome, Bun, zod, D3]
   - group: AI
-    items: [Claude Code]
+    items:
+      [Claude Code, Codex, harnessing, skills, orchestration, Browser-side APIs]
 languages:
   - name: French
     level: native

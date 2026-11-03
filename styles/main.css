@@ -1164,11 +1164,6 @@ code {
   margin: 0;
 }
 
-@page {
-  size: A4;
-  margin: var(--print-margin);
-}
-
 @media print {
   html {
     color-scheme: light;

@@ -65,7 +65,15 @@
   /* Print (the résumé): A4, smaller root size; colours stay light */
   --print-root-size: 9pt;
   --leading-print: 1.45;
-  --print-margin: 12mm;
+}
+
+/*
+ * The résumé's A4 page. A raw value, not a `var()`: Firefox doesn't resolve `:root` custom
+ * properties inside `@page`, so a token here printed with no margins at all.
+ */
+@page {
+  size: A4;
+  margin: 12mm;
 }
 
 /*

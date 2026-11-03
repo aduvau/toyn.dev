@@ -168,6 +168,8 @@ test("the résumé links every case study and prints without dark colours", asyn
   // Dark tokens are screen-only. (Bun adds its own unrelated `prefers-color-scheme` helper on `html`.)
   expect(css).not.toMatch(/@media\s*\(prefers-color-scheme:\s*dark\)\s*\{\s*:root/);
   expect(css).toMatch(/@page\s*\{[^}]*size:\s*A4/);
+  // Firefox doesn't resolve custom properties inside `@page`: its margin must be a raw value.
+  expect(css).not.toMatch(/@page\s*\{[^}]*var\(/);
 });
 
 test("every page has the main nav, marking the current page", async () => {

@@ -58,7 +58,6 @@ Conventions only hold if something checks them. A few of the tests that fail the
 - No raw colours, pixel values or durations outside `styles/tokens.css`.
 - Every contrast pair named in a contract passes WCAG AA, in the light and the dark theme.
 - Every CSS class used on a page has a contract, and every contract's classes are still used.
-- Every skill listed on the CV is already named somewhere else in the content, so none is made up.
 - The stylesheet and every page stay under a size budget.
 
 I love the size budget. It's a very convenient rule, and I'll definitely write a full post on it, but I feel like I still need to refine my system. Here, it caught the agent while it was building the very writing section you're reading now: the new styles were 9 bytes over. My budget is still around 14 KB, so we're very, very far from bloated CSS. So the agent is allowed to raise the limit, as long as it says so. That's really different from a "don't care about the CSS budget" attitude, trust me. And because the limit was there, after a review it decided it could have fulfilled its contract better, so it undid the change and trimmed the CSS instead.

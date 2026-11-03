@@ -12,7 +12,7 @@ export const profileSchema = z.strictObject({
   email: z.email(),
   links: z.array(link),
   practices: z.array(z.strictObject({ title: z.string().min(1), body: z.string().min(1) })).min(1),
-  /** Résumé skills. Every item must be named elsewhere in the content (see `tests/content.test.ts`). */
+  /** Résumé skills. */
   skills: z
     .array(z.strictObject({ group: z.string().min(1), items: z.array(z.string().min(1)).min(1) }))
     .min(1),

@@ -21,8 +21,8 @@ A GitHub Actions workflow (`.github/workflows/pages.yml`) publishes the site. On
   covers both at once.
 - **Build only, no test gate.** The old deploy only built. Tests and `test:visual` stay checks you run
   locally (ADR-0004), and `TODO(antoine)` notes stay warnings. A failing build still stops the deploy.
-- **`bun run deploy` and the output repo are gone.** `dist/` is a plain build folder. `build` still
-  keeps a `dist/.git` if one is there.
+- **`bun run deploy` and the output repo are gone.** `dist/` is a plain build folder, emptied on
+  every build.
 - **Domain:** `www.toyn.dev` is set as the custom domain in Settings → Pages, and GitHub redirects
   the bare `toyn.dev` to it. With an Actions deployment, GitHub ignores a `CNAME` file and runs no
   Jekyll, so neither `CNAME` nor `.nojekyll` is shipped. `_redirects` and `.domains` are removed.

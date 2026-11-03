@@ -1,5 +1,5 @@
 import { cp, mkdir, readdir, rm, writeFile } from "node:fs/promises";
-import { basename, dirname, join, relative, sep } from "node:path";
+import { basename, dirname, join, relative } from "node:path";
 import type { Config } from "../config.ts";
 import { loadSite } from "../content/load.ts";
 import { isInside } from "../paths.ts";
@@ -27,14 +27,9 @@ export async function bundleStyles(stylesDir: string, minify: boolean): Promise<
   return output.text();
 }
 
-/** Kept when `outDir` is emptied, so a git checkout in `dist/` survives a build. */
-const KEEP = ".git";
-
 async function emptyDir(dir: string): Promise<void> {
+  await rm(dir, { recursive: true, force: true });
   await mkdir(dir, { recursive: true });
-  for (const name of await readdir(dir)) {
-    if (name !== KEEP) await rm(join(dir, name), { recursive: true, force: true });
-  }
 }
 
 async function listFiles(dir: string): Promise<string[]> {
@@ -42,13 +37,12 @@ async function listFiles(dir: string): Promise<string[]> {
   return entries
     .filter((e) => e.isFile())
     .map((e) => relative(dir, join(e.parentPath, e.name)))
-    .filter((path) => path.split(sep)[0] !== KEEP)
     .sort();
 }
 
 /**
  * Renders the site into `outDir` (default `dist/`). Content errors fail the build before `outDir`
- * is touched, so a broken build never replaces a good one. `outDir/.git` survives.
+ * is touched, so a broken build never replaces a good one.
  */
 export async function build(config: Config, outDir = config.distDir): Promise<BuildResult> {
   if (isInside(outDir, config.root)) {

@@ -15,7 +15,7 @@ Taking screenshots needs a headless browser. That's a new tool, so a stack chang
 
 ## Decision
 Add Playwright as a **dev dependency only**. A visual test builds the site into a temporary directory
-(never `dist/`, which is the deploy clone), serves it statically, and screenshots each component on
+(never `dist/`), serves it statically, and screenshots each component on
 `/system` in both themes. It fails when a screenshot differs from its committed baseline.
 
 - **What gets screenshotted:** one element shot per `<article class="contract">`, in light and in dark.

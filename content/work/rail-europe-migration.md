@@ -20,6 +20,12 @@ stack:
     Hotwire,
     Turbo,
     Stimulus,
+    Claude Code,
+    Codex,
+    agent harnessing,
+    agent skills,
+    agent orchestration,
+    Browser-side APIs,
   ]
 cover:
   src: work/rail-europe-migration/home.webp

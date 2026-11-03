@@ -10,7 +10,7 @@ impact:
     label: automated tests
   - value: "1 day"
     label: empty repo to live site
-stack: [TypeScript, Bun, D3, remark/unified, zod, Biome]
+stack: [TypeScript, Bun, D3, remark/unified, zod, Biome, Claude Code, Codex, agent harnessing, agent skills, agent orchestration, Browser-side APIs]
 cover:
   src: work/dadama/chart-area-light.webp
   srcDark: work/dadama/chart-area-dark.webp

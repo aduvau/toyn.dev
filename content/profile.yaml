@@ -48,7 +48,7 @@ skills:
     items: [Playwright, Vitest, Biome, Bun, zod, D3]
   - group: AI
     items:
-      [Claude Code, Codex, harnessing, skills, orchestration, Browser-side APIs]
+      [Claude Code, Codex, agent harnessing, agent skills, agent orchestration, Browser-side APIs]
 languages:
   - name: French
     level: native

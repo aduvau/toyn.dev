@@ -3,26 +3,14 @@ import type { Profile } from "../content/schemas.ts";
 import { type Contract, contractId } from "../system/schema.ts";
 import type { Child, SafeHtml } from "./html.ts";
 import { Inline, SelectorsRow, SpecList } from "./spec.tsx";
-import {
-  postPath,
-  RESUME_PATH,
-  SYSTEM_PATH,
-  WRITING_PATH,
-  workPath,
-} from "./urls.ts";
+import { postPath, RESUME_PATH, SYSTEM_PATH, WRITING_PATH, workPath } from "./urls.ts";
 
 // The site's components. Each one has a contract in `src/system/contracts.tsx`; `root` is the prefix
 // from the current page back to the site root (`""`, `"../"`, `"../../"`).
 
 const external = (url: string) => /^https?:\/\//.test(url);
 
-export function LinkTo({
-  url,
-  children,
-}: {
-  url: string;
-  children: Child;
-}): SafeHtml {
+export function LinkTo({ url, children }: { url: string; children: Child }): SafeHtml {
   return external(url) ? (
     <a href={url} rel="noopener">
       {children}
@@ -33,13 +21,7 @@ export function LinkTo({
   );
 }
 
-export function Button({
-  href,
-  children,
-}: {
-  href: string;
-  children: Child;
-}): SafeHtml {
+export function Button({ href, children }: { href: string; children: Child }): SafeHtml {
   return (
     <a class="button" href={href}>
       {children}
@@ -48,13 +30,7 @@ export function Button({
 }
 
 /** `part` labels it for the card's construction lines (see `WorkCard`). */
-export function Eyebrow({
-  part,
-  children,
-}: {
-  part?: string;
-  children: Child;
-}): SafeHtml {
+export function Eyebrow({ part, children }: { part?: string; children: Child }): SafeHtml {
   return (
     <p class="eyebrow" data-part={part}>
       {children}
@@ -62,13 +38,7 @@ export function Eyebrow({
   );
 }
 
-export function Impact({
-  work,
-  part,
-}: {
-  work: Work;
-  part?: string;
-}): SafeHtml {
+export function Impact({ work, part }: { work: Work; part?: string }): SafeHtml {
   return (
     <>
       {work.impact.length > 0 && (
@@ -98,10 +68,7 @@ export function Picture({
   return (
     <picture>
       {img.srcDark && (
-        <source
-          srcset={`${root}public/${img.srcDark}`}
-          media="(prefers-color-scheme: dark)"
-        />
+        <source srcset={`${root}public/${img.srcDark}`} media="(prefers-color-scheme: dark)" />
       )}
       <img
         src={`${root}public/${img.src}`}
@@ -124,13 +91,7 @@ export function Shot({ img, root }: { img: Image; root: string }): SafeHtml {
   );
 }
 
-export function Gallery({
-  work,
-  root,
-}: {
-  work: Work;
-  root: string;
-}): SafeHtml {
+export function Gallery({ work, root }: { work: Work; root: string }): SafeHtml {
   return (
     <>
       {work.gallery.length > 0 && (
@@ -212,9 +173,7 @@ function ContractToggle({
   root: string;
   open: boolean;
 }): SafeHtml {
-  const contrast = contract.contrast.map(
-    (c) => `\`${c.fg}\` on \`${c.bg}\` ≥ ${c.min}: ${c.use}`,
-  );
+  const contrast = contract.contrast.map((c) => `\`${c.fg}\` on \`${c.bg}\` ≥ ${c.min}: ${c.use}`);
   return (
     <details class="card-contract" open={open}>
       <summary>
@@ -231,11 +190,8 @@ function ContractToggle({
           <SpecList label="Don't" items={contract.dont} />
         </dl>
         <p class="muted">
-          From <code>src/system/contracts.tsx</code> · checked by{" "}
-          <code>tests/system.test.ts</code> ·{" "}
-          <a href={`${root}${SYSTEM_PATH}#${contractId(contract)}`}>
-            {contract.name} on /system
-          </a>
+          From <code>src/system/contracts.tsx</code> · checked by <code>tests/system.test.ts</code>{" "}
+          · <a href={`${root}${SYSTEM_PATH}#${contractId(contract)}`}>{contract.name} on /system</a>
         </p>
       </div>
     </details>
@@ -254,13 +210,7 @@ export function PostDate({ post }: { post: Post }): SafeHtml {
 }
 
 /** The list of posts on `/writing`, newest first. */
-export function PostList({
-  posts,
-  root,
-}: {
-  posts: Post[];
-  root: string;
-}): SafeHtml {
+export function PostList({ posts, root }: { posts: Post[]; root: string }): SafeHtml {
   return (
     <ol>
       {posts.map((p) => (
@@ -278,11 +228,7 @@ export function PostList({
   );
 }
 
-export function Practice({
-  practice,
-}: {
-  practice: Profile["practices"][number];
-}): SafeHtml {
+export function Practice({ practice }: { practice: Profile["practices"][number] }): SafeHtml {
   return (
     <li class="practice">
       <h3>{practice.title}</h3>
@@ -325,9 +271,7 @@ export function SiteHeader({
   root: string;
   current?: (typeof NAV)[number]["key"];
 }): SafeHtml {
-  const items = NAV.filter(
-    (item) => item.key !== "writing" || site.posts.length > 0,
-  );
+  const items = NAV.filter((item) => item.key !== "writing" || site.posts.length > 0);
   return (
     <header class="site-header">
       <nav class="site-nav" aria-label="Main">
@@ -357,14 +301,7 @@ export function ThemeToggle(): SafeHtml {
   return (
     <button class="theme-toggle" type="button" aria-pressed="false">
       <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-        <circle
-          cx="12"
-          cy="12"
-          r="9"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        />
+        <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2" />
         <path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" />
       </svg>
       <span class="visually-hidden">Dark theme</span>
@@ -393,9 +330,7 @@ export function SocialLinks({ site }: { site: Site }): SafeHtml {
       {site.profile.links.map((l) => {
         const icon = SOCIAL_ICONS[l.label];
         if (!icon)
-          throw new Error(
-            `No logo for profile link "${l.label}" (add one to SOCIAL_ICONS)`,
-          );
+          throw new Error(`No logo for profile link "${l.label}" (add one to SOCIAL_ICONS)`);
         return (
           <li>
             <a class="social-link" href={l.url} rel="noopener">
